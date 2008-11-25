@@ -8,7 +8,7 @@ using Tesla.Utils;
 
 namespace Tesla.GFX.ModelLoading
 {
-    class MtlLoader
+    public class MtlLoader
     {
         private static NumberFormatInfo numformat;
         private Dictionary<string, Material> map;

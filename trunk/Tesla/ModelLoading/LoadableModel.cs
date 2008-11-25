@@ -6,7 +6,7 @@ using Tesla.Common;
 
 namespace Tesla.GFX.ModelLoading
 {
-    class LoadableModel : Drawable
+    public class LoadableModel : Drawable
     {
         private Group[] groups;
         private Point3f position;

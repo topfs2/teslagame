@@ -10,7 +10,7 @@ using Tesla.Common;
 
 namespace Tesla.GFX.ModelLoading
 {
-    class ObjLoader : ModelLoader
+    public class ObjLoader : ModelLoader
     {
         private static NumberFormatInfo numformat;
         private Dictionary<string, Material> materials;

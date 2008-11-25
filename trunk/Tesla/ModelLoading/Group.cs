@@ -5,7 +5,7 @@ using Tao.OpenGl;
 
 namespace Tesla.GFX.ModelLoading
 {
-    class Group
+    public class Group
     {
         private string name;
         private List<Face> faces;

@@ -6,7 +6,7 @@ using Tesla.Common;
 
 namespace Tesla.GFX.ModelLoading
 {
-    interface ModelLoader
+    public interface ModelLoader
     {
         Drawable LoadModel(String fileName, Point3f position);
     }

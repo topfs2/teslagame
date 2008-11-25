@@ -6,7 +6,7 @@ using Tao.OpenGl;
 
 namespace Tesla.GFX.ModelLoading
 {
-    class Face
+    public class Face
     {
         private Point3f[] vertices;
         private Point2f[] textureVertices;

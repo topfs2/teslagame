@@ -6,7 +6,7 @@ using Tao.OpenGl;
 
 namespace Tesla.GFX.ModelLoading
 {
-    class Material
+    public class Material
     {
         public enum IllumType
         {
