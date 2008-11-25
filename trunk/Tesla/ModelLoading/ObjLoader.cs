@@ -1,0 +1,189 @@
+﻿using System;
+using System.IO;
+using System.Globalization;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Tao.OpenGl;
+using Tesla.Utils;
+using Tesla.Common;
+
+namespace Tesla.GFX.ModelLoading
+{
+    class ObjLoader : ModelLoader
+    {
+        private static NumberFormatInfo numformat;
+        private Dictionary<string, Material> materials;
+
+        public ObjLoader(Dictionary<string, Material> materials)
+        {
+            this.materials = materials;
+            SetNumformat();
+        }
+
+        public ObjLoader(string fileName)
+        {
+            MtlLoader ml = new MtlLoader();
+            materials = ml.LoadFile(fileName);
+            SetNumformat();
+        }
+
+        public ObjLoader()
+        {
+            this.materials = null;
+            SetNumformat();
+        }
+
+        /// <summary>
+        /// A Material File (.mtl) must be set <i>before</i> the model is loaded.
+        /// </summary>
+        /// <param name="fileName">Path to the material file</param>
+        public void SetMaterialFile(string fileName)
+        {
+            MtlLoader ml = new MtlLoader();
+            materials = ml.LoadFile(fileName);
+        }
+
+        /// <summary>
+        /// A Material Dictionary must be set <i>before</i> the model is loaded.
+        /// </summary>
+        /// <param name="materials"></param>
+        public void SetMaterialDictionary(Dictionary<string, Material> materials)
+        {
+            this.materials = materials;
+        }
+
+        private void SetNumformat()
+        {
+            numformat = new NumberFormatInfo();
+            numformat.NumberDecimalSeparator = ".";
+        }
+
+        public Drawable LoadModel(String fileName, String materialFile, Point3f position)
+        {
+            SetMaterialFile(materialFile);
+            return LoadModel(fileName, position);
+        }
+
+        /// <summary>
+        /// Parses a Drawable model from the specified file path.
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public Drawable LoadModel(String fileName, Point3f position)
+        {
+            int polygonCount = 0;
+            int groupCount = 0;
+            if (materials == null)
+            {
+                Log.Write("ObjLoader: Material Dictionary is missing", LogType.Warning);
+            }
+            FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+
+            List<Group> groups = new List<Group>();
+            try
+            {
+                groups.Add(new Group(null));
+                StreamReader reader = new StreamReader(fileStream);
+                List<Point3f> vertices = new List<Point3f>();
+                List<Point2f> textureVertices = new List<Point2f>();
+                List<Point3f> normalVertices = new List<Point3f>();
+                List<Material> material = new List<Material>();
+                Regex regex = new Regex(@"[\s]+");
+                while (!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
+
+                    if (line.StartsWith("g "))
+                    {
+                        groupCount++;
+                        string[] splittedGroupLine = line.Split(new char[] {' '}, 2);
+                        groups.Add(new Group(splittedGroupLine[1]));
+                    }
+                    
+                    else if (line.StartsWith("usemtl "))
+                    {
+                        if (materials != null)
+                        {
+                            string[] splittedGroupLine = line.Split(new char[] { ' ' }, 2);
+                            try
+                            {
+                                groups[groups.Count-1].SetMaterial(materials[splittedGroupLine[1]]);
+                            }
+                            catch (KeyNotFoundException)
+                            {
+                                Log.Write("Material \"" + splittedGroupLine[1] + "\"not found in dictionary", LogType.Warning);
+                            }
+                        }
+                    }
+
+                    else if (line.StartsWith("v "))
+                    {
+                        string[] split = regex.Split(line);
+                        vertices.Add(new Point3f(ToFloat(split[1]), ToFloat(split[2]), ToFloat(split[3])));
+                    }
+
+                    else if (line.StartsWith("vt "))
+                    {
+                        string[] split = regex.Split(line);
+                        textureVertices.Add(new Point2f(ToFloat(split[1]), ToFloat(split[2])));
+                    }
+                    else if (line.StartsWith("vn "))
+                    {
+                        string[] split = regex.Split(line);
+                        normalVertices.Add(new Point3f(ToFloat(split[1]), ToFloat(split[2]), ToFloat(split[3])));
+                    }
+                    else if (line.StartsWith("f "))
+                    {
+                        polygonCount++;
+                        List<Point3f> v = new List<Point3f>();
+                        List<Point2f> vt = new List<Point2f>();
+                        List<Point3f> vn = new List<Point3f>();
+                        string[] splittedFaceLine = regex.Split(line);
+                        Regex slash = new Regex(@"[/]");
+                        Match match = slash.Match(line);
+                        int max = 0;
+                        for (int i = 1; i < splittedFaceLine.Length; i++)
+                        {
+                            string[] splittedTriplet = slash.Split(splittedFaceLine[i]);
+
+                            int length = splittedTriplet.Length;
+                            if (!splittedTriplet[0].Equals(""))
+                                v.Add(vertices[ToInt(splittedTriplet[0])-1]);
+                            if (length > 1 && !splittedTriplet[1].Equals(""))
+                                vt.Add(textureVertices[ToInt(splittedTriplet[1])-1]);
+                            if (length > 2 && !splittedTriplet[2].Equals(""))
+                                vn.Add(normalVertices[ToInt(splittedTriplet[2])-1]);
+                            if (i > max)
+                                max = i;
+                        }
+                        groups[groups.Count-1].AddFace(new Face(v.ToArray(), vt.ToArray(), vn.ToArray(), max));
+                    }
+                }
+            }
+            finally
+            {
+                fileStream.Close();
+            }
+            List<Group> cleanGroups = new List<Group>();
+            foreach (Group g in groups)
+            {
+                if (g.Count() > 0)
+                    cleanGroups.Add(g);
+            }
+            Log.Write("Loaded \"" + fileName + "\" with " + polygonCount + " polygons in " + groupCount + " groups.", LogType.Info);
+            return new LoadableModel(cleanGroups.ToArray(), position);
+        }
+
+        private float ToFloat(string str)
+        {
+            return Convert.ToSingle(str, numformat);
+        }
+
+        private int ToInt(string str)
+        {
+            return Convert.ToInt16(str, numformat);
+        }
+    }
+}
