@@ -1,4 +1,6 @@
-﻿using System;
+﻿//TODO fixa regex på resten så det blir lite smooth och najz
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Globalization;
@@ -39,11 +41,14 @@ namespace Tesla.GFX.ModelLoading
                 
                 SetDefault();
                 Regex regex = new Regex(@"[\s]+");
+                Regex regexNewmtl = new Regex(@"^[\s]*newmtl\s");
+                Regex regexMapKd = new Regex(@"^[\s]*map_Kd\s");
+                Regex regexMapKs = new Regex(@"^[\s]*map_Ks\s");
                 while (!reader.EndOfStream)
                 {
                     string line = reader.ReadLine();
-                    
-                    if (line.StartsWith("newmtl "))
+
+                    if (regexNewmtl.IsMatch(line))
                     {
                         string[] splittedGroupLine = regex.Split(line);
                         if (latestGroup != null)
@@ -91,10 +96,13 @@ namespace Tesla.GFX.ModelLoading
                                 else if (num == 2)
                                     illumType = Material.IllumType.SPECULAR;
                             }
-                            if (line.StartsWith("map_Kd") || line.StartsWith("map_Ks"))
+                            if ((regexMapKd.IsMatch(line)) || (regexMapKs.IsMatch(line)))
                             {
                                 string[] splitted = regex.Split(line);
-                                texture = Texture.CreateFromFile(filePath+splitted[1]);
+                                Regex extract = new Regex(@"[\s]*map_Kd[\s]+(?<extract>.*)");
+                                Match match = extract.Match(line);
+                                string texFileName = match.Groups["extract"].Value;
+                                texture = Texture.CreateFromFile(filePath+texFileName);
                             }
                         }
                     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
+using Tesla.Utils;
 using Tao.OpenGl;
 
 namespace Tesla.GFX.ModelLoading
@@ -42,6 +43,7 @@ namespace Tesla.GFX.ModelLoading
             if (texture != null)
             {
                 texture.Bind();
+                Log.Write("Bindar!");
                 Gl.glEnable(Gl.GL_TEXTURE_2D);
             }
         }

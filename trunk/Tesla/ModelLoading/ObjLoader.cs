@@ -91,18 +91,23 @@ namespace Tesla.GFX.ModelLoading
                 List<Point3f> normalVertices = new List<Point3f>();
                 List<Material> material = new List<Material>();
                 Regex regex = new Regex(@"[\s]+");
+                Regex regexGroup = new Regex(@"^[\s]*g\s");
+                Regex regexUsemtl = new Regex(@"^[\s]*usemtl\s");
+                Regex regexV = new Regex(@"^[\s]*v\s");
                 while (!reader.EndOfStream)
                 {
                     string line = reader.ReadLine();
 
-                    if (line.StartsWith("g "))
+                    if (regexGroup.IsMatch(line))
+                    //if (line.StartsWith("g "))
                     {
                         groupCount++;
                         string[] splittedGroupLine = line.Split(new char[] {' '}, 2);
                         groups.Add(new Group(splittedGroupLine[1]));
                     }
-                    
-                    else if (line.StartsWith("usemtl "))
+
+                    else if (regexUsemtl.IsMatch(line))
+                    //else if (line.StartsWith("usemtl "))
                     {
                         if (materials != null)
                         {
@@ -110,15 +115,16 @@ namespace Tesla.GFX.ModelLoading
                             try
                             {
                                 groups[groups.Count-1].SetMaterial(materials[splittedGroupLine[1]]);
+                                Log.Write("Material \"" + splittedGroupLine[1] + "\" found in dictionary", LogType.Notice);
                             }
                             catch (KeyNotFoundException)
                             {
-                                Log.Write("Material \"" + splittedGroupLine[1] + "\"not found in dictionary", LogType.Warning);
+                                Log.Write("Material \"" + splittedGroupLine[1] + "\" not found in dictionary", LogType.Warning);
                             }
                         }
                     }
-
-                    else if (line.StartsWith("v "))
+                    else if(regexV.IsMatch(line))
+                    //else if (line.StartsWith("v "))
                     {
                         string[] split = regex.Split(line);
                         vertices.Add(new Point3f(ToFloat(split[1]), ToFloat(split[2]), ToFloat(split[3])));
