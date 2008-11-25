@@ -1,5 +1,0 @@
-F:\Programmering\Tesla4\Tesla.Common\Tesla.Common\obj\Release\ResolveAssemblyReference.cache
-F:\Programmering\Tesla4\Tesla.Common\Tesla.Common\bin\Release\Tesla.Common.dll
-F:\Programmering\Tesla4\Tesla.Common\Tesla.Common\bin\Release\Tesla.Common.pdb
-F:\Programmering\Tesla4\Tesla.Common\Tesla.Common\obj\Release\Tesla.Common.dll
-F:\Programmering\Tesla4\Tesla.Common\Tesla.Common\obj\Release\Tesla.Common.pdb
