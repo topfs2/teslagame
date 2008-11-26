@@ -34,6 +34,7 @@ namespace Tesla.GFX.ModelLoading
 
         public void SetMaterial()
         {
+            Log.Write("Setting Material...");
             if(illumType != IllumType.FLAT && illumType == IllumType.SPECULAR)
                 Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SPECULAR, specular);
             Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_AMBIENT, ambient);
@@ -43,7 +44,6 @@ namespace Tesla.GFX.ModelLoading
             if (texture != null)
             {
                 texture.Bind();
-                Log.Write("Bindar!");
                 Gl.glEnable(Gl.GL_TEXTURE_2D);
             }
         }

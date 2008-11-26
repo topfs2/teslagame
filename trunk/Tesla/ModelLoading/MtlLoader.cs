@@ -46,7 +46,7 @@ namespace Tesla.GFX.ModelLoading
                 Regex regexMapKs = new Regex(@"^[\s]*map_Ks\s");
                 while (!reader.EndOfStream)
                 {
-                    string line = reader.ReadLine();
+                    string line = reader.ReadLine().Trim();
 
                     if (regexNewmtl.IsMatch(line))
                     {
@@ -58,7 +58,7 @@ namespace Tesla.GFX.ModelLoading
                         
                         while (!reader.EndOfStream)
                         {
-                            line = reader.ReadLine();
+                            line = reader.ReadLine().Trim();
                             if (line.StartsWith("Ka "))
                             {
                                 string[] splitted = regex.Split(line);
@@ -99,10 +99,7 @@ namespace Tesla.GFX.ModelLoading
                             if ((regexMapKd.IsMatch(line)) || (regexMapKs.IsMatch(line)))
                             {
                                 string[] splitted = regex.Split(line);
-                                Regex extract = new Regex(@"[\s]*map_Kd[\s]+(?<extract>.*)");
-                                Match match = extract.Match(line);
-                                string texFileName = match.Groups["extract"].Value;
-                                texture = Texture.CreateFromFile(filePath+texFileName);
+                                texture = Texture.CreateFromFile(filePath+splitted[1]);
                             }
                         }
                     }
