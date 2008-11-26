@@ -34,7 +34,6 @@ namespace Tesla.GFX.ModelLoading
 
         public void SetMaterial()
         {
-            Log.Write("Setting Material...");
             if(illumType != IllumType.FLAT && illumType == IllumType.SPECULAR)
                 Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SPECULAR, specular);
             Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_AMBIENT, ambient);

@@ -2,7 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using Tao.OpenGl;
-
+using Tesla.Utils;
 namespace Tesla.GFX.ModelLoading
 {
     public class Group
@@ -43,8 +43,10 @@ namespace Tesla.GFX.ModelLoading
 
         public void Draw()
         {
-            if(material!=null)
+            if (material != null)
+            {
                 material.SetMaterial();
+            }
             Init();
             foreach (Face f in faces)
             {

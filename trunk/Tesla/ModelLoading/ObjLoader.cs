@@ -90,6 +90,7 @@ namespace Tesla.GFX.ModelLoading
                 List<Point2f> textureVertices = new List<Point2f>();
                 List<Point3f> normalVertices = new List<Point3f>();
                 List<Material> material = new List<Material>();
+                Material currentMaterial = null;
                 Regex regex = new Regex(@"[\s]+");
 
                 while (!reader.EndOfStream)
@@ -100,7 +101,11 @@ namespace Tesla.GFX.ModelLoading
                     {
                         groupCount++;
                         string[] splittedGroupLine = line.Split(new char[] {' '}, 2);
-                        groups.Add(new Group(splittedGroupLine[1]));
+                        Group newGroup = new Group(splittedGroupLine[1]);
+                        if(currentMaterial != null)
+                            newGroup.SetMaterial(currentMaterial);
+                        groups.Add(newGroup);
+                        
                     }
 
                     else if (line.StartsWith("usemtl "))
@@ -110,8 +115,8 @@ namespace Tesla.GFX.ModelLoading
                             string[] splittedGroupLine = line.Split(new char[] { ' ' }, 2);
                             try
                             {
-                                groups[groups.Count-1].SetMaterial(materials[splittedGroupLine[1]]);
-                                Log.Write("Material \"" + splittedGroupLine[1] + "\" found in dictionary", LogType.Notice);
+                                currentMaterial = materials[splittedGroupLine[1]];
+                                groups[groups.Count-1].SetMaterial(currentMaterial);
                             }
                             catch (KeyNotFoundException)
                             {
