@@ -1,0 +1,122 @@
+// ARBParticleSystem.cs created with MonoDevelop
+// User: topfs at 8:55 PM 10/29/2008
+//
+// To change standard headers go to Edit->Preferences->Coding->Standard Headers
+//
+
+using System;
+using System.Collections.Generic;
+using Tao.OpenGl;
+using Tesla.Common;
+
+namespace Tesla.GFX
+{
+	
+	
+	public class ParticleSystem : Drawable
+	{
+		bool  endlessLife;
+		float emitterLife;
+		List<Particle> listParticles;
+		//int lastTickCount;
+		int maxParticles;
+		List<CollisionSurface> listCollisionSurfaces;
+		List<Manipulator> listManipulators;
+		Camera activeCamera;
+		// NEW
+		ParticleEmitter particleEmitter;
+		ParticleFactory particleFactory;
+		
+		private int CompareParticlesAgainstCamera(Particle x, Particle y)
+		{
+			Point3f tmp1 = activeCamera.getPosition().copy();
+			Point3f tmp2 = activeCamera.getPosition().copy();
+			
+			tmp1.subtract(x.position);
+			tmp2.subtract(y.position);
+			
+			return (int)((tmp2.length2() - tmp1.length2()) * 1000000.0f);
+		}
+		
+		public ParticleSystem(ParticleEmitter particleEmitter, ParticleFactory particleFactory, Camera activeCamera, bool endlessLife, float emitterLife, int maxParticles)
+		{
+			this.particleEmitter = particleEmitter;
+			this.particleFactory = particleFactory;
+		
+			this.endlessLife = endlessLife;
+			this.emitterLife = emitterLife;
+			this.maxParticles = maxParticles;
+			listParticles = new List<Particle>(maxParticles);
+			listCollisionSurfaces = new List<CollisionSurface>();
+			listManipulators = new List<Manipulator>();
+			this.activeCamera = activeCamera;
+		}
+		
+		public void Draw(float frameTime, Frustum frustum)
+		{
+			updateParticles(frameTime);
+			drawParticles(frameTime);
+			
+			if (!endlessLife)
+				emitterLife -= frameTime;
+			if (particleEmitter.getActive() && (endlessLife || emitterLife > 0.0f) && listParticles.Count < maxParticles)
+			{                                                
+				listParticles.Add(particleEmitter.emit(particleFactory));
+			}
+		}
+		
+		public bool isAlive()
+		{
+			return endlessLife || emitterLife > 0 || listParticles.Count > 0;
+		}
+		
+		public bool isEmitting()
+		{
+			return listParticles.Count < maxParticles;
+		}
+		
+		public void reset()
+		{
+			listParticles.Clear();
+		}
+		
+		/*public Point3f linkedPosition()
+		{
+			return ;
+		}*/
+		
+		public CollisionSurface addCollisionSurface(CollisionSurface collisionSurface)
+		{
+			listCollisionSurfaces.Add(collisionSurface);
+			return collisionSurface;
+		}
+		
+		public Manipulator addManipulator(Manipulator manipulator)
+		{
+			listManipulators.Add(manipulator);
+			return manipulator;
+		}
+		
+		public void updateParticles(float frameTime)
+		{
+			for (int i = 0; i < listParticles.Count; i++)
+			{
+				listParticles[i].update(frameTime, listCollisionSurfaces, listManipulators);
+				if (listParticles[i].dead())
+					listParticles.RemoveAt(i);
+			}
+			
+			//listParticles.Sort(CompareParticlesAgainstCamera);
+		}
+		
+		public void drawParticles(float frameTime)
+		{
+			particleFactory.preDraw();
+	        foreach (Particle p in listParticles)
+	        {
+				p.Draw(activeCamera, frameTime);
+	        }
+		    particleFactory.postDraw();
+		}
+	}
+}
