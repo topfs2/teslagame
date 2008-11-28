@@ -26,7 +26,7 @@ namespace Tesla
 		static SDLWindow w;
 		static Point3f lpos;
 		static Water water;
-		
+        static Configuration c = new Configuration("F:/Programmering/Tesla5/config.dat");
 		static Frustum testFrustum;
 		public static void Main(string[] args)
 		{
@@ -39,29 +39,29 @@ namespace Tesla
 				Console.Out.WriteLine("WHAHW");
 		
 			lpos = new Point3f(300.0f, 100.0f, 0.0f);
-		
-			w = new SDLWindow("Tesla", 640, 480, 32, false);
+
+			w = new SDLWindow(c.title, c.resWidth, c.resHeight, c.bpp, c.fullscreen);
 			w.Add(buttonAction);
-			
-			SDLFontv2 f = SDLFontv2.Create("F:/Programmering/Tesla4/Data/Fonts/FreeSans.ttf", 32);
+
+            SDLFontv2 f = SDLFontv2.Create(c.defaultPath + "Fonts/FreeSans.ttf", 32);
 			SimpleFontHandler sfh = new SimpleFontHandler(f, "FPS: 0", new Point2f(20.0f, 20.0f), new Color4f(1.0f, 1.0f, 1.0f, 1.0f));
 			w.Add(sfh);
 			
-			Texture grass = Texture.CreateFromFile("F:/Programmering/Tesla4/Data/Texture/Tile/grass.jpg");
-			Texture stone = Texture.CreateFromFile("F:/Programmering/Tesla4/Data/Texture/Tile/texture1.png");
-			Texture dirt  = Texture.CreateFromFile("F:/Programmering/Tesla4/Data/Texture/Tile/texture3.png");
+			Texture grass = Texture.CreateFromFile(c.defaultPath + "Texture/Tile/grass.jpg");
+            Texture stone = Texture.CreateFromFile(c.defaultPath + "Texture/Tile/texture1.png");
+            Texture dirt = Texture.CreateFromFile(c.defaultPath + "Texture/Tile/texture3.png");
 
-            Landscapev2 l = new Landscapev2("F:/Programmering/Tesla4/Data/Heightmap/h2.jpg", 
+            Landscapev2 l = new Landscapev2(c.defaultPath + "Heightmap/h2.jpg", 
 											grass, stone, dirt,
-											Texture.CreateFromFile("F:/Programmering/Tesla4/Data/Texture/Tile/dirty_stone.jpg"));
+                                            Texture.CreateFromFile(c.defaultPath + "Texture/Tile/dirty_stone.jpg"));
 			
 			w.Add(l);
-            ModelLoader ml = new ObjLoader("F:/Programmering/Tesla4/Data/Object/Lasha.mtl");
+            ModelLoader ml = new ObjLoader(c.defaultPath + "Object/Lasha.mtl");
             Point3f pos = new Point3f(0.0f, 0.0f, 0.0f);
             //w.getActiveCamera().linkLookAtPosition(pos);
-            Drawable lm = ml.LoadModel("F:/Programmering/Tesla4/Data/Object/Lasha.obj", pos);
+            Drawable lm = ml.LoadModel(c.defaultPath + "Object/Lasha.obj", pos);
             w.Add(lm);
-			w.setSkyBox(new SkyBox("F:/Programmering/Tesla4/Data/SkyBox/skyboxsun5deg2"));
+            w.setSkyBox(new SkyBox(c.defaultPath + "SkyBox/skyboxsun5deg2"));
 
 			int lastFrame = System.Environment.TickCount;
 			int lastTickCount = System.Environment.TickCount;
@@ -100,7 +100,7 @@ namespace Tesla
 		}
 		static int lastCreateBox = 0;
 		static int x = 800;
-		static SimpleFontHandler debug = new SimpleFontHandler(SDLFontv2.Create("F:/Programmering/Tesla4/Data/Fonts/FreeSans.ttf", 32), "", new Point2f(400, 400), new Color4f(1.0f, 1.0f, 1.0f, 1.0f));
+        static SimpleFontHandler debug = new SimpleFontHandler(SDLFontv2.Create(c.defaultPath + "Fonts/FreeSans.ttf", 32), "", new Point2f(400, 400), new Color4f(1.0f, 1.0f, 1.0f, 1.0f));
 		static void buttonAction(byte[] keyState, int numberKeys, float frameTime)
 		{
 		}
