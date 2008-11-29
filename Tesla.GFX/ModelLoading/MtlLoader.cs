@@ -1,11 +1,10 @@
-﻿//TODO fixa regex på resten så det blir lite smooth och najz
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
+using Tao.OpenGl;
 
 namespace Tesla.GFX.ModelLoading
 {
@@ -95,7 +94,7 @@ namespace Tesla.GFX.ModelLoading
                             if ((line.StartsWith("map_Kd") || line.StartsWith("map_Ks")))
                             {
                                 string[] splitted = regex.Split(line);
-                                texture = Texture.CreateFromFile(filePath+splitted[1]);
+                                texture = Texture.CreateFromFile(filePath + splitted[1], TextureFilter.Nearest, Gl.GL_CLAMP);
                             }
                         }
                     }

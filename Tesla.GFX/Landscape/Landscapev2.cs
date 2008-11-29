@@ -239,7 +239,7 @@ namespace Tesla.GFX
 		public void Draw (float frameTime, Frustum frustum)
 		{
 			Gl.glPushMatrix();
-			Gl.glDisable(Gl.GL_LIGHTING);
+			//Gl.glDisable(Gl.GL_LIGHTING);
 
             Gl.glEnableClientState(Gl.GL_TEXTURE_COORD_ARRAY);
             Gl.glEnableClientState(Gl.GL_NORMAL_ARRAY);

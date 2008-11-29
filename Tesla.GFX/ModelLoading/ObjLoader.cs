@@ -58,10 +58,10 @@ namespace Tesla.GFX.ModelLoading
             numformat.NumberDecimalSeparator = ".";
         }
 
-        public Drawable LoadModel(String fileName, String materialFile, Point3f position)
+        public LoadableModel LoadModel(String fileName, String materialFile)
         {
             SetMaterialFile(materialFile);
-            return LoadModel(fileName, position);
+            return LoadModel(fileName);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Tesla.GFX.ModelLoading
         /// <param name="fileName"></param>
         /// <param name="position"></param>
         /// <returns></returns>
-        public Drawable LoadModel(String fileName, Point3f position)
+        public LoadableModel LoadModel(String fileName)
         {
             int polygonCount = 0;
             int groupCount = 0;
@@ -177,7 +177,7 @@ namespace Tesla.GFX.ModelLoading
                     cleanGroups.Add(g);
             }
             Log.Write("Loaded \"" + fileName + "\" with " + polygonCount + " polygons in " + groupCount + " groups.", LogType.Info);
-            return new LoadableModel(cleanGroups.ToArray(), position);
+            return new LoadableModel(cleanGroups.ToArray());
         }
 
         private float ToFloat(string str)
