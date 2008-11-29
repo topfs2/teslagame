@@ -43,6 +43,7 @@ namespace Tesla.GFX.ModelLoading
         {
             list = Gl.glGenLists(1);
             Gl.glNewList(list, Gl.GL_COMPILE);
+            Gl.glFrontFace(Gl.GL_CCW);
             foreach (Group g in groups)
             {
                 g.Draw();
