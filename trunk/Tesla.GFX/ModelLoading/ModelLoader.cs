@@ -8,6 +8,6 @@ namespace Tesla.GFX.ModelLoading
 {
     public interface ModelLoader
     {
-        Drawable LoadModel(String fileName, Point3f position);
+        LoadableModel LoadModel(String fileName);
     }
 }
