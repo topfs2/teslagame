@@ -99,7 +99,7 @@ namespace Tesla.GFX.ModelLoading
                             }
                         }
                     }
-                 }
+                }
                 AddMaterial();
             }
             finally
@@ -111,9 +111,14 @@ namespace Tesla.GFX.ModelLoading
 
         public void AddMaterial()
         {
-            if(latestGroup!=null)
+            if (latestGroup != null)
+            {
+                ambient.Add(alpha);
+                diffuse.Add(alpha);
+                specular.Add(alpha);
                 map.Add(latestGroup, new Material(ambient.ToArray(), diffuse.ToArray(), specular.ToArray(),
                 alpha, shininess, illumType, texture));
+            }
         }
 
         private float ToFloat(string str)

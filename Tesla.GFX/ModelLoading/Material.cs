@@ -25,6 +25,7 @@ namespace Tesla.GFX.ModelLoading
             this.ambient = ambient;
             this.diffuse = diffuse;
             this.specular = specular;
+            
             this.alpha = alpha;
             this.shininess = shininess;
             this.illumType = illumType;
@@ -33,12 +34,13 @@ namespace Tesla.GFX.ModelLoading
 
         public void SetMaterial()
         {
+            
             if(illumType != IllumType.FLAT && illumType == IllumType.SPECULAR)
                 Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_SPECULAR, specular);
             Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_AMBIENT, ambient);
             Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_DIFFUSE, diffuse);
             Gl.glMateriali(Gl.GL_FRONT, Gl.GL_SHININESS, (int)shininess);
-
+            
             if (texture != null)
             {
                 texture.Bind();
