@@ -59,7 +59,7 @@ namespace Tesla
             ModelLoader ml = new ObjLoader(c.defaultPath + "Object/Lasha.mtl");
             Point3f pos = new Point3f(0.0f, 0.0f, 0.0f);
             //w.getActiveCamera().linkLookAtPosition(pos);
-            Drawable lm = ml.LoadModel(c.defaultPath + "Object/Lasha.obj", pos);
+            Drawable lm = ml.LoadModel(c.defaultPath + "Object/Lasha.obj");
             w.Add(lm);
             w.setSkyBox(new SkyBox(c.defaultPath + "SkyBox/skyboxsun5deg2"));
 
