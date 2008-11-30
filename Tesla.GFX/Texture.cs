@@ -64,7 +64,7 @@ namespace Tesla.GFX
 				bitmapdata = image.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
 				Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_LINEAR);
 				Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_LINEAR_MIPMAP_NEAREST);
-				Glu.gluBuild2DMipmaps(Gl.GL_TEXTURE_2D, (int)Gl.GL_RGBA, image.Width, image.Height, Gl.GL_RGBA, Gl.GL_UNSIGNED_BYTE, rgba);
+				Glu.gluBuild2DMipmaps(Gl.GL_TEXTURE_2D, (int)Gl.GL_RGBA, image.Width, image.Height, Gl.GL_RGBA, Gl.GL_UNSIGNED_BYTE, bitmapdata.Scan0);
 				image.UnlockBits(bitmapdata);
 			}
 
