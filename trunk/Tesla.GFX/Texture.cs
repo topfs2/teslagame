@@ -45,51 +45,27 @@ namespace Tesla.GFX
 
 			if (textureFilter == TextureFilter.Nearest)
 			{
-			bitmapdata = image.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+				bitmapdata = image.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
 				Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_NEAREST);
 				Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_NEAREST);
 				Gl.glTexImage2D(Gl.GL_TEXTURE_2D, 0, (int)Gl.GL_RGBA, image.Width, image.Height, 0, Gl.GL_BGR_EXT, Gl.GL_UNSIGNED_BYTE, bitmapdata.Scan0);
-			image.UnlockBits(bitmapdata);				
+				image.UnlockBits(bitmapdata);				
 			}
 			else if (textureFilter == TextureFilter.Linear)
 			{
-				byte []alpha = new byte[image.Width * image.Height];
-				int i = 0;
-				for (int x = 0; x < image.Width; x++)
-				{
-					for (int y = 0; y < image.Height; y++)
-					{
-						Console.Out.WriteLine(x + ", " + y);
-						alpha[i] = image.GetPixel(x, y).A;
-						i++;
-					}
-				}
+				bitmapdata = image.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
 				Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_LINEAR);
 				Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_LINEAR);
-				Gl.glTexImage2D(Gl.GL_TEXTURE_2D, 0, (int)Gl.GL_ALPHA, image.Width, image.Height, 0, Gl.GL_ALPHA, Gl.GL_UNSIGNED_BYTE, alpha);
+				Gl.glTexImage2D(Gl.GL_TEXTURE_2D, 0, (int)Gl.GL_RGBA, image.Width, image.Height, 0, Gl.GL_BGR_EXT, Gl.GL_UNSIGNED_BYTE, bitmapdata.Scan0);
+				image.UnlockBits(bitmapdata);
 			}
 			else if (textureFilter == TextureFilter.MipMap)
 			{
-				byte []rgba = new byte[image.Width * image.Height * 4];
-				int i = 0;
-				for (int x = 0; x < image.Width; x++)
-				{
-					for (int y = 0; y < image.Height; y++)
-					{
-						//Console.Out.WriteLine(x + ", " + y);
-						rgba[i+0] = image.GetPixel(x, y).R;
-						rgba[i+1] = image.GetPixel(x, y).G;
-						rgba[i+2] = image.GetPixel(x, y).B;
-						rgba[i+3] = 255;//image.GetPixel(x, y).A;
-						i+=4;
-					}
-				}
-			
-			//bitmapdata = image.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+				bitmapdata = image.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
 				Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_LINEAR);
 				Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_LINEAR_MIPMAP_NEAREST);
 				Glu.gluBuild2DMipmaps(Gl.GL_TEXTURE_2D, (int)Gl.GL_RGBA, image.Width, image.Height, Gl.GL_RGBA, Gl.GL_UNSIGNED_BYTE, rgba);
-				//			image.UnlockBits(bitmapdata);
+				image.UnlockBits(bitmapdata);
 			}
 
 			image.Dispose();
