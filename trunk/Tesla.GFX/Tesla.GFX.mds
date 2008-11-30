@@ -1,0 +1,16 @@
+<Combine name="Tesla.GFX" fileversion="2.0">
+  <Configurations active="Debug">
+    <Configuration name="Debug" ctype="CombineConfiguration">
+      <Entry build="True" name="Tesla.GFX" configuration="Debug" />
+    </Configuration>
+    <Configuration name="Release" ctype="CombineConfiguration">
+      <Entry build="True" name="Tesla.GFX" configuration="Release" />
+    </Configuration>
+  </Configurations>
+  <StartMode startupentry="Tesla.GFX" single="True">
+    <Execute type="None" entry="Tesla.GFX" />
+  </StartMode>
+  <Entries>
+    <Entry filename="Tesla.GFX.mdp" />
+  </Entries>
+</Combine>
