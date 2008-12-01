@@ -14,7 +14,6 @@
     </Configuration>
   </Configurations>
   <Contents>
-    <File name="AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
     <File name="newLandscape.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>

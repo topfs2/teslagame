@@ -26,7 +26,7 @@ namespace Tesla
 		static SDLWindow w;
 		static Point3f lpos;
 		static Water water;
-        static Configuration c = new Configuration("F:/Programmering/Tesla5/config.dat");
+        static Configuration c = new Configuration("config.dat");
 		static Frustum testFrustum;
 		public static void Main(string[] args)
 		{
