@@ -94,7 +94,7 @@ namespace Tesla.GFX.ModelLoading
                             if ((line.StartsWith("map_Kd") || line.StartsWith("map_Ks")))
                             {
                                 string[] splitted = regex.Split(line);
-                                texture = Texture.CreateFromFile(filePath + splitted[1], TextureFilter.Nearest, Gl.GL_CLAMP);
+                                texture = Texture.CreateFromFile(filePath + splitted[1]);
                             }
                         }
                     }
