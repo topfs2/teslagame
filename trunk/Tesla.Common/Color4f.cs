@@ -16,6 +16,11 @@ namespace Tesla.Common
         {
             set(a, r, g, b);
         }
+        
+        public Color4f(double a, double r, double g, double b)
+        {
+            set((float)a, (float)r, (float)g, (float)b);
+        }
 
         public void set(float a, float r, float g, float b)
         {
