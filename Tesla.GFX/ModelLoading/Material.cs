@@ -40,11 +40,15 @@ namespace Tesla.GFX.ModelLoading
             Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_AMBIENT, ambient);
             Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_DIFFUSE, diffuse);
             Gl.glMateriali(Gl.GL_FRONT, Gl.GL_SHININESS, (int)shininess);
-            
+
             if (texture != null)
             {
-                texture.Bind();
                 Gl.glEnable(Gl.GL_TEXTURE_2D);
+                texture.Bind();
+            }
+            else
+            {
+                Gl.glDisable(Gl.GL_TEXTURE_2D);
             }
         }
     }

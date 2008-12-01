@@ -41,7 +41,7 @@ namespace Tesla.GFX.ModelLoading
                 Regex regex = new Regex(@"[\s]+");
                 while (!reader.EndOfStream)
                 {
-                    string line = reader.ReadLine().Trim();
+                    string line = reader.ReadLine().Trim().ToLower();
 
                     if (line.StartsWith("newmtl"))
                     {
@@ -54,19 +54,19 @@ namespace Tesla.GFX.ModelLoading
                         while (!reader.EndOfStream)
                         {
                             line = reader.ReadLine().Trim();
-                            if (line.StartsWith("Ka "))
+                            if (line.StartsWith("ka "))
                             {
                                 string[] splitted = regex.Split(line);
                                 for (int i = 1; i < splitted.Length; i++)
                                         ambient.Add(Convert.ToSingle(splitted[i], numformat));
                             }
-                            if (line.StartsWith("Ks "))
+                            if (line.StartsWith("ks "))
                             {
                                 string[] splitted = regex.Split(line);
                                 for (int i = 1; i < splitted.Length; i++)
                                         specular.Add(ToFloat(splitted[i]));
                             }
-                            if (line.StartsWith("Kd "))
+                            if (line.StartsWith("kd "))
                             {
                                 string[] splitted = regex.Split(line);
                                 for (int i = 1; i < splitted.Length; i++)
@@ -77,7 +77,7 @@ namespace Tesla.GFX.ModelLoading
                                 string[] splitted = regex.Split(line);
                                 alpha = ToFloat(splitted[1]);
                             }
-                            if (line.StartsWith("Ns "))
+                            if (line.StartsWith("ns "))
                             {
                                 string[] splitted = regex.Split(line);
                                 shininess = ToFloat(splitted[1]);
@@ -91,10 +91,11 @@ namespace Tesla.GFX.ModelLoading
                                 else if (num == 2)
                                     illumType = Material.IllumType.SPECULAR;
                             }
-                            if ((line.StartsWith("map_Kd") || line.StartsWith("map_Ks")))
+                            if ((line.StartsWith("map_kd") || line.StartsWith("map_ks")))
                             {
                                 string[] splitted = regex.Split(line);
-                                texture = Texture.CreateFromFile(filePath + splitted[1]);
+                                if(splitted.Length>1)
+                                    texture = Texture.CreateFromFile(filePath + splitted[1]);
                             }
                         }
                     }
