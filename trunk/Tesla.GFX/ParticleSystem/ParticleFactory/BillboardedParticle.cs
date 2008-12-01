@@ -30,10 +30,10 @@ namespace Tesla.GFX
 			Gl.glBegin(Gl.GL_QUADS);
 			Gl.glColor4f(color.r, color.g, color.b, (remainingLife / startLife) * color.a); 
 			
-			Gl.glTexCoord2f(0.0f, 0.0f); Gl.glVertex3fv(((activeCamera.getUpVector() * -1.0f) - activeCamera.getRightVector()).vector);
-			Gl.glTexCoord2f(1.0f, 0.0f); Gl.glVertex3fv(((activeCamera.getUpVector()        ) - activeCamera.getRightVector()).vector);
-			Gl.glTexCoord2f(1.0f, 1.0f); Gl.glVertex3fv(((activeCamera.getUpVector()        ) + activeCamera.getRightVector()).vector);
-			Gl.glTexCoord2f(0.0f, 1.0f); Gl.glVertex3fv(((activeCamera.getUpVector() * -1.0f) + activeCamera.getRightVector()).vector);
+			Gl.glTexCoord2f(0.0f, 0.0f); Gl.glVertex3fv(((activeCamera.getUpVector() * -1.0f) - activeCamera.getRightVector()).Normalize().vector);
+			Gl.glTexCoord2f(1.0f, 0.0f); Gl.glVertex3fv(((activeCamera.getUpVector()        ) - activeCamera.getRightVector()).Normalize().vector);
+			Gl.glTexCoord2f(1.0f, 1.0f); Gl.glVertex3fv(((activeCamera.getUpVector()        ) + activeCamera.getRightVector()).Normalize().vector);
+			Gl.glTexCoord2f(0.0f, 1.0f); Gl.glVertex3fv(((activeCamera.getUpVector() * -1.0f) + activeCamera.getRightVector()).Normalize().vector);
 			
 			Gl.glEnd();
 			

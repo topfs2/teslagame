@@ -55,6 +55,8 @@ namespace Tesla.GFX
 			this.ratio = ratio;
 			this.near  = near;
 			this.far   = far;
+			
+			this.Full3D = false;
 		}
 		
 		public float POV
@@ -81,10 +83,7 @@ namespace Tesla.GFX
 			frontVector.Normalize();
 
 			//now compute the new UpVector (by cross product)
-			if (Full3D)
-				upVector = rightVector.Cross(frontVector);
-
-			
+			upVector = rightVector.Cross(frontVector);
 		}
 
 		public void rotateY (float angle)
@@ -95,8 +94,14 @@ namespace Tesla.GFX
 			frontVector = frontVector * (float)Math.Cos(angle*PIdiv180) + rightVector*(float)Math.Sin(angle*PIdiv180);
 			frontVector.Normalize();
 
+			Point3f up;
+			if (Full3D)
+				up = upVector;
+			else
+				up = new Point3f(0.0f, 1.0f, 0.0f);
+
 			//now compute the new RightVector (by cross product)
-			rightVector = upVector.Cross(frontVector) * -1;
+			rightVector = up.Cross(frontVector) * -1;
 		}
 
 		public void rotateZ (float angle)
@@ -157,13 +162,17 @@ namespace Tesla.GFX
 		
 		public void setCamera()
 		{
-			Point3f viewPos;
+			Point3f viewPos, up;
 			if (this.calculateLookAtPosition)
 				viewPos = position + frontVector;
 			else
 				viewPos = this.lookAt.copy();
-			
-			Glu.gluLookAt(position.x, position.y, position.z, viewPos.x, viewPos.y, viewPos.z, upVector.x, upVector.y, upVector.z);
+				
+			if (Full3D)
+				up = upVector;
+			else
+				up = new Point3f(0.0f, 1.0f, 0.0f);
+			Glu.gluLookAt(position.x, position.y, position.z, viewPos.x, viewPos.y, viewPos.z, up.x, up.y, up.z);
 		}
 		
 		public void linkLookAtPosition(Point3f position)
