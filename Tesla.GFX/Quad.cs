@@ -15,9 +15,9 @@ namespace Tesla.GFX
 	public class Quad : Drawable
 	{
 		float width, height;
-		Point3f pos;
+		Vector3f pos;
 		
-		public Quad(Point3f pos, float width, float height)
+		public Quad(Vector3f pos, float width, float height)
 		{
 			this.pos = pos;
 			this.width = width;

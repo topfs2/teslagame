@@ -29,6 +29,6 @@ namespace Tesla.GFX
 			return (this.active = activate);
 		}
 
-		public abstract void manipulate (Particle particle, Point3f deltaVelocity, Color4f deltaColor, ref float deltaLife);
+		public abstract void manipulate (Particle particle, Vector3f deltaVelocity, Color4f deltaColor, ref float deltaLife);
 	}
 }

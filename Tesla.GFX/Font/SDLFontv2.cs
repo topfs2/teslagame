@@ -70,7 +70,7 @@ namespace Tesla.GFX.Font
         }
 
 
-        public void Draw(string Text, Point2f position, Color4f Color)
+        public void Draw(string Text, Vector2f position, Color4f Color)
         {
             char[] TextCharArray = Text.ToCharArray();
 

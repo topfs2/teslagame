@@ -15,9 +15,9 @@ namespace Tesla.GFX
 {
 	public class SuperVertex
 	{
-		public Point3f position, normal;
+		public Vector3f position, normal;
 		public Color4f color;
-		public Point2f texCoord;
+		public Vector2f texCoord;
 	}
 	
 	public class Landscapev2 : Drawable
@@ -71,7 +71,7 @@ namespace Tesla.GFX
 				for (int x = 0; x < width; x++)
 				{
 					vertrices[x + z * width] = new SuperVertex();
-					vertrices[x + z * width].position = new Point3f(x, data.GetPixel(x, z).R / 8.0f, z);
+					vertrices[x + z * width].position = new Vector3f(x, data.GetPixel(x, z).R / 8.0f, z);
 				}
 			}
 			
@@ -80,12 +80,12 @@ namespace Tesla.GFX
 		
 		private void calculateNormals()
 		{
-			Point3f vecA, vecB, vecC, vecD, normA, normB, normC, normD;
+			Vector3f vecA, vecB, vecC, vecD, normA, normB, normC, normD;
 			for (int z = 1; z < (depth - 1); z++)
 			{
 				for (int x = 1; x < (width - 1); x++)
 				{
-					Point3f p = vertrices[x + (z * width)].position;
+					Vector3f p = vertrices[x + (z * width)].position;
 					vecA = vertrices[x-1 + (z     * width)].position.diff(p);
 					vecB = vertrices[x   + ((z-1) * width)].position.diff(p);
 					vecC = vertrices[x+1 + (z     * width)].position.diff(p);
@@ -113,7 +113,7 @@ namespace Tesla.GFX
 					tx *= texSize * (float)width / (float)depth;
 					float tz = z / ((float)depth);
 					tz *= texSize;
-					vertrices[x + z * width].texCoord = new Point2f(tx, tz);
+					vertrices[x + z * width].texCoord = new Vector2f(tx, tz);
 				}
 			}
 		}
@@ -140,13 +140,13 @@ namespace Tesla.GFX
 				sv.color = new Color4f(0.33f, 0.33f, 0.33f, 0.33f);
 		}
 		
-		private void generateLight(Point3f lightPos, Color4f dL)
+		private void generateLight(Vector3f lightPos, Color4f dL)
 		{
 			for (int x = 0; x < width; x++)
 			{
 				for (int z = 0; z < depth; z++)
 				{
-					Point3f L = lightPos.diff(vertrices[x + z*width].position);
+					Vector3f L = lightPos.diff(vertrices[x + z*width].position);
 					L.Normalize();
 					float ip = L * vertrices[x + z*width].position;//L.multiply(listNormals[i, j].posA);
 					if (ip < 0)

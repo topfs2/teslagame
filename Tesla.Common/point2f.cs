@@ -8,38 +8,38 @@ using System;
 
 namespace Tesla.Common
 {	
-	public class Point2f
+	public class Vector2f
 	{
 		public float x, y;
-		public Point2f(float x, float y)
+		public Vector2f(float x, float y)
 		{
 			this.x = x;
 			this.y = y;
 		}
 		
-		public Point2f subtract(Point2f dest)
+		public Vector2f subtract(Vector2f dest)
 		{
-			return new Point2f(x - dest.x, y - dest.y);
+			return new Vector2f(x - dest.x, y - dest.y);
 		}
 		
-		public Point2f add(Point2f dest)
+		public Vector2f add(Vector2f dest)
 		{
-			return new Point2f(x + dest.x, y + dest.y);
+			return new Vector2f(x + dest.x, y + dest.y);
 		}
 		
-		public Point2f divides(Point2f lower)
+		public Vector2f divides(Vector2f lower)
 		{
-			return new Point2f(x / lower.x, y / lower.y);
+			return new Vector2f(x / lower.x, y / lower.y);
 		}
 		
-		public Point2f divides(float lower)
+		public Vector2f divides(float lower)
 		{
-			return new Point2f(x / lower, y / lower);
+			return new Vector2f(x / lower, y / lower);
 		}
 		
-		public Point2f multiply(float multiply)
+		public Vector2f multiply(float multiply)
 		{
-			return new Point2f(x * multiply, y * multiply);
+			return new Vector2f(x * multiply, y * multiply);
 		}
 		
 		public float length2()
@@ -58,12 +58,12 @@ namespace Tesla.Common
 			this.y = y;
 		}
 		
-		public void set(Point2f src)
+		public void set(Vector2f src)
 		{
 			set(src.x, src.y);
 		}		
 		
-		public Point2f Normalize()
+		public Vector2f Normalize()
 		{
 			return divides(length());
 		}

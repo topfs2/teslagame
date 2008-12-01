@@ -14,7 +14,7 @@ namespace Tesla.GFX
 	
 	public class PointEmitter : TemplateParticleEmitter
 	{
-		public PointEmitter(Point3f position) : base(position)
+		public PointEmitter(Vector3f position) : base(position)
 		{ }
 
 		public override Particle emit (ParticleFactory particleFactory)

@@ -14,18 +14,18 @@ namespace Tesla.GFX
 	public class RotatableGroundPlane : CollisionSurface
 	{
 		bool active;
-		Point3f position, normal;
+		Vector3f position, normal;
 		float deltaY_X, deltaY_Z, friction;
 		
-		public RotatableGroundPlane(Point3f position, float deltaY_X, float deltaY_Z, float friction)
+		public RotatableGroundPlane(Vector3f position, float deltaY_X, float deltaY_Z, float friction)
 		{
 			active = true;
 			this.friction = friction;
 			this.position = position;
 			this.deltaY_X = deltaY_X;
 			this.deltaY_Z = deltaY_Z;
-			Point3f vectorA = new Point3f(1.0f, -deltaY_X, 0.0f);
-			Point3f vectorB = new Point3f(0.0f, -deltaY_Z, 1.0f);
+			Vector3f vectorA = new Vector3f(1.0f, -deltaY_X, 0.0f);
+			Vector3f vectorB = new Vector3f(0.0f, -deltaY_Z, 1.0f);
 			normal = vectorA.Cross(vectorB);
 			normal.Normalize();
 		}
@@ -40,7 +40,7 @@ namespace Tesla.GFX
 			return (this.active = active);
 		}
 
-		public bool collisionDetect (Point3f pointA, Point3f pointB)
+		public bool collisionDetect (Vector3f pointA, Vector3f pointB)
 		{
 			return  getHeight(pointB.x, pointB.z) > pointB.y;
 		}
@@ -50,14 +50,14 @@ namespace Tesla.GFX
 			return ((x - position.x) * deltaY_X + (z - position.z) * deltaY_Z) - position.y;
 		}
 		
-		public Point3f computeTrajectory (Point3f vector)
+		public Vector3f computeTrajectory (Vector3f vector)
 		{
 			float len = vector.length();
-			Point3f newTrajectory = vector.copy();
+			Vector3f newTrajectory = vector.copy();
 
 			float projection = (vector * normal) / (normal * normal);
 
-			Point3f u = normal * projection;
+			Vector3f u = normal * projection;
 			
 			newTrajectory.subtract(u).subtract(u);
 			

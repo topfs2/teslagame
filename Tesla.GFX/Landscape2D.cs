@@ -53,28 +53,28 @@ namespace Tesla.GFX
 
 			for (int i = 0; i < (height.Length-1); i++)
 			{
-				vertrices[0 + i*8].texCoord = new Point2f(i*l	 , 0);
-				vertrices[1 + i*8].texCoord = new Point2f(i*l	 , 1);
-				vertrices[2 + i*8].texCoord = new Point2f((i+1)*l, 1);
-				vertrices[3 + i*8].texCoord = new Point2f((i+1)*l, 0);
+				vertrices[0 + i*8].texCoord = new Vector2f(i*l	 , 0);
+				vertrices[1 + i*8].texCoord = new Vector2f(i*l	 , 1);
+				vertrices[2 + i*8].texCoord = new Vector2f((i+1)*l, 1);
+				vertrices[3 + i*8].texCoord = new Vector2f((i+1)*l, 0);
 				
-				vertrices[4 + i*8].texCoord = new Point2f(i*l	 , 0);
-				vertrices[5 + i*8].texCoord = new Point2f(i*l	 , scaleZ);
-				vertrices[6 + i*8].texCoord = new Point2f((i+1)*l, scaleZ);
-				vertrices[7 + i*8].texCoord = new Point2f((i+1)*l, 0);
+				vertrices[4 + i*8].texCoord = new Vector2f(i*l	 , 0);
+				vertrices[5 + i*8].texCoord = new Vector2f(i*l	 , scaleZ);
+				vertrices[6 + i*8].texCoord = new Vector2f((i+1)*l, scaleZ);
+				vertrices[7 + i*8].texCoord = new Vector2f((i+1)*l, 0);
 			}
 		}
 		
 		private void generateNormal(int length)
 		{
-			Point3f norm = new Point3f(0.0f, 0.0f, 1.0f);
+			Vector3f norm = new Vector3f(0.0f, 0.0f, 1.0f);
 			
 			for (int i = 0; i < (length-1); i++)
 			{
-				vertrices[4 + i*8].normal = new Point3f(0, 1, 0);
-				vertrices[5 + i*8].normal = new Point3f(0, 1, 0);
-				vertrices[6 + i*8].normal = new Point3f(0, 1, 0);
-				vertrices[7 + i*8].normal = new Point3f(0, 1, 0);
+				vertrices[4 + i*8].normal = new Vector3f(0, 1, 0);
+				vertrices[5 + i*8].normal = new Vector3f(0, 1, 0);
+				vertrices[6 + i*8].normal = new Vector3f(0, 1, 0);
+				vertrices[7 + i*8].normal = new Vector3f(0, 1, 0);
 				
 				vertrices[0 + i*8].normal = norm;
 				vertrices[1 + i*8].normal = norm;
@@ -93,15 +93,15 @@ namespace Tesla.GFX
 			
 			for (int i = 0; i < (height.Length-1); i++)
 			{
-				vertrices[0 + i*8].position = new Point3f(i  , -10.0f   , 0.0f);
-				vertrices[1 + i*8].position = new Point3f(i  , height[i], 0.0f);
-				vertrices[2 + i*8].position = new Point3f(i+1, height[i+1], 0.0f);
-				vertrices[3 + i*8].position = new Point3f(i+1, -10.0f, 0.0f);
+				vertrices[0 + i*8].position = new Vector3f(i  , -10.0f   , 0.0f);
+				vertrices[1 + i*8].position = new Vector3f(i  , height[i], 0.0f);
+				vertrices[2 + i*8].position = new Vector3f(i+1, height[i+1], 0.0f);
+				vertrices[3 + i*8].position = new Vector3f(i+1, -10.0f, 0.0f);
 				
-				vertrices[4 + i*8].position = new Point3f(i, height[i], 0);
-				vertrices[5 + i*8].position = new Point3f(i, height[i], 13.0f);
-				vertrices[6 + i*8].position = new Point3f(i+1, height[i+1], 13.0f);
-				vertrices[7 + i*8].position = new Point3f(i+1, height[i+1], 0);
+				vertrices[4 + i*8].position = new Vector3f(i, height[i], 0);
+				vertrices[5 + i*8].position = new Vector3f(i, height[i], 13.0f);
+				vertrices[6 + i*8].position = new Vector3f(i+1, height[i+1], 13.0f);
+				vertrices[7 + i*8].position = new Vector3f(i+1, height[i+1], 0);
 			}
 			foreach ( SuperVertex v in vertrices)
 			{

@@ -8,12 +8,12 @@ namespace Tesla.GFX.ModelLoading
 {
     public class Face
     {
-        private Point3f[] vertices;
-        private Point2f[] textureVertices;
-        private Point3f[] normalVertices;
+        private Vector3f[] vertices;
+        private Vector2f[] textureVertices;
+        private Vector3f[] normalVertices;
         private int polygonType;
 
-        public Face(Point3f[] vertices, Point2f[] textureVertices, Point3f[] normalVertices, int polygonType)
+        public Face(Vector3f[] vertices, Vector2f[] textureVertices, Vector3f[] normalVertices, int polygonType)
         {
             this.vertices = vertices;
             this.textureVertices = textureVertices;
@@ -51,17 +51,17 @@ namespace Tesla.GFX.ModelLoading
             System.Text.StringBuilder sb = new StringBuilder();
             sb.Append("Face:\n");
             sb.Append(" Vertices: ");
-            foreach (Point3f p in vertices)
+            foreach (Vector3f p in vertices)
             {
                 sb.Append("[" + p + "]");
             }
             sb.Append(" Texture Vertices: ");
-            foreach (Point2f t in textureVertices)
+            foreach (Vector2f t in textureVertices)
             {
                 sb.Append("[" + t + "]");
             }
             sb.Append(" Normal Vertices: ");
-            foreach (Point3f n in normalVertices)
+            foreach (Vector3f n in normalVertices)
             {
                 sb.Append("[" + n + "]");
             }

@@ -11,7 +11,7 @@ namespace Tesla.GFX
 {
 	public interface CollisionSurface : Controller
 	{
-		bool collisionDetect(Point3f pointA, Point3f pointB);
-		Point3f computeTrajectory(Point3f vector);
+		bool collisionDetect(Vector3f pointA, Vector3f pointB);
+		Vector3f computeTrajectory(Vector3f vector);
 	}
 }

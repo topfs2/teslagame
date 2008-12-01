@@ -15,9 +15,9 @@ namespace Tesla.GFX
 	public class TexturedQuad : Drawable2D 
 	{
 		float width, height;
-		Point2f pos;
+		Vector2f pos;
 		Texture tex;
-		public TexturedQuad(Texture texture, Point2f pos, float width, float height)
+		public TexturedQuad(Texture texture, Vector2f pos, float width, float height)
 		{
 			this.pos = pos;
 			this.width = width;
@@ -28,10 +28,13 @@ namespace Tesla.GFX
 		public void Draw(float frameTime)
 		{
 			tex.Bind();
-			Gl.glEnable(Gl.GL_BLEND);
+			//Gl.glEnable(Gl.GL_BLEND);
 			Gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);		
 			Gl.glDisable(Gl.GL_LIGHTING);
 			Gl.glEnable(Gl.GL_TEXTURE_2D);
+			Gl.glEnable(Gl.GL_BLEND);
+			Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE);
+			Gl.glDisable(Gl.GL_DEPTH_TEST);
 			Gl.glBegin(Gl.GL_QUADS);
 			Gl.glNormal3f(0, 0, 1);
 

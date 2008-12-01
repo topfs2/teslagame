@@ -14,20 +14,20 @@ namespace Tesla.GFX
 {
 	public class quad
 	{
-		public Point3f posA, posB, posC, posD, normalA, normalB, normalC, normalD;
+		public Vector3f posA, posB, posC, posD, normalA, normalB, normalC, normalD;
 		public Color4f colA, colB, colC, colD;
-		public quad(Point3f posA, Point3f posB, Point3f posC, Point3f posD)
+		public quad(Vector3f posA, Vector3f posB, Vector3f posC, Vector3f posD)
 		{
 			this.posA = posA;
 			this.posB = posB;
 			this.posC = posC;
 			this.posD = posD;
 			
-			Point3f vectorA1 = posB.diff(posA);
-			Point3f vectorB1 = posB.diff(posC);
+			Vector3f vectorA1 = posB.diff(posA);
+			Vector3f vectorB1 = posB.diff(posC);
 			
-			Point3f vectorA2 = posD.diff(posA);
-			Point3f vectorB2 = posD.diff(posC);
+			Vector3f vectorA2 = posD.diff(posA);
+			Vector3f vectorB2 = posD.diff(posC);
 			
 			normalB = vectorB1.Cross(vectorA1);
 			normalD = vectorA2.Cross(vectorB2);
@@ -48,7 +48,7 @@ namespace Tesla.GFX
 			else
 				normalB.set(0.0f, 1.0f, 0.0f);
 				
-			normalC = new Point3f(normalA.x, normalA.y, normalA.z);
+			normalC = new Vector3f(normalA.x, normalA.y, normalA.z);
 			
 			colA = new Color4f(0.0f, 0.0f, 0.0f, 0.0f);
 			colB = new Color4f(0.0f, 0.0f, 0.0f, 0.0f);
@@ -81,7 +81,7 @@ namespace Tesla.GFX
 			this.texsize = texsize;
 			
 			generateNormals();
-			generateLight(new Point3f(20.0f, 100.0f, 20.0f));
+			generateLight(new Vector3f(20.0f, 100.0f, 20.0f));
 		}
 		
 		private void generateNormals()
@@ -102,10 +102,10 @@ namespace Tesla.GFX
 			{
 				for (int j = 0; j < sizeZ; j++)
 				{
-					listNormals[i,j] = new quad(new Point3f(i  , l*geometry.getHeight(i*s    , j*s    ), j  ),
-												new Point3f(i  , l*geometry.getHeight(i*s    , (j+1)*s), j+1),
-												new Point3f(i+1, l*geometry.getHeight((i+1)*s, (j+1)*s), j+1),
-												new Point3f(i+1, l*geometry.getHeight((i+1)*s, j*s    ), j  ));
+					listNormals[i,j] = new quad(new Vector3f(i  , l*geometry.getHeight(i*s    , j*s    ), j  ),
+												new Vector3f(i  , l*geometry.getHeight(i*s    , (j+1)*s), j+1),
+												new Vector3f(i+1, l*geometry.getHeight((i+1)*s, (j+1)*s), j+1),
+												new Vector3f(i+1, l*geometry.getHeight((i+1)*s, j*s    ), j  ));
 				}
 			}
 
@@ -130,13 +130,13 @@ namespace Tesla.GFX
 			}
 		}
 		
-		private void generateLight(Point3f lightPos)
+		private void generateLight(Vector3f lightPos)
 		{
 			for (int i = 0; i < sizeX; i++)
 			{
 				for (int j = 0; j < sizeZ; j++)
 				{
-					Point3f L = lightPos.diff(listNormals[i, j].posA);
+					Vector3f L = lightPos.diff(listNormals[i, j].posA);
 					L.Normalize();
 					float ip = L * listNormals[i, j].posA;//L.multiply(listNormals[i, j].posA);
 					if (ip < 0)
@@ -151,13 +151,13 @@ namespace Tesla.GFX
 			}
 		}
 		
-		private Point3f normalize(Point3f normalA, Point3f normalB, Point3f normalC, Point3f normalD)
+		private Vector3f normalize(Vector3f normalA, Vector3f normalB, Vector3f normalC, Vector3f normalD)
 		{
 			normalA.add(normalB).add(normalC).add(normalD);
 			return normalA.Normalize();
 		}
 		
-		private Point3f normalize(Point3f normalA, Point3f normalB)
+		private Vector3f normalize(Vector3f normalA, Vector3f normalB)
 		{
 			return normalA.add(normalB).Normalize();
 		}
@@ -195,7 +195,7 @@ namespace Tesla.GFX
 			}
 			if (renderNormals)
 			{
-			Point3f tmp = new Point3f(0.0f, 0.0f, 0.0f);
+			Vector3f tmp = new Vector3f(0.0f, 0.0f, 0.0f);
 				
 			Gl.glBegin(Gl.GL_LINES);
 			foreach (quad q in listNormals)

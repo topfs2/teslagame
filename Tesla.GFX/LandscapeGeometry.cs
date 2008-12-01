@@ -39,7 +39,7 @@ namespace Tesla.GFX
 				return (data.GetPixel((int)x, (int)z).R / 16.0f);
 		}
 		
-		public Point3f getNormal(float x, float z)
+		public Vector3f getNormal(float x, float z)
 		{
 			int x0 = (int)x;
 			int x1 = x0 + 1;
@@ -51,8 +51,8 @@ namespace Tesla.GFX
 			y01 = getHeight(x0, z1);
 			y10 = getHeight(x1, z0);
 			
-			Point3f a = new Point3f(0.0f, y00 - y01, 1.0f);
-			Point3f b = new Point3f(1.0f, y00 - y10, 0.0f);
+			Vector3f a = new Vector3f(0.0f, y00 - y01, 1.0f);
+			Vector3f b = new Vector3f(1.0f, y00 - y10, 0.0f);
 			
 			return a.Cross(b);
 		}
@@ -67,14 +67,14 @@ namespace Tesla.GFX
 			return data.Height;
 		}
 
-		public bool collisionDetect (Point3f pointA, Point3f pointB)
+		public bool collisionDetect (Vector3f pointA, Vector3f pointB)
 		{
 			return (pointB.y < getHeight(pointB.x, pointB.z)); 
 		}
 
-		public Point3f computeTrajectory (Point3f vector)
+		public Vector3f computeTrajectory (Vector3f vector)
 		{
-			Point3f newTrajectory = new Point3f(vector.x, 0 - vector.y, vector.z);
+			Vector3f newTrajectory = new Vector3f(vector.x, 0 - vector.y, vector.z);
 			newTrajectory.stretch(0.7f);
 
 			return newTrajectory;

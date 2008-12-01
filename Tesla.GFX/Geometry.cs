@@ -14,7 +14,7 @@ namespace Tesla.GFX
 	public interface Geometry
 	{
 		float getHeight(float x, float z);
-		Point3f getNormal(float x, float z);
+		Vector3f getNormal(float x, float z);
 		int   maximumX();
 		int   maximumZ();
 	}

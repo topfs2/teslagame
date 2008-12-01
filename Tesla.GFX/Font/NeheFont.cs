@@ -111,10 +111,10 @@ namespace Tesla.GFX.Font
             }                                                                   // Loop Until All 256 Are Built
         }
 		
-		public void Draw( string text, Point2f position, Color4f color)
+		public void Draw( string text, Vector2f position, Color4f color)
         {
             if (Effects.RenderShadow && color != Effects.Shadow_Color)
-                Draw(text, new Point2f(position.x + Effects.Shadow_DisplacementX, position.y - Effects.Shadow_DisplacementY), Effects.Shadow_Color);
+                Draw(text, new Vector2f(position.x + Effects.Shadow_DisplacementX, position.y - Effects.Shadow_DisplacementY), Effects.Shadow_Color);
 
 
             if (CharSet != 1 && CharSet != 0)

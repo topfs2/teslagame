@@ -15,11 +15,11 @@ namespace Tesla.GFX
 	public class MultiTexturedCube : Drawable
 	{
 		protected float width, height, depth;
-		public Point3f pos;
+		public Vector3f pos;
 		Texture t0, t1, t2;
 		public Color4f c;
 		
-		public MultiTexturedCube(Texture t0, Texture t1, Texture t2, Point3f pos)
+		public MultiTexturedCube(Texture t0, Texture t1, Texture t2, Vector3f pos)
 		{
 			this.pos = pos;
 			this.width = 1.0f;
@@ -31,12 +31,12 @@ namespace Tesla.GFX
 			c = new Color4f(1.0f, 1.0f, 1.0f, 1.0f);
 		}
 		
-		public void setPosition(Point3f position)
+		public void setPosition(Vector3f position)
 		{
 			this.pos.set(position);
 		}
 		
-		public void setSide(Point3f side)
+		public void setSide(Vector3f side)
 		{
 			width  = side.x;
 			height = side.y;

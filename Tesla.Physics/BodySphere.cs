@@ -18,11 +18,11 @@ namespace Tesla.Physics
 		IntPtr bodyID, geomID;
 		
 		Ode.dMass mass;
-		Point3f position;
+		Vector3f position;
 		Color4f rotationOGL;
 		
 		
-		public BodySphere(World hostWorld, Space space, Point3f position, float radius, Point3f force)
+		public BodySphere(World hostWorld, Space space, Vector3f position, float radius, Vector3f force)
 		{
 			this.hostWorld = hostWorld;
 			this.space = space;
@@ -93,7 +93,7 @@ namespace Tesla.Physics
             return 57.295779513082320876798154814105f * a;
         }
 
-		public Point3f getPosition()
+		public Vector3f getPosition()
 		{
 			return this.position;
 		}
@@ -103,7 +103,7 @@ namespace Tesla.Physics
 			return rotationOGL;
 		}
 		
-		public void addForce(Point3f force)
+		public void addForce(Vector3f force)
 		{
 			Ode.dBodyAddForce(bodyID, force.x, force.y, force.z);
 		}

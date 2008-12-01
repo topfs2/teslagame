@@ -85,9 +85,9 @@ namespace Tesla.GFX.ModelLoading
             {
                 groups.Add(new Group(null));
                 StreamReader reader = new StreamReader(fileStream);
-                List<Point3f> vertices = new List<Point3f>();
-                List<Point2f> textureVertices = new List<Point2f>();
-                List<Point3f> normalVertices = new List<Point3f>();
+                List<Vector3f> vertices = new List<Vector3f>();
+                List<Vector2f> textureVertices = new List<Vector2f>();
+                List<Vector3f> normalVertices = new List<Vector3f>();
                 List<Material> material = new List<Material>();
                 Material currentMaterial = null;
                 Regex regex = new Regex(@"[\s]+");
@@ -126,24 +126,24 @@ namespace Tesla.GFX.ModelLoading
                     else if (line.StartsWith("v "))
                     {
                         string[] split = regex.Split(line);
-                        vertices.Add(new Point3f(ToFloat(split[1]), ToFloat(split[2]), ToFloat(split[3])));
+                        vertices.Add(new Vector3f(ToFloat(split[1]), ToFloat(split[2]), ToFloat(split[3])));
                     }
                     else if (line.StartsWith("vt "))
                     {
                         string[] split = regex.Split(line);
-                        textureVertices.Add(new Point2f(ToFloat(split[1]), ToFloat(split[2])));
+                        textureVertices.Add(new Vector2f(ToFloat(split[1]), ToFloat(split[2])));
                     }
                     else if (line.StartsWith("vn "))
                     {
                         string[] split = regex.Split(line);
-                        normalVertices.Add(new Point3f(ToFloat(split[1]), ToFloat(split[2]), ToFloat(split[3])));
+                        normalVertices.Add(new Vector3f(ToFloat(split[1]), ToFloat(split[2]), ToFloat(split[3])));
                     }
                     else if (line.StartsWith("f "))
                     {
                         polygonCount++;
-                        List<Point3f> v = new List<Point3f>();
-                        List<Point2f> vt = new List<Point2f>();
-                        List<Point3f> vn = new List<Point3f>();
+                        List<Vector3f> v = new List<Vector3f>();
+                        List<Vector2f> vt = new List<Vector2f>();
+                        List<Vector3f> vn = new List<Vector3f>();
                         string[] splittedFaceLine = regex.Split(line);
                         Regex slash = new Regex(@"[/]");
                         Match match = slash.Match(line);
@@ -187,7 +187,7 @@ namespace Tesla.GFX.ModelLoading
 
         private int ToInt(string str)
         {
-            return Convert.ToInt32(str, numformat);
+            return Convert.ToInt16(str, numformat);
         }
     }
 }

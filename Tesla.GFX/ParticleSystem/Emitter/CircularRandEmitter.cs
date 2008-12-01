@@ -16,7 +16,7 @@ namespace Tesla.GFX
 	{
 		float radius;
 		Random random;
-		public CircularRandEmitter(Point3f position, float radius) : base(position)
+		public CircularRandEmitter(Vector3f position, float radius) : base(position)
 		{
 			this.radius = radius;
 			random = new Random();
@@ -24,7 +24,7 @@ namespace Tesla.GFX
 
 		public override Particle emit (ParticleFactory particleFactory)
 		{
-			Point3f tmp = new Point3f(0.5f - random.NextDouble(), 0.0f, 0.5f - random.NextDouble());
+			Vector3f tmp = new Vector3f(0.5f - random.NextDouble(), 0.0f, 0.5f - random.NextDouble());
 			tmp.Normalize();
 			tmp.stretch(radius);
 			tmp.add(position);

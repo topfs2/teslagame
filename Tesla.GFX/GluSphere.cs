@@ -16,7 +16,7 @@ namespace Tesla.GFX
 	
 	public class GluSphere : Drawable
 	{
-		Point3f position;
+		Vector3f position;
 		float radius;
 		int slices;
 		Glu.GLUquadric quad;
@@ -26,7 +26,7 @@ namespace Tesla.GFX
         float y_axis;
         float z_axis;
 		//Texture texture;
-		public GluSphere(/*Texture texure, */Point3f position, float radius, int slices)
+		public GluSphere(/*Texture texure, */Vector3f position, float radius, int slices)
 		{
 			//this.texture = texture;
 			this.position = position;
@@ -45,7 +45,7 @@ namespace Tesla.GFX
 	        z_axis = 0.0f;
 		}
 		
-		public void setPosition(Point3f position)
+		public void setPosition(Vector3f position)
 		{
 			this.position = position;
 		}

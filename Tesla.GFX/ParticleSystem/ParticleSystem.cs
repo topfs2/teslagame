@@ -29,8 +29,8 @@ namespace Tesla.GFX
 		
 		private int CompareParticlesAgainstCamera(Particle x, Particle y)
 		{
-			Point3f tmp1 = activeCamera.getPosition().copy();
-			Point3f tmp2 = activeCamera.getPosition().copy();
+			Vector3f tmp1 = activeCamera.getPosition().copy();
+			Vector3f tmp2 = activeCamera.getPosition().copy();
 			
 			tmp1.subtract(x.position);
 			tmp2.subtract(y.position);

@@ -15,11 +15,11 @@ namespace Tesla.GFX
 	
 	public abstract class Particle
 	{
-		public Point3f position, velocity, gravity;
+		public Vector3f position, velocity, gravity;
 		protected Color4f color;
 		protected float startLife, remainingLife;
 		protected float size;
-		public Particle(Point3f position, Point3f velocity, Point3f gravity, Color4f color, float life, float size)
+		public Particle(Vector3f position, Vector3f velocity, Vector3f gravity, Color4f color, float life, float size)
 		{
 			this.position = position;
 			this.velocity = velocity;
@@ -31,7 +31,7 @@ namespace Tesla.GFX
 
 		public void update(float frameTime, List<CollisionSurface> listCollisionSurfaces, List<Manipulator> listManipulators)
 		{
-			Point3f positionTemp = position.copy();
+			Vector3f positionTemp = position.copy();
 			velocity.add(gravity);
 			positionTemp.add(velocity * frameTime);
 			remainingLife -= frameTime;
@@ -50,7 +50,7 @@ namespace Tesla.GFX
 			{
 				if (m.getActive())
 				{
-					Point3f deltaVelocity = new Point3f(0.0f, 0.0f, 0.0f);
+					Vector3f deltaVelocity = new Vector3f(0.0f, 0.0f, 0.0f);
 					Color4f deltaColor = new Color4f(0.0f, 0.0f, 0.0f, 0.0f);
 					float deltaLife = 0.0f;
 					m.manipulate(this, deltaVelocity, deltaColor, ref deltaLife);

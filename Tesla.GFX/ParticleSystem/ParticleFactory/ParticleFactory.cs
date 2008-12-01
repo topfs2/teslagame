@@ -14,6 +14,6 @@ namespace Tesla.GFX
 	{
 		void preDraw();
 		void postDraw();
-		Particle createParticle(Point3f emitterPosition, bool emitterUseDirection, Point3f emitterDirection); 
+		Particle createParticle(Vector3f emitterPosition, bool emitterUseDirection, Vector3f emitterDirection); 
 	}
 }
