@@ -85,7 +85,7 @@ namespace Tesla.GFX
 			Texture t = null;
 			if (!LoadedTextures.TryGetValue(Path.GetHashCode(), out t))
 			{
-				Log.Write("Texture: Could not find texture from path " + Path + ", Creating a new one");
+				Log.Write("Texture: Could not find texture in dictionary " + Path + ", Creating and adding a new one");
 				t = new Texture(new Bitmap(Path), textureFilter, wrapMode);
 				LoadedTextures.Add(Path.GetHashCode(), t); 
 			}
