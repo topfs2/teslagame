@@ -23,7 +23,7 @@ namespace Tesla.GFX
 		
 		public override void Draw(Camera activeCamera, float frameTime)
 		{
-			Gl.glColor4f(color.r, color.g, color.b, (remainingLife / startLife)); 
+			Gl.glColor4f(color.r, color.g, color.b, (remainingLife / startLife) * color.a); 
 			Gl.glVertex3f(position.x, position.y, position.z);
 		}
 	}
