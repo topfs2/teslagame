@@ -18,11 +18,13 @@ namespace Tesla.GFX
 		Texture texture;
 		Point3f minimalInitialVelocity, maximumInitialVelocity, gravity;
 		float minimalParticleLife, maximumParticleLife;
+		Color4f minimalColor, maximumColor;
 		
 		Random random;
 	
 		public ARBParticleFactory(Texture texture, Point3f minimalInitialVelocity, Point3f maximumInitialVelocity,
-								  Point3f gravity, float minimalParticleLife, float maximumParticleLife)
+								  Point3f gravity, float minimalParticleLife, float maximumParticleLife,
+								  Color4f minimalColor, Color4f maximumColor)
 		{
 			this.texture = texture;
 			this.minimalInitialVelocity = minimalInitialVelocity;
@@ -30,6 +32,8 @@ namespace Tesla.GFX
 			this.gravity = gravity;
 			this.minimalParticleLife = minimalParticleLife;
 			this.maximumParticleLife = maximumParticleLife;
+			this.minimalColor = minimalColor;
+			this.maximumColor = maximumColor;
 			
 			random = new Random();
 		}
@@ -92,10 +96,10 @@ namespace Tesla.GFX
 
 		public Particle createParticle (Point3f emitterPosition, bool emitterUseDirection, Point3f emitterDirection)
 		{
-			Color4f color = new Color4f(1.0f,
-			                            (float)random.NextDouble(),
-			                            (float)random.NextDouble(),
-			                            (float)random.NextDouble());
+			Color4f color = new Color4f((maximumColor.a - minimalColor.a) * random.NextDouble(),
+			                            (maximumColor.r - minimalColor.r) * random.NextDouble(),
+			                            (maximumColor.g - minimalColor.g) * random.NextDouble(),
+			                            (maximumColor.b - minimalColor.b) * random.NextDouble());
 			Point3f velocity = new Point3f((maximumInitialVelocity.x - minimalInitialVelocity.x) * random.NextDouble(),
 			                               (maximumInitialVelocity.y - minimalInitialVelocity.y) * random.NextDouble(),
 			                               (maximumInitialVelocity.z - minimalInitialVelocity.z) * random.NextDouble());
