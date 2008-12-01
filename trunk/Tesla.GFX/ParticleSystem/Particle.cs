@@ -17,14 +17,16 @@ namespace Tesla.GFX
 	{
 		public Point3f position, velocity, gravity;
 		protected Color4f color;
-		protected float   startLife, remainingLife;
-		public Particle(Point3f position, Point3f velocity, Point3f gravity, Color4f color, float life)
+		protected float startLife, remainingLife;
+		protected float size;
+		public Particle(Point3f position, Point3f velocity, Point3f gravity, Color4f color, float life, float size)
 		{
 			this.position = position;
 			this.velocity = velocity;
 			this.gravity  = gravity;
 			this.color    = color;
 			startLife = remainingLife = life;
+			this.size = size;
 		}
 
 		public void update(float frameTime, List<CollisionSurface> listCollisionSurfaces, List<Manipulator> listManipulators)
