@@ -11,7 +11,7 @@ namespace Tesla.GFX.ModelLoading
         private Group[] groups;
         private Point3f position;
         private int list;
-        private float scaleX, scaleY, scaleZ;
+        private float scaleX, scaleY, scaleZ, rotX, rotY, rotZ, rotDeg;
         public static int currentPolygon;
         
         public LoadableModel(Group[] groups)
@@ -27,6 +27,14 @@ namespace Tesla.GFX.ModelLoading
         public void SetPosition(Point3f position)
         {
             this.position = position;
+        }
+
+        public void SetRotation(float deg, float x, float y, float z)
+        {
+            rotDeg = deg;
+            rotX = x;
+            rotY = y;
+            rotZ = z;
         }
 
         public void SetScaling(float x, float y, float z)
@@ -57,6 +65,7 @@ namespace Tesla.GFX.ModelLoading
             Gl.glPushMatrix();
             Gl.glTranslatef(position.x, position.y, position.z);
             Gl.glScalef(scaleX, scaleY, scaleZ);
+            Gl.glRotatef(rotDeg, rotX, rotY, rotZ);
             Gl.glCallList(list);
             Gl.glPopMatrix();
         }
