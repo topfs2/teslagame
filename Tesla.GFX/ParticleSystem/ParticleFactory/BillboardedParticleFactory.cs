@@ -13,16 +13,17 @@ namespace Tesla.GFX
 {
 	
 	
-	public class ARBParticleFactory : ParticleFactory
+	public class BillboardedParticleFactory : ParticleFactory
 	{
 		Texture texture;
 		Point3f minimalInitialVelocity, maximumInitialVelocity, gravity;
 		float minimalParticleLife, maximumParticleLife;
 		Color4f minimalColor, maximumColor;
-		float size;		
+		float size;
+		
 		Random random;
 	
-		public ARBParticleFactory(Texture texture, Point3f minimalInitialVelocity, Point3f maximumInitialVelocity,
+		public BillboardedParticleFactory(Texture texture, Point3f minimalInitialVelocity, Point3f maximumInitialVelocity,
 								  Point3f gravity, float minimalParticleLife, float maximumParticleLife,
 								  Color4f minimalColor, Color4f maximumColor, float size)
 		{
@@ -48,49 +49,12 @@ namespace Tesla.GFX
 			//Gl.glDisable(Gl.GL_DEPTH_TEST);
 			Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE);
 			
-			float[] quadratic =  { 1.0f, 0.0f, 0.01f };
-			Gl.glPointParameterfvARB(Gl.GL_POINT_DISTANCE_ATTENUATION_ARB, quadratic);
-
-		    // Query for the max point size supported by the hardware
-		    float maxSize = 0.0f;
-		    Gl.glGetFloatv(Gl.GL_POINT_SIZE_MAX_ARB, out maxSize);
-
-		    // Clamp size to 100.0f or the sprites could get a little too big on some  
-		    // of the newer graphic cards. My ATI card at home supports a max point 
-		    // size of 1024.0f!
-		    if( maxSize > size)
-		        maxSize = size;
-
-		    Gl.glPointSize( maxSize );
-
-		    // The alpha of a point is calculated to allow the fading of points 
-		    // instead of shrinking them past a defined threshold size. The threshold 
-		    // is defined by GL_POINT_FADE_THRESHOLD_SIZE_ARB and is not clamped to 
-		    // the minimum and maximum point sizes.
-		    Gl.glPointParameterfARB( Gl.GL_POINT_FADE_THRESHOLD_SIZE_ARB, 60.0f );
-
-		    Gl.glPointParameterfARB( Gl.GL_POINT_SIZE_MIN_ARB, 1.0f );
-		    Gl.glPointParameterfARB( Gl.GL_POINT_SIZE_MAX_ARB, maxSize );
-
-		    // Specify point sprite texture coordinate replacement mode for each 
-		    // texture unit
-		    Gl.glTexEnvf( Gl.GL_POINT_SPRITE_ARB, Gl.GL_COORD_REPLACE_ARB, Gl.GL_TRUE );
-
-		    //
-			// Render point sprites...
-			//
-
-		    Gl.glEnable( Gl.GL_POINT_SPRITE_ARB );
-
-			Gl.glBegin( Gl.GL_POINTS );
+			Gl.glBegin(Gl.GL_QUADS);
 		}
 
 		public void postDraw ()
 		{
 			Gl.glEnd();
-
-			Gl.glDisable( Gl.GL_POINT_SPRITE_ARB );
-			
 			Gl.glDepthMask( Gl.GL_TRUE );
 			Gl.glEnable(Gl.GL_LIGHTING);
 		}
@@ -109,7 +73,7 @@ namespace Tesla.GFX
 			float t = (maximumParticleLife - minimalParticleLife);
 			particleLife += t * (float)random.NextDouble();
 			
-			return new ARBParticle(emitterPosition.copy(), velocity, gravity, color, particleLife, size);
+			return new BillboardedParticle(emitterPosition.copy(), velocity, gravity, color, particleLife, size);
 		}
 	}
 }

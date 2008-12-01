@@ -17,7 +17,7 @@ namespace Tesla.GFX
 	public class ARBParticle : Particle
 	{
 		
-		public ARBParticle(Point3f position, Point3f velocity, Point3f gravity, Color4f color, float life) : base(position, velocity, gravity, color, life)
+		public ARBParticle(Point3f position, Point3f velocity, Point3f gravity, Color4f color, float life, float size) : base(position, velocity, gravity, color, life, size)
 		{
 		}
 		
