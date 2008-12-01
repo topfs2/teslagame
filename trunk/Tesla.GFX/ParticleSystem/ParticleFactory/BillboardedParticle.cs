@@ -23,12 +23,21 @@ namespace Tesla.GFX
 		
 		public override void Draw(Camera activeCamera, float frameTime)
 		{
-			float s = size/2.0f;
+			Gl.glPushMatrix();
+			Gl.glTranslatef(position.x, position.y, position.z);
+			Gl.glScalef(size, size, size);
+			
+			Gl.glBegin(Gl.GL_QUADS);
 			Gl.glColor4f(color.r, color.g, color.b, (remainingLife / startLife) * color.a); 
-			Gl.glVertex3f(position.x - s, position.y - s, position.z);
-			Gl.glVertex3f(position.x - s, position.y + s, position.z);
-			Gl.glVertex3f(position.x + s, position.y + s, position.z);
-			Gl.glVertex3f(position.x + s, position.y - s, position.z);
+			
+			Gl.glTexCoord2f(0.0f, 0.0f); Gl.glVertex3fv(((activeCamera.getUpVector() * -1.0f) - activeCamera.getRightVector()).vector);
+			Gl.glTexCoord2f(1.0f, 0.0f); Gl.glVertex3fv(((activeCamera.getUpVector()        ) - activeCamera.getRightVector()).vector);
+			Gl.glTexCoord2f(1.0f, 1.0f); Gl.glVertex3fv(((activeCamera.getUpVector()        ) + activeCamera.getRightVector()).vector);
+			Gl.glTexCoord2f(0.0f, 1.0f); Gl.glVertex3fv(((activeCamera.getUpVector() * -1.0f) + activeCamera.getRightVector()).vector);
+			
+			Gl.glEnd();
+			
+			Gl.glPopMatrix();
 		}
 	}
 }
