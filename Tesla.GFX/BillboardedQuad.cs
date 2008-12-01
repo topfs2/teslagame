@@ -28,7 +28,7 @@ namespace Tesla.GFX
 			this.size = size;
 			this.camera = activeCamera;
 			
-			if (displayList != -1)
+			if (displayList == -1)
 				createDisplayList();
 		}
 
@@ -47,9 +47,10 @@ namespace Tesla.GFX
 
 		public void Draw (float frameTime, Frustum frustum)
 		{
+			Gl.glEnable(Gl.GL_BLEND);
 			Gl.glTranslatef(position.x, position.y, position.z);
 			Gl.glScalef(size.x, size.y, 1.0f);
-			
+			texture.Bind();
 			Gl.glCallList(displayList);
 		}
 	}
