@@ -96,10 +96,10 @@ namespace Tesla.GFX
 
 		public Particle createParticle (Point3f emitterPosition, bool emitterUseDirection, Point3f emitterDirection)
 		{
-			Color4f color = new Color4f((maximumColor.a - minimalColor.a) * random.NextDouble(),
-			                            (maximumColor.r - minimalColor.r) * random.NextDouble(),
-			                            (maximumColor.g - minimalColor.g) * random.NextDouble(),
-			                            (maximumColor.b - minimalColor.b) * random.NextDouble());
+			Color4f color = new Color4f((maximumColor.a - minimalColor.a) * random.NextDouble() + minimalColor.a,
+			                            (maximumColor.r - minimalColor.r) * random.NextDouble() + minimalColor.r,
+			                            (maximumColor.g - minimalColor.g) * random.NextDouble() + minimalColor.g,
+			                            (maximumColor.b - minimalColor.b) * random.NextDouble() + minimalColor.b);
 			Point3f velocity = new Point3f((maximumInitialVelocity.x - minimalInitialVelocity.x) * random.NextDouble(),
 			                               (maximumInitialVelocity.y - minimalInitialVelocity.y) * random.NextDouble(),
 			                               (maximumInitialVelocity.z - minimalInitialVelocity.z) * random.NextDouble());
