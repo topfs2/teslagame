@@ -12,15 +12,15 @@ namespace Tesla.GFX
 	public class SimpleConstantForce : TemplateManipulator
 	{
 		float strength;
-		Point3f direction;
+		Vector3f direction;
 		
-		public SimpleConstantForce(Point3f direction, float strength)
+		public SimpleConstantForce(Vector3f direction, float strength)
 		{
 			this.direction = direction;
 			this.strength  = strength;
 		}
 
-		public override void manipulate (Particle particle, Point3f deltaVelocity, Color4f deltaColor, ref float deltaLife)
+		public override void manipulate (Particle particle, Vector3f deltaVelocity, Color4f deltaColor, ref float deltaLife)
 		{
 			deltaVelocity.add(direction);
 			deltaVelocity.stretch(strength);

@@ -16,20 +16,20 @@ namespace Tesla.GFX
 	{
 		const double radianFactor = 2 * 3.1415926535;		
 		
-		Point3f position;
-		Point3f lookAt;
+		Vector3f position;
+		Vector3f lookAt;
 		
 		bool calculateLookAtPosition;
 		public bool Full3D;
 		
-		Point3f rightVector, frontVector, upVector;
+		Vector3f rightVector, frontVector, upVector;
 		
 		float pov, ratio;
 		float near, far;
 		
 		float rotatedX, rotatedY, rotatedZ;
 		
-		public Camera(Point3f position, float pov, float ratio, float near, float far)
+		public Camera(Vector3f position, float pov, float ratio, float near, float far)
 		{
 			initialize(position, pov, ratio, near, far);
 		}
@@ -39,14 +39,14 @@ namespace Tesla.GFX
 			initialize(new Point3f(0.0f, 0.0f, 0.0f));
 		}*/
 		
-		private void initialize(Point3f position, float pov, float ratio, float near, float far)
+		private void initialize(Vector3f position, float pov, float ratio, float near, float far)
 		{
 			this.position = position;
-			lookAt = new Point3f(0.0f, 0.0f, 0.0f);
+			lookAt = new Vector3f(0.0f, 0.0f, 0.0f);
 			
-			frontVector = new Point3f(0.0f, 0.0f, 1.0f);
-			rightVector = new Point3f(1.0f, 0.0f, 0.0f);
-			upVector    = new Point3f(0.0f, 1.0f, 0.0f);
+			frontVector = new Vector3f(0.0f, 0.0f, 1.0f);
+			rightVector = new Vector3f(1.0f, 0.0f, 0.0f);
+			upVector    = new Vector3f(0.0f, 1.0f, 0.0f);
 			calculateLookAtPosition = true;
 			
 			rotatedX = rotatedY = rotatedZ = 0.0f;
@@ -94,11 +94,11 @@ namespace Tesla.GFX
 			frontVector = frontVector * (float)Math.Cos(angle*PIdiv180) + rightVector*(float)Math.Sin(angle*PIdiv180);
 			frontVector.Normalize();
 
-			Point3f up;
+			Vector3f up;
 			if (Full3D)
 				up = upVector;
 			else
-				up = new Point3f(0.0f, 1.0f, 0.0f);
+				up = new Vector3f(0.0f, 1.0f, 0.0f);
 
 			//now compute the new RightVector (by cross product)
 			rightVector = up.Cross(frontVector) * -1;
@@ -130,39 +130,39 @@ namespace Tesla.GFX
 			position.add(upVector * step);
 		}
 		
-		public Point3f getPosition()
+		public Vector3f getPosition()
 		{
 			return position;
 		}
 		
-		public Point3f getLookAtPosition()
+		public Vector3f getLookAtPosition()
 		{
 			return lookAt;
 		}
 		
-		public Point3f getFrontVector()
+		public Vector3f getFrontVector()
 		{
 			return frontVector;
 		}
 		
-		public Point3f getUpVector()
+		public Vector3f getUpVector()
 		{
 			return upVector;
 		}
 		
-		public Point3f getRightVector()
+		public Vector3f getRightVector()
 		{
 			return rightVector;
 		}
 		
-		public void linkPosition(Point3f position)
+		public void linkPosition(Vector3f position)
 		{
 			this.position = position;
 		}
 		
 		public void setCamera()
 		{
-			Point3f viewPos, up;
+			Vector3f viewPos, up;
 			if (this.calculateLookAtPosition)
 				viewPos = position + frontVector;
 			else
@@ -171,11 +171,11 @@ namespace Tesla.GFX
 			if (Full3D)
 				up = upVector;
 			else
-				up = new Point3f(0.0f, 1.0f, 0.0f);
+				up = new Vector3f(0.0f, 1.0f, 0.0f);
 			Glu.gluLookAt(position.x, position.y, position.z, viewPos.x, viewPos.y, viewPos.z, up.x, up.y, up.z);
 		}
 		
-		public void linkLookAtPosition(Point3f position)
+		public void linkLookAtPosition(Vector3f position)
 		{
 			calculateLookAtPosition = false;
 			Log.Write("locking LookAt was " + lookAt.ToString());
@@ -186,7 +186,7 @@ namespace Tesla.GFX
 		{
 			Log.Write("unlocking LookAt was " + lookAt.ToString());
 			calculateLookAtPosition = true;
-			Point3f tmp = new Point3f(lookAt.x, lookAt.y, lookAt.z);
+			Vector3f tmp = new Vector3f(lookAt.x, lookAt.y, lookAt.z);
 			lookAt = tmp;
 		}
 	}

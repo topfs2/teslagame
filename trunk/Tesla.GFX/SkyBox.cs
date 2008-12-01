@@ -25,7 +25,7 @@ namespace Tesla.GFX
 			top		= Texture.CreateFromFile(skyBoxPath + "/skyrender0003.bmp", TextureFilter.Nearest, Gl.GL_CLAMP_TO_EDGE);
 		}
 
-		public void Draw (Point3f pos)
+		public void Draw (Vector3f pos)
 		{
 			Gl.glPushMatrix();
 			Gl.glDisable(Gl.GL_LIGHTING);

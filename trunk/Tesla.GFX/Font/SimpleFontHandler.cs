@@ -15,10 +15,10 @@ namespace Tesla.GFX.Font
 	{
 		Font font;
 		public string text;
-		public Point2f position;
+		public Vector2f position;
 		public Color4f color;
 		
-		public SimpleFontHandler(Font font, string text, Point2f position, Color4f color)
+		public SimpleFontHandler(Font font, string text, Vector2f position, Color4f color)
 		{
 			this.font = font;
 			this.position = position;

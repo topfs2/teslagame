@@ -23,9 +23,9 @@ namespace Tesla.GFX
 			return 0.0f;
 		}
 
-		public Point3f getNormal (float x, float z)
+		public Vector3f getNormal (float x, float z)
 		{
-			return new Point3f(0.0f, 1.0f, 0.0f);
+			return new Vector3f(0.0f, 1.0f, 0.0f);
 		}
 
 		public int maximumX ()

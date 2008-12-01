@@ -14,11 +14,11 @@ namespace Tesla.Common
 	{
 		public float a, b, c, d;	
 		
-		public Plane(Point3f p0, Point3f p1, Point3f p2)
+		public Plane(Vector3f p0, Vector3f p1, Vector3f p2)
 		{
-			Point3f vecA = p1 - p0;
-			Point3f vecB = p2 - p0;
-			Point3f normal = vecA.Cross(vecB);
+			Vector3f vecA = p1 - p0;
+			Vector3f vecB = p2 - p0;
+			Vector3f normal = vecA.Cross(vecB);
 			normal.Normalize();
 			
 			a = normal.x;
@@ -29,7 +29,7 @@ namespace Tesla.Common
 			//Console.Out.WriteLine(a + "x + " + b + "y + " + c + "z + " + d);
 		}
 		
-		public Plane(Point3f normal, Point3f p)
+		public Plane(Vector3f normal, Vector3f p)
 		{
 			a = normal.x;
 			b = normal.y;
@@ -47,15 +47,15 @@ namespace Tesla.Common
 			this.d = d;
 		}
 		
-		public float distanceTo(Point3f p)
+		public float distanceTo(Vector3f p)
 		{
-			Point3f plane = new Point3f(a, b, c);
+			Vector3f plane = new Vector3f(a, b, c);
 			float d = (p * plane + this.d) / plane.length();
 			Console.Out.WriteLine(d);
 			return d;
 		}
 		
-		public float distanceToABS(Point3f p)
+		public float distanceToABS(Vector3f p)
 		{
 			return (float)Math.Abs(distanceTo(p));
 		}

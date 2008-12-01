@@ -15,9 +15,9 @@ namespace Tesla.GFX
 	public class Cube : Drawable
 	{
 		protected float width, height, depth, rot;
-		protected Point3f pos;
+		protected Vector3f pos;
 
-		public Cube(Point3f pos, float width, float height, float depth)
+		public Cube(Vector3f pos, float width, float height, float depth)
 		{
 			this.pos = pos;
 			this.width = width;

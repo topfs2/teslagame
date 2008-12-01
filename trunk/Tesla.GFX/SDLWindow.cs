@@ -210,7 +210,7 @@ namespace Tesla.GFX
                 Gl.glMatrixMode(Gl.GL_PROJECTION);
                 Gl.glLoadIdentity();
                 Glu.gluPerspective(45.0f, Width / (float)Height, 0.1f, 2000.0f);
-                camera = new Camera(new Point3f(0.0f, 0.0f, 0.0f), 45.0f, (float)Width / (float)Height, 0.1f, 2000.0f);
+                camera = new Camera(new Vector3f(0.0f, 0.0f, 0.0f), 45.0f, (float)Width / (float)Height, 0.1f, 2000.0f);
                 Gl.glMatrixMode(Gl.GL_MODELVIEW);
                 Gl.glLoadIdentity();
                 

@@ -12,14 +12,14 @@ namespace Tesla.GFX
 	public class Friction : TemplateManipulator
 	{
 		float strength;
-		Point3f direction;
+		Vector3f direction;
 		
 		public Friction(float strength)
 		{
 			this.strength  = strength;
 		}
 
-		public override void manipulate (Particle particle, Point3f deltaVelocity, Color4f deltaColor, ref float deltaLife)
+		public override void manipulate (Particle particle, Vector3f deltaVelocity, Color4f deltaColor, ref float deltaLife)
 		{
 			deltaVelocity.set(particle.velocity);
 			deltaVelocity.stretch(strength);

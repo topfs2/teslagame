@@ -16,15 +16,15 @@ namespace Tesla.GFX
 	public class BillboardedParticleFactory : ParticleFactory
 	{
 		Texture texture;
-		Point3f minimalInitialVelocity, maximumInitialVelocity, gravity;
+		Vector3f minimalInitialVelocity, maximumInitialVelocity, gravity;
 		float minimalParticleLife, maximumParticleLife;
 		Color4f minimalColor, maximumColor;
 		float size;
 		
 		Random random;
 	
-		public BillboardedParticleFactory(Texture texture, Point3f minimalInitialVelocity, Point3f maximumInitialVelocity,
-								  Point3f gravity, float minimalParticleLife, float maximumParticleLife,
+		public BillboardedParticleFactory(Texture texture, Vector3f minimalInitialVelocity, Vector3f maximumInitialVelocity,
+								  Vector3f gravity, float minimalParticleLife, float maximumParticleLife,
 								  Color4f minimalColor, Color4f maximumColor, float size)
 		{
 			this.texture = texture;
@@ -48,6 +48,7 @@ namespace Tesla.GFX
 			Gl.glDepthMask( Gl.GL_FALSE );
 			//Gl.glDisable(Gl.GL_DEPTH_TEST);
 			Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE);
+			//Gl.glBlendFunc(Gl.GL_ONE, Gl.GL_ONE);
 		}
 
 		public void postDraw ()
@@ -56,13 +57,13 @@ namespace Tesla.GFX
 			Gl.glEnable(Gl.GL_LIGHTING);
 		}
 
-		public Particle createParticle (Point3f emitterPosition, bool emitterUseDirection, Point3f emitterDirection)
+		public Particle createParticle (Vector3f emitterPosition, bool emitterUseDirection, Vector3f emitterDirection)
 		{
 			Color4f color = new Color4f((maximumColor.a - minimalColor.a) * random.NextDouble() + minimalColor.a,
 			                            (maximumColor.r - minimalColor.r) * random.NextDouble() + minimalColor.r,
 			                            (maximumColor.g - minimalColor.g) * random.NextDouble() + minimalColor.g,
 			                            (maximumColor.b - minimalColor.b) * random.NextDouble() + minimalColor.b);
-			Point3f velocity = new Point3f((maximumInitialVelocity.x - minimalInitialVelocity.x) * random.NextDouble(),
+			Vector3f velocity = new Vector3f((maximumInitialVelocity.x - minimalInitialVelocity.x) * random.NextDouble(),
 			                               (maximumInitialVelocity.y - minimalInitialVelocity.y) * random.NextDouble(),
 			                               (maximumInitialVelocity.z - minimalInitialVelocity.z) * random.NextDouble());
 			velocity.add(minimalInitialVelocity);

@@ -16,12 +16,12 @@ namespace Tesla.GFX
 	
 	public class GroundPlane : Drawable
 	{
-		Point3f pointA, pointB, pointC, pointD;
-		Point3f normal;
+		Vector3f pointA, pointB, pointC, pointD;
+		Vector3f normal;
 		Texture texture;
 		int tiles;
 		
-		public GroundPlane(Texture texture, int tiles, Point3f pointA, Point3f pointB, Point3f pointC, Point3f pointD)
+		public GroundPlane(Texture texture, int tiles, Vector3f pointA, Vector3f pointB, Vector3f pointC, Vector3f pointD)
 		{
 			this.texture = texture;
 		
@@ -32,8 +32,8 @@ namespace Tesla.GFX
 			this.pointC = pointC;
 			this.pointD = pointD;
 			
-			Point3f vectorA = pointA.diff(pointB);
-			Point3f vectorB = pointA.diff(pointD);
+			Vector3f vectorA = pointA.diff(pointB);
+			Vector3f vectorB = pointA.diff(pointD);
 			
 			normal = vectorA.Cross(vectorB);
 			normal.Normalize();

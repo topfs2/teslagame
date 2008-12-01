@@ -63,14 +63,14 @@ namespace Tesla.Physics
 			Ode.dGeomSetPosition(heightfield, width/2.0f, 0.0f, depth/2.0f);
 		}
 		
-		public BodyBox createBox(Space space, Point3f position, Point3f size, Point3f force)
+		public BodyBox createBox(Space space, Vector3f position, Vector3f size, Vector3f force)
 		{
 			BodyBox b = new BodyBox(this, space, position, size, force);
 			listBodiesBoxes.Add(b);
 			return b;
 		}
 		
-		public BodySphere createShphere(Space space, Point3f position, float radius, Point3f force)
+		public BodySphere createShphere(Space space, Vector3f position, float radius, Vector3f force)
 		{
 			BodySphere b = new BodySphere(this, space, position, radius, force);
 			listBodiesSpheres.Add(b);

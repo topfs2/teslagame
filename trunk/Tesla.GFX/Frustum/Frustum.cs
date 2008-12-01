@@ -21,7 +21,7 @@ namespace Tesla.GFX
 		float nearWidth, nearHeight, farWidth, farHeight;
 	
 		/* DEBUG */
-		Point3f ftl, ftr, fbl, fbr, ntl, ntr, nbl, nbr, fc, nc;
+		Vector3f ftl, ftr, fbl, fbr, ntl, ntr, nbl, nbr, fc, nc;
 	
 	
 		private static float ANG2RAD = 3.14159265358979323846f/180.0f;
@@ -41,11 +41,11 @@ namespace Tesla.GFX
 		
 		public void calculateFrustum(Camera camera)
 		{
-			Point3f p = camera.getPosition().copy();
+			Vector3f p = camera.getPosition().copy();
 			//Point3f ftl, ftr, fbl, fbr, ntl, ntr, nbl, nbr;
-			Point3f Z = camera.getFrontVector().copy();
-			Point3f X = camera.getRightVector().copy();
-			Point3f Y = camera.getUpVector().copy();
+			Vector3f Z = camera.getFrontVector().copy();
+			Vector3f X = camera.getRightVector().copy();
+			Vector3f Y = camera.getUpVector().copy();
 
 			// compute the centers of the near and far planes
 			nc = p + Z * camera.Near;
@@ -82,7 +82,7 @@ namespace Tesla.GFX
 			pl[FARP].set3Points(ftr,ftl,fbl);*/
 		}
 		
-		public bool pointInFrustum(Point3f position)
+		public bool pointInFrustum(Vector3f position)
 		{
 			if (left.distanceTo(position) < 0)
 			{

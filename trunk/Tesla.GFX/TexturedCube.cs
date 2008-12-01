@@ -15,10 +15,10 @@ namespace Tesla.GFX
 	public class TexturedCube : Drawable
 	{
 		protected float width, height, depth;
-		public Point3f pos;
+		public Vector3f pos;
 		protected Texture texture;
 		Color4f rotation;
-		public TexturedCube(Texture texture, Point3f pos, float width, float height, float depth)
+		public TexturedCube(Texture texture, Vector3f pos, float width, float height, float depth)
 		{
 			this.pos = pos;
 			this.width = width;
@@ -34,12 +34,12 @@ namespace Tesla.GFX
 			this.rotation = rotation;
 		}
 		
-		public void setPosition(Point3f position)
+		public void setPosition(Vector3f position)
 		{
 			this.pos.set(position);
 		}
 		
-		public void setSide(Point3f side)
+		public void setSide(Vector3f side)
 		{
 			width  = side.x;
 			height = side.y;
@@ -50,9 +50,11 @@ namespace Tesla.GFX
 		{
 			Gl.glPushMatrix();
 			
-			/*float[] mcolor = { 1.0f, 0.0f, 0.0f, 1.0f };
-			Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_AMBIENT_AND_DIFFUSE, mcolor);*/
-
+			float[] mcolor = { 1.0f, 1.0f, 1.0f, 1.0f };
+			Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_AMBIENT_AND_DIFFUSE, mcolor);
+			Gl.glEnable(Gl.GL_BLEND);
+			Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE);
+			Gl.glDisable(Gl.GL_DEPTH_TEST);
 			if (texture != null)
 				texture.Bind();
 			Gl.glColor3f(1.0f, 1.0f, 1.0f);

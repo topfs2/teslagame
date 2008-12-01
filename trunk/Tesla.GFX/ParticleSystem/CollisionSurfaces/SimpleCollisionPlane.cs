@@ -32,14 +32,14 @@ namespace Tesla.GFX
 			return (this.active = active);
 		}
 		
-		public bool collisionDetect (Point3f pointA, Point3f pointB)
+		public bool collisionDetect (Vector3f pointA, Vector3f pointB)
 		{   // need thickness
 			return (pointA.y < (y - thickness) && pointB.y > (y - thickness)) || (pointA.y > (y + thickness) && pointB.y < (y + thickness));
 		}
 
-		public Point3f computeTrajectory (Point3f vector)
+		public Vector3f computeTrajectory (Vector3f vector)
 		{
-			Point3f newTrajectory = new Point3f(vector.x, 0 - vector.y, vector.z);
+			Vector3f newTrajectory = new Vector3f(vector.x, 0 - vector.y, vector.z);
 			newTrajectory.stretch(friction);
 			
 			return newTrajectory;

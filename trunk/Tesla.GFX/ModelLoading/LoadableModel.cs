@@ -9,7 +9,7 @@ namespace Tesla.GFX.ModelLoading
     public class LoadableModel : Drawable
     {
         private Group[] groups;
-        private Point3f position;
+        private Vector3f position;
         private int list;
         private float scaleX, scaleY, scaleZ, rotX, rotY, rotZ, rotDeg;
         public static int currentPolygon;
@@ -17,14 +17,14 @@ namespace Tesla.GFX.ModelLoading
         public LoadableModel(Group[] groups)
         {
             this.groups = groups;
-            position = new Point3f(0, 0, 0);
+            position = new Vector3f(0, 0, 0);
             scaleX = 1.0f;
             scaleY = 1.0f;
             scaleZ = 1.0f;
             BuildLists();
         }
 
-        public void SetPosition(Point3f position)
+        public void SetPosition(Vector3f position)
         {
             this.position = position;
         }

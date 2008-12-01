@@ -11,6 +11,6 @@ namespace Tesla.GFX.Font
 {
 	public interface Font
 	{
-		void Draw(string text, Point2f position, Color4f color);
+		void Draw(string text, Vector2f position, Color4f color);
 	}
 }

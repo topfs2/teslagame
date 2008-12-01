@@ -12,10 +12,10 @@ namespace Tesla.GFX
 {
 	public abstract class TemplateParticleEmitter : ParticleEmitter
 	{
-		protected Point3f position;
+		protected Vector3f position;
 		protected bool active;
 	
-		public TemplateParticleEmitter(Point3f position)
+		public TemplateParticleEmitter(Vector3f position)
 		{
 			this.position = position;
 			this.active = true;

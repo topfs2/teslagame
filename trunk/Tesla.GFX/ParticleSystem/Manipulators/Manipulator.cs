@@ -11,6 +11,6 @@ namespace Tesla.GFX
 {
 	public interface Manipulator : Controller
 	{
-		void manipulate(Particle particle, Point3f deltaVelocity, Color4f deltaColor, ref float deltaLife); // Should alter deltaFOO instead of returning something
+		void manipulate(Particle particle, Vector3f deltaVelocity, Color4f deltaColor, ref float deltaLife); // Should alter deltaFOO instead of returning something
 	}
 }

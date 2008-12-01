@@ -15,11 +15,11 @@ namespace Tesla.GFX
 	public class MultiTexturedQuad : Drawable
 	{
 		protected float width, height;
-		public Point2f pos;
+		public Vector2f pos;
 		Texture t0, t1, t2;
 		public Color4f c;
 		
-		public MultiTexturedQuad(Texture t0, Texture t1, Texture t2, Point2f pos)
+		public MultiTexturedQuad(Texture t0, Texture t1, Texture t2, Vector2f pos)
 		{
 			this.pos = pos;
 			this.width = 1.0f;

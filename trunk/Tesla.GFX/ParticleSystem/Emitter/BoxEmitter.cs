@@ -14,9 +14,9 @@ namespace Tesla.GFX
 	
 	public class BoxEmitter : TemplateParticleEmitter
 	{
-		Point3f side;
+		Vector3f side;
 		Random random;
-		public BoxEmitter(Point3f position, Point3f side) : base(position)
+		public BoxEmitter(Vector3f position, Vector3f side) : base(position)
 		{
 			this.side = side;
 			random = new Random();
@@ -24,8 +24,8 @@ namespace Tesla.GFX
 
 		public override Particle emit (ParticleFactory particleFactory)
 		{
-			Point3f tmp = new Point3f(0.5f - random.NextDouble(), 0.5f - random.NextDouble(), 0.5f - random.NextDouble());
-			tmp.stretch(new Point3f((float)random.NextDouble() * side.x, (float)random.NextDouble() * side.y, (float)random.NextDouble() * side.z));
+			Vector3f tmp = new Vector3f(0.5f - random.NextDouble(), 0.5f - random.NextDouble(), 0.5f - random.NextDouble());
+			tmp.stretch(new Vector3f((float)random.NextDouble() * side.x, (float)random.NextDouble() * side.y, (float)random.NextDouble() * side.z));
 			tmp.add(position);
 			
 			return particleFactory.createParticle(tmp, false, null);
