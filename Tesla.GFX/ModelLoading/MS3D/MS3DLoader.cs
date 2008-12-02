@@ -60,7 +60,7 @@ namespace Tesla.GFX
 			public string alphaTextureFileName;		
 		}
 		
-		private class MS3DJoint
+		private class Joint
 		{
 			public static int NoParent = -1;
 			public byte flags;
@@ -68,14 +68,19 @@ namespace Tesla.GFX
 			public int parentIndex;
 			public Vector3f rotation;
 			public Vector3f position;
-			public MS3DKeyFrame[] rotationKeyFrames;
-			public MS3DKeyFrame[] translationKeyFrames;
+			public KeyFrame[] rotationKeyFrames;
+			public KeyFrame[] translationKeyFrames;
 		}
 		
-		private class MS3DKeyFrame
+		private class KeyFrame
 		{
-			public float Time;
-			public Vector3f Parameter;		
+			public KeyFrame(float time, Vector3f parameter)
+			{
+				this.time = time;
+				this.parameter = parameter;
+			}
+			public float time;
+			public Vector3f parameter;		
 		}
 		
 		public MS3DLoader()
@@ -148,5 +153,22 @@ namespace Tesla.GFX
 		{
 			return;
 		}
+		
+		private static KeyFrame parseKeyFrame(BinaryReader reader)
+		{
+			return new KeyFrame(reader.ReadSingle(), parseVector3f(reader));
+		}
+		
+		private static Vector3f parseVector3f(BinaryReader reader)
+		{
+			return new Vector3f(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
+		}
+		
+		private static Color4f parseColor4f(BinaryReader reader)
+		{
+			return new Color4f(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
+		}
+		
+		
 	}
 }
