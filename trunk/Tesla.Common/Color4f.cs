@@ -81,7 +81,6 @@ namespace Tesla.Common
 
         public float[] argbVector
         {
-            //get { return argb; }
             get { return new float[] { a, r, g, b }; }
         }
 
@@ -89,5 +88,10 @@ namespace Tesla.Common
         {
             get { return new float[] { r, g, b, a }; }
         }
+        
+        public String ToString()
+		{
+			return "[" + a + ", " + r + ", " + g + ", " + b + "]";
+		}
     }
 }
