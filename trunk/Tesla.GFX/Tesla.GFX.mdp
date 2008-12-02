@@ -74,6 +74,8 @@
     <File name="ParticleSystem/ParticleFactory/BillboardedParticleFactory.cs" subtype="Code" buildaction="Compile" />
     <File name="ParticleSystem/ParticleFactory/BillboardedParticle.cs" subtype="Code" buildaction="Compile" />
     <File name="BillboardedQuad.cs" subtype="Code" buildaction="Compile" />
+    <File name="ModelLoading/MS3D" subtype="Directory" buildaction="Compile" />
+    <File name="ModelLoading/MS3D/MS3DLoader.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
