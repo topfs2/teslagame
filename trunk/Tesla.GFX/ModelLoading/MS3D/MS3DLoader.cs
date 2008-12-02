@@ -154,6 +154,30 @@ namespace Tesla.GFX
 			return;
 		}
 		
+		private static Joint parseJoint(BinaryReader reader, out string parent)
+		{
+			Joint joint = new Joint();
+			joint.flags = reader.ReadByte();
+			joint.name 	= new string(reader.ReadChars(32));
+			parent 		= new string(reader.ReadChars(32));
+			joint.parentIndex = -1;
+			joint.rotation = parseVector3f(reader);
+			joint.position = parseVector3f(reader);
+			
+			ushort NumRotationKeyFrames = reader.ReadUInt16();
+			ushort NumTranslationKeyFrames = reader.ReadUInt16();
+			
+			joint.rotationKeyFrames = new KeyFrame[NumRotationKeyFrames];
+			for(int i = 0; i < NumRotationKeyFrames; i++)
+				joint.rotationKeyFrames[i] = parseKeyFrame(reader);
+
+			joint.translationKeyFrames = new KeyFrame[NumTranslationKeyFrames];
+			for(int i = 0; i < NumTranslationKeyFrames; i++)
+				joint.translationKeyFrames[i] = parseKeyFrame(reader);
+				
+			return joint;
+		}
+		
 		private static KeyFrame parseKeyFrame(BinaryReader reader)
 		{
 			return new KeyFrame(reader.ReadSingle(), parseVector3f(reader));
