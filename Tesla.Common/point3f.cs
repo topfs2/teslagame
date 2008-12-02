@@ -167,6 +167,7 @@ namespace Tesla.Common
 		{
 			return new Vector3f(x, y, z);
 		}
+		
 		public Vector3f Cross(Vector3f b)
 		{
 //			Consider two vectors, a = (1,2,3) and b = (4,5,6). The cross product a × b is
@@ -177,6 +178,16 @@ namespace Tesla.Common
 			u3 = x * b.y - y * b.x;
 
 			return new Vector3f(u1, 0-u2, u3);
+		}
+		
+		public static void Lerp(ref Vector3f value1, ref Vector3f value2, float amount, out Vector3f result)
+		{
+			result = value1 + (value2 - value1) * amount;
+		}
+		
+		public static Vector3f Lerp(ref Vector3f value1, ref Vector3f value2, float amount)
+		{
+			return value1 + (value2 - value1) * amount;
 		}
 		
 		public String ToString()
