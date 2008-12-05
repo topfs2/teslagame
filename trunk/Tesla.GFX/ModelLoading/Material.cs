@@ -45,6 +45,7 @@ namespace Tesla.GFX.ModelLoading
             {
                 Gl.glEnable(Gl.GL_TEXTURE_2D);
                 texture.Bind();
+                Gl.glEnable(Gl.GL_TEXTURE_2D);
             }
             else
             {
