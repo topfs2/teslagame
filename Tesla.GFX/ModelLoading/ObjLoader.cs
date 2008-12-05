@@ -187,7 +187,7 @@ namespace Tesla.GFX.ModelLoading
 
         private int ToInt(string str)
         {
-            return Convert.ToInt16(str, numformat);
+            return Convert.ToInt32(str, numformat);
         }
     }
 }
