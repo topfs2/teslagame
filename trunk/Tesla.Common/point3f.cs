@@ -45,6 +45,8 @@ namespace Tesla.Common
 		
 		public Vector3f divides(Vector3f lower)
 		{
+			if (lower.x == 0.0f || lower.y == 0.0f || lower.z == 0.0f)
+				throw new DivideByZeroException("Can´t divide with zero");
 			x /= lower.x;
 			y /= lower.y;
 			z /= lower.z;
@@ -59,7 +61,7 @@ namespace Tesla.Common
 		public Vector3f divides(float lower)
 		{
 			if (lower == 0.0f)
-				throw new Exception("Can´t divide with zero");
+				throw new DivideByZeroException("Can´t divide with zero");
 			x /= lower;
 			y /= lower;
 			z /= lower;
@@ -224,12 +226,16 @@ namespace Tesla.Common
 //          a × b = (1,2,3) × (4,5,6) = ((2×6 - 3×5), (3×4 - 1×6), (1×5 - 2×4)) = (-3,6,-3). 
 			v0 = new Vector3f(1.0f, 2.0f, 3.0f);
 			v1 = new Vector3f(4.0f, 5.0f, 6.0f);
-			Check.AssertEquals(v0.Cross(v1), new Vector3f(-3.0f, 6.0f, -3.0f));
+			Check.AssertEquals(v0.ToString() + "x" + v1.ToString(), v0.Cross(v1), new Vector3f(-3.0f, 6.0f, -3.0f));
 //			Consider two vectors, a = (3,0,0) and b = (0,2,0). The cross product a × b is
 // 			a × b = (3,0,0) × (0,2,0) = ((0×0 - 0×2), (0×0 - 3×0), (3×2 - 0×0)) = (0,0,6). 			
 			v0 = new Vector3f(3.0f, 0.0f, 0.0f);
 			v1 = new Vector3f(0.0f, 2.0f, 0.0f);
-			Check.AssertEquals(v0.Cross(v1), new Vector3f(0.0f, 0.0f, 6.0f));
+			Check.AssertEquals(v0.ToString() + "x" + v1.ToString(), v0.Cross(v1), new Vector3f(0.0f, 0.0f, 6.0f));
+			
+			v0 = new Vector3f(1.0f, 0.0f, 0.0f);
+			v1 = new Vector3f(0.0f, 0.0f, -1.0f);
+			Check.AssertEquals(v0.ToString() + "x" + v1.ToString(), v0.Cross(v1), new Vector3f(0.0f, 1.0f, 0.0f));
 		}
 	}
 }
