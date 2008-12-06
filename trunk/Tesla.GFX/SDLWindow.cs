@@ -161,6 +161,11 @@ namespace Tesla.GFX
             {
 				Draw(frameTime);
             }
+            catch (DivideByZeroException e)
+            {
+            	quitFlag = true;
+            	Log.Write("Quiting as a safety when division by zero comes as it can lock the system", LogType.CriticalError);
+            }
             catch (Exception e)
             {
 				Log.Write(e.Message.ToString());
