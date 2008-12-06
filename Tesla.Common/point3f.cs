@@ -104,6 +104,11 @@ namespace Tesla.Common
 			return new Vector3f(v1.x * f, v1.y * f, v1.z * f);
 		}
 		
+		public static Vector3f operator *(float f, Vector3f v1)
+		{
+			return v1 * f;
+		}
+		
 		public static float operator *(Vector3f v1, Vector3f v2)
 		{
 			return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;

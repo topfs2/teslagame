@@ -25,8 +25,6 @@ namespace Tesla.Common
 			b = normal.y;
 			c = normal.z;
 			d = -1.0f * (normal * p0);
-			
-			//Console.Out.WriteLine(a + "x + " + b + "y + " + c + "z + " + d);
 		}
 		
 		public Plane(Vector3f normal, Vector3f p)
@@ -35,8 +33,6 @@ namespace Tesla.Common
 			b = normal.y;
 			c = normal.z;
 			d = -1.0f * (normal * p);
-			
-			//Console.Out.WriteLine(a + "x + " + b + "y + " + c + "z + " + d);
 		}
 		
 		public Plane(float a, float b, float c, float d)
@@ -51,8 +47,14 @@ namespace Tesla.Common
 		{
 			Vector3f plane = new Vector3f(a, b, c);
 			float d = (p * plane + this.d) / plane.length();
-			Console.Out.WriteLine(d);
 			return d;
+		}
+		
+		public Vector3f mirror(Vector3f p)
+		{
+			Vector3f n = new Vector3f(a, b, c);
+			
+			return ((p * n) / n.length2()) * n;
 		}
 		
 		public float distanceToABS(Vector3f p)
@@ -63,6 +65,23 @@ namespace Tesla.Common
 		public float getY(float x, float z)
 		{
 			return ((-1.0f * a * x) + d + (-1.0f * c * z)) / b; 
+		}
+		
+		
+		public static void test()
+		{
+			Plane p0 = new Plane(0, 1, 0, 0);
+		
+			Check.AssertEquals(p0.distanceTo(new Vector3f(0.0f, 2.0f, 0.0f)), 2.0f);
+			Check.AssertEquals(p0.distanceTo(new Vector3f(0.0f, 0.0f, 0.0f)), 0.0f);
+			Check.AssertEquals(p0.distanceTo(new Vector3f(0.0f, -2.0f, 15.0f)), -2.0f);
+			
+			Check.AssertEquals(p0.mirror(new Vector3f(0.0f, -1.0f, 0.0f)), new Vector3f(0.0f, 1.0f, 0.0f));
+			
+			p0 = new Plane(1, 1, 0, 0);
+		
+			Check.AssertEquals(p0.distanceTo(new Vector3f(0.0f, 2.0f, 0.0f)), 2.0f);
+			Check.AssertEquals(p0.distanceTo(new Vector3f(0.0f, -2.0f, 15.0f)), -2.0f);
 		}
 	}
 }
