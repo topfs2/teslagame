@@ -32,7 +32,7 @@ namespace Tesla.Common
 			}
 			else
 			{
-				s = "Failed " + (s.Length > 0 ? " - " : "") + s + " " + o1.ToString() + " != " + o2.ToString();
+				s = "Failed " + (s.Length > 0 ? " - " : "") + s + " -> " + o1.ToString() + " != " + o2.ToString();
 				failed++;
 			}
 				
