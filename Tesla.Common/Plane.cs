@@ -63,11 +63,22 @@ namespace Tesla.Common
 		
 		public static void test()
 		{
-			Plane p0 = new Plane(0, 1, 0, 0);
+			stdTest("Create Plane with a, b, c, d", new Plane(0, 1, 0, 0));
+			stdTest("Create Plane with Normal and point", new Plane(new Vector3f(0, 1, 0), new Vector3f(0, 0, 0)));
+			stdTest("Create Plane with Normal and another point", new Plane(new Vector3f(0, 1, 0), new Vector3f(30, 0, 20)));
+			stdTest("Create Plane with 3 vectors", new Plane(new Vector3f(0.0f, 0.0f, 0.0f), new Vector3f(1.0f, 0.0f, 0.0f), new Vector3f(0.0f, 0.0f, -1.0f)));
+			
+			/*Plane p = new Plane(new Vector3f(1, 0, 0), new Vector3f(0, 0, 0));
+			Check.AssertEquals(p.distanceTo(new Vector3f(1.0f, 0.0f, 0.0f)), 1.0f);
+			p = new Plane(new Vector3f(1, 1, 0).Normalize(), new Vector3f(0.0f, 0.0f, 0.0f));
+			Check.AssertEquals((float)Math.Round(p.distanceTo(new Vector3f(1.0f, 1.0f, 1.0f))), 1.0f);*/
+		}
 		
-			Check.AssertEquals(p0.distanceTo(new Vector3f(0.0f, 2.0f, 0.0f)), 2.0f);
-			Check.AssertEquals(p0.distanceTo(new Vector3f(0.0f, 0.0f, 0.0f)), 0.0f);
-			Check.AssertEquals(p0.distanceTo(new Vector3f(0.0f, -2.0f, 15.0f)), -2.0f);
+		private static void stdTest(string s, Plane p)
+		{
+			Check.AssertEquals(s, p.distanceTo(new Vector3f(0.0f, 2.0f, 0.0f)), 2.0f);
+			Check.AssertEquals(s, p.distanceTo(new Vector3f(0.0f, 0.0f, 0.0f)), 0.0f);
+			Check.AssertEquals(s, p.distanceTo(new Vector3f(0.0f, -2.0f, 15.0f)), -2.0f);		
 		}
 	}
 }
