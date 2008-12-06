@@ -50,13 +50,6 @@ namespace Tesla.Common
 			return d;
 		}
 		
-		public Vector3f mirror(Vector3f p)
-		{
-			Vector3f n = new Vector3f(a, b, c);
-			
-			return ((p * n) / n.length2()) * n;
-		}
-		
 		public float distanceToABS(Vector3f p)
 		{
 			return (float)Math.Abs(distanceTo(p));
