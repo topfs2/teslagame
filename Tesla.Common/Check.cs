@@ -27,7 +27,7 @@ namespace Tesla.Common
 		{
 			if (o1.Equals(o2))
 			{
-				s = "Sucess " + (s.Length > 0 ? " - " : "") + s;
+				s = "Sucess " + (s.Length > 0 ? " - " : "") + s + " -> " + o1.ToString();
 				succeded++;
 			}
 			else

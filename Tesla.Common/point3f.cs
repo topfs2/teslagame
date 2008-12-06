@@ -149,7 +149,7 @@ namespace Tesla.Common
 		}
 		
 		public Vector3f Normalize()
-		{			
+		{
 			return divides(length());
 		}
 		
