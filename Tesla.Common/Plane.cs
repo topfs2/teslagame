@@ -75,13 +75,6 @@ namespace Tesla.Common
 			Check.AssertEquals(p0.distanceTo(new Vector3f(0.0f, 2.0f, 0.0f)), 2.0f);
 			Check.AssertEquals(p0.distanceTo(new Vector3f(0.0f, 0.0f, 0.0f)), 0.0f);
 			Check.AssertEquals(p0.distanceTo(new Vector3f(0.0f, -2.0f, 15.0f)), -2.0f);
-			
-			Check.AssertEquals(p0.mirror(new Vector3f(0.0f, -1.0f, 0.0f)), new Vector3f(0.0f, 1.0f, 0.0f));
-			
-			p0 = new Plane(1, 1, 0, 0);
-		
-			Check.AssertEquals(p0.distanceTo(new Vector3f(0.0f, 2.0f, 0.0f)), 2.0f);
-			Check.AssertEquals(p0.distanceTo(new Vector3f(0.0f, -2.0f, 15.0f)), -2.0f);
 		}
 	}
 }
