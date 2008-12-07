@@ -181,10 +181,13 @@ namespace Tesla.Common
 //          a × b = (1,2,3) × (4,5,6) = ((2×6 - 3×5), (3×4 - 1×6), (1×5 - 2×4)) = (-3,6,-3). 
 			float u1, u2, u3;
 			u1 = y * b.z - z * b.y;
-			u2 = x * b.z - z * b.x;
+			u2 = z * b.x - x * b.z;
 			u3 = x * b.y - y * b.x;
 
-			return new Vector3f(u1, 0-u2, u3);
+			Vector3f v = new Vector3f(u1, u2, u3);
+//			Console.Out.WriteLine(this.ToString() + "x" + b.ToString() + " = " + v.ToString()); 
+
+			return v;
 		}
 		
 		public static void Lerp(ref Vector3f value1, ref Vector3f value2, float amount, out Vector3f result)
