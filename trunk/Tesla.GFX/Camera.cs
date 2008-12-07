@@ -92,7 +92,7 @@ namespace Tesla.GFX
 			
 			//Rotate viewdir around the up vector:
 			frontVector = frontVector * (float)Math.Cos(angle*PIdiv180) + rightVector*(float)Math.Sin(angle*PIdiv180);
-			//frontVector.Normalize();
+			frontVector.Normalize();
 
 			Vector3f up;
 			if (Full3D)
@@ -101,7 +101,7 @@ namespace Tesla.GFX
 				up = new Vector3f(0.0f, 1.0f, 0.0f);
 
 			//now compute the new RightVector (by cross product)
-			rightVector = frontVector.Cross(up) * -1;
+			rightVector = up.Cross(frontVector);
 		}
 
 		public void rotateZ (float angle)
@@ -214,7 +214,7 @@ namespace Tesla.GFX
 			v0 = new Vector3f((float)Math.Round(v0.x,r), (float)Math.Round(v0.y,r), (float)Math.Round(v0.z,r));
 			Check.AssertEquals(v0,  new Vector3f(-1.0f, 0.0f, 0.0f));
 			
-			c.stepSideway(1.0f);
+			                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      c.stepSideway(1.0f);
 			Check.AssertEquals(c.getPosition(), new Vector3f(0.0f, 1.0f, 1.0f));
 			
 			c.rotateY(180);
