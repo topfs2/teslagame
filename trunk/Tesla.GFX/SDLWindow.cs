@@ -119,17 +119,17 @@ namespace Tesla.GFX
 			if (keyState[Sdl.SDLK_RIGHT] > 0)
 				camera.rotateY( rotate);
 			if (keyState[Sdl.SDLK_a] > 0)
-				camera.stepSideway(-motion);
-			if (keyState[Sdl.SDLK_d] > 0)
 				camera.stepSideway( motion);
+			if (keyState[Sdl.SDLK_d] > 0)
+				camera.stepSideway(-motion);
 			if (keyState[Sdl.SDLK_w] > 0)
 				camera.stepForward( motion);
 			if (keyState[Sdl.SDLK_s] > 0)
 				camera.stepForward(-motion);
 			if (keyState[Sdl.SDLK_r] > 0)
-				camera.stepUp( motion);
-			if (keyState[Sdl.SDLK_f] > 0)
 				camera.stepUp(-motion);
+			if (keyState[Sdl.SDLK_f] > 0)
+				camera.stepUp( motion);
 		}
 		
 		public bool Update(float frameTime)
@@ -149,8 +149,8 @@ namespace Tesla.GFX
 			if (frameTime > 0.0f && (alwaysUpdateMouse || (dx > 0 || dx < 0 || dy > 0 || dy < 0)))
 			{
 				float sensativity = 10.0f;
-				camera.rotateX(-dy * frameTime * sensativity);
-				camera.rotateY(dx * frameTime * sensativity);
+				camera.rotateX(dy * frameTime * sensativity);
+				camera.rotateY(-dx * frameTime * sensativity);
 				Sdl.SDL_WarpMouse((short)centerX, (short)centerY);
 			}
 			
