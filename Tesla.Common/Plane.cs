@@ -50,6 +50,12 @@ namespace Tesla.Common
 			return d;
 		}
 		
+		public float distanceTo2(Vector3f p)
+		{
+			float d = distanceTo(p);
+			return d*d;
+		}
+		
 		public float distanceToABS(Vector3f p)
 		{
 			return (float)Math.Abs(distanceTo(p));
@@ -60,6 +66,15 @@ namespace Tesla.Common
 			return ((-1.0f * a * x) + d + (-1.0f * c * z)) / b; 
 		}
 		
+		public Vector3f getNormal()
+		{
+			return new Vector3f(a, b, c).Normalize();
+		}
+		
+		public override String ToString()
+		{
+			return a.ToString() + "x + " + b.ToString() + "y + " + c.ToString() + "z + " + d.ToString() + " = 0";
+		}
 		
 		public static void test()
 		{
@@ -68,17 +83,20 @@ namespace Tesla.Common
 			stdTest("Create Plane with Normal and another point", new Plane(new Vector3f(0, 1, 0), new Vector3f(30, 0, 20)));
 			stdTest("Create Plane with 3 vectors", new Plane(new Vector3f(0.0f, 0.0f, 0.0f), new Vector3f(1.0f, 0.0f, 0.0f), new Vector3f(0.0f, 0.0f, -1.0f)));
 			
-			/*Plane p = new Plane(new Vector3f(1, 0, 0), new Vector3f(0, 0, 0));
-			Check.AssertEquals(p.distanceTo(new Vector3f(1.0f, 0.0f, 0.0f)), 1.0f);
-			p = new Plane(new Vector3f(1, 1, 0).Normalize(), new Vector3f(0.0f, 0.0f, 0.0f));
-			Check.AssertEquals((float)Math.Round(p.distanceTo(new Vector3f(1.0f, 1.0f, 1.0f))), 1.0f);*/
+			Vector3f v = new Vector3f(1.0f, 1.0f, 1.0f).Normalize();
+			Plane p = new Plane(v.x, v.y, v.z, 0);
+			Check.AssertEquals(p.ToString(), p.distanceTo(new Vector3f(0.0f, 0.0f, 0.0f)), 0.0f);
+			p = new Plane(v.x, v.y, v.z, 2);
+			Check.AssertEquals(p.ToString(), p.distanceTo(new Vector3f(0.0f, 0.0f, 0.0f)).ToString(), 2.0f.ToString());
+			p = new Plane(v.x, v.y, v.z, -2);
+			Check.AssertEquals(p.ToString(), p.distanceTo(new Vector3f(0.0f, 0.0f, 0.0f)).ToString(), (-2.0f).ToString());
 		}
 		
 		private static void stdTest(string s, Plane p)
 		{
 			Check.AssertEquals(s, p.distanceTo(new Vector3f(0.0f, 2.0f, 0.0f)), 2.0f);
 			Check.AssertEquals(s, p.distanceTo(new Vector3f(0.0f, 0.0f, 0.0f)), 0.0f);
-			Check.AssertEquals(s, p.distanceTo(new Vector3f(0.0f, -2.0f, 15.0f)), -2.0f);		
+			Check.AssertEquals(s, p.distanceTo(new Vector3f(0.0f, -2.0f, 15.0f)), -2.0f);	
 		}
 	}
 }

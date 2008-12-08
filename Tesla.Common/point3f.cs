@@ -239,6 +239,9 @@ namespace Tesla.Common
 			v0 = new Vector3f(1.0f, 0.0f, 0.0f);
 			v1 = new Vector3f(0.0f, 0.0f, -1.0f);
 			Check.AssertEquals(v0.ToString() + "x" + v1.ToString(), v0.Cross(v1), new Vector3f(0.0f, 1.0f, 0.0f));
+			
+			Check.AssertEquals(new Vector3f(1.0f, 1.0f, 1.0f) * 2.0f, new Vector3f(2.0f, 2.0f, 2.0f));
+			Check.AssertEquals(new Vector3f(1.0f, 1.0f, 1.0f) * new Vector3f(0.0f, 0.0f, 0.0f), 0.0f);
 		}
 	}
 }
