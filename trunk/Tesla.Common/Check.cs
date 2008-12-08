@@ -27,12 +27,12 @@ namespace Tesla.Common
 		{
 			if (o1.Equals(o2))
 			{
-				s = "Sucess " + (s.Length > 0 ? " - " : "") + s + " -> " + o1.ToString();
+				s = "Sucess" + (s.Length > 0 ? ":\t" : "\t") + s + " => " + o1.ToString();
 				succeded++;
 			}
 			else
 			{
-				s = "Failed " + (s.Length > 0 ? " - " : "") + s + " -> " + o1.ToString() + " != " + o2.ToString();
+				s = "Failed" + (s.Length > 0 ? ":\t" : "\t") + s + " => " + o1.ToString() + " != " + o2.ToString();
 				failed++;
 			}
 				
