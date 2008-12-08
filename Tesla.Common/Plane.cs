@@ -14,10 +14,10 @@ namespace Tesla.Common
 	{
 		public float a, b, c, d;	
 		
-		public Plane(Vector3f p0, Vector3f p1, Vector3f p2)
+		public Plane(Vector3f p0, Vector3f p0A, Vector3f p0B)
 		{
-			Vector3f vecA = p1 - p0;
-			Vector3f vecB = p2 - p0;
+			Vector3f vecA = p0A - p0;
+			Vector3f vecB = p0B - p0;
 			Vector3f normal = vecA.Cross(vecB);
 			normal.Normalize();
 			
