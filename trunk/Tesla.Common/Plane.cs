@@ -76,12 +76,21 @@ namespace Tesla.Common
 			return a.ToString() + "x + " + b.ToString() + "y + " + c.ToString() + "z + " + d.ToString() + " = 0";
 		}
 		
+		public override bool Equals (object o)
+		{
+			Plane p = (Plane)o;
+			return p.a == a && p.b == b && p.c == c && p.d == d; 
+		}
+
+		
 		public static void test()
 		{
 			stdTest("Create Plane with a, b, c, d", new Plane(0, 1, 0, 0));
 			stdTest("Create Plane with Normal and point", new Plane(new Vector3f(0, 1, 0), new Vector3f(0, 0, 0)));
 			stdTest("Create Plane with Normal and another point", new Plane(new Vector3f(0, 1, 0), new Vector3f(30, 0, 20)));
 			stdTest("Create Plane with 3 vectors", new Plane(new Vector3f(0.0f, 0.0f, 0.0f), new Vector3f(1.0f, 0.0f, 0.0f), new Vector3f(0.0f, 0.0f, -1.0f)));
+			
+			Check.AssertEquals(new Plane(0, 0, 0, 0), new Plane(0, 0, 0, 0));
 			
 			Vector3f v = new Vector3f(1.0f, 1.0f, 1.0f).Normalize();
 			Plane p = new Plane(v.x, v.y, v.z, 0);
