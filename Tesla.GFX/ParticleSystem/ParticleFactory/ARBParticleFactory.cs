@@ -111,5 +111,10 @@ namespace Tesla.GFX
 			
 			return new ARBParticle(emitterPosition.copy(), velocity, gravity, color, particleLife, size);
 		}
+		
+		public float getRange()
+		{
+			return maximumInitialVelocity.length() * maximumParticleLife;
+		}
 	}
 }

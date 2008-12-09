@@ -13,5 +13,7 @@ namespace Tesla.GFX
 	public interface ParticleEmitter : Controller
 	{
 		Particle emit(ParticleFactory particleFactory);
+		
+		Vector3f getPosition();
 	}
 }
