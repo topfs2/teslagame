@@ -87,35 +87,17 @@ namespace Tesla.GFX
 		public bool pointInFrustum(Vector3f position)
 		{
 			if (left.distanceTo(position) < 0)
-			{
-				Console.Out.WriteLine("left failed " + position.ToString() + " with d=" + left.distanceTo(position));
-				return false;				
-			}
+				return false;
 			if (top.distanceTo(position) < 0)
-			{
-				Console.Out.WriteLine("top failed " + position.ToString() + " with d=" + top.distanceTo(position));
-				return false;				
-			}
+				return false;
 			if (right.distanceTo(position) < 0)
-			{
-				Console.Out.WriteLine("right failed " + position.ToString() + " with d=" + right.distanceTo(position));
-				return false;				
-			}
+				return false;
 			if (bottom.distanceTo(position) < 0)
-			{
-				Console.Out.WriteLine("bottom failed " + position.ToString() + " with d=" + bottom.distanceTo(position));
-				return false;				
-			}
+				return false;
 			if (far.distanceTo(position) < 0)
-			{
-				Console.Out.WriteLine("far failed " + position.ToString() + " with d=" + far.distanceTo(position));
-				return false;				
-			}
+				return false;
 			if (near.distanceTo(position) < 0)
-			{
-				Console.Out.WriteLine("near failed " + position.ToString() + " with d=" + near.distanceTo(position));
-				return false;				
-			}
+				return false;
 				
 			return true;
 		}

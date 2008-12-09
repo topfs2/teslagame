@@ -184,10 +184,7 @@ namespace Tesla.Common
 			u2 = z * b.x - x * b.z;
 			u3 = x * b.y - y * b.x;
 
-			Vector3f v = new Vector3f(u1, u2, u3);
-//			Console.Out.WriteLine(this.ToString() + "x" + b.ToString() + " = " + v.ToString()); 
-
-			return v;
+			return new Vector3f(u1, u2, u3);
 		}
 		
 		public static void Lerp(ref Vector3f value1, ref Vector3f value2, float amount, out Vector3f result)
