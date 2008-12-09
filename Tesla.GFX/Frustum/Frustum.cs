@@ -63,13 +63,15 @@ namespace Tesla.GFX
 			fbl = fc - Y * farHeight - X * farWidth;
 			fbr = fc - Y * farHeight + X * farWidth;
 
-			this.far    = new Plane(Z * -1.0f, fc);
-			this.near   = new Plane(Z, nc);
-			
-			this.left   = new Plane(p, fbl, ftl);
 			this.right  = new Plane(p, ftr, fbr);
-			this.top    = new Plane(p, ftr, ftl);
-			this.bottom = new Plane(p, fbl, fbr);
+			this.left   = new Plane(p, fbl, ftl);
+			
+			this.top    = new Plane(p, ftl, ftr);
+			this.bottom = new Plane(p, fbr, fbl);
+			
+			this.far    = new Plane(ftr, ftl, fbr);
+			this.near   = new Plane(ntl, ntr, nbl);
+			
 
 			// compute the six planes
 			// the function set3Points assumes that the points
@@ -86,32 +88,32 @@ namespace Tesla.GFX
 		{
 			if (left.distanceTo(position) < 0)
 			{
-				Console.Out.WriteLine(position.ToString());
+				Console.Out.WriteLine("left failed " + position.ToString() + " with d=" + left.distanceTo(position));
 				return false;				
 			}
 			if (top.distanceTo(position) < 0)
 			{
-				Console.Out.WriteLine(position.ToString() + " - " + top.a + "x + " + top.b + "y + " + top.c + "z + " + top.d);
+				Console.Out.WriteLine("top failed " + position.ToString() + " with d=" + top.distanceTo(position));
 				return false;				
 			}
 			if (right.distanceTo(position) < 0)
 			{
-				Console.Out.WriteLine(position.ToString());
+				Console.Out.WriteLine("right failed " + position.ToString() + " with d=" + right.distanceTo(position));
 				return false;				
 			}
 			if (bottom.distanceTo(position) < 0)
 			{
-				Console.Out.WriteLine(position.ToString());
+				Console.Out.WriteLine("bottom failed " + position.ToString() + " with d=" + bottom.distanceTo(position));
 				return false;				
 			}
 			if (far.distanceTo(position) < 0)
 			{
-				Console.Out.WriteLine(position.ToString());
+				Console.Out.WriteLine("far failed " + position.ToString() + " with d=" + far.distanceTo(position));
 				return false;				
 			}
 			if (near.distanceTo(position) < 0)
 			{
-				Console.Out.WriteLine(position.ToString());
+				Console.Out.WriteLine("near failed " + position.ToString() + " with d=" + near.distanceTo(position));
 				return false;				
 			}
 				
@@ -171,6 +173,25 @@ namespace Tesla.GFX
 			Gl.glVertex3fv(nbr.vector);
 			Gl.glVertex3fv(nbl.vector);
 			Gl.glEnd();
+		}
+		
+		public static void test()
+		{
+			Camera c = new Camera(new Vector3f(0.0f, 0.0f, 0.0f), 90.0f, 1.0f, 1.0f, 10.0f);
+			Frustum f = new Frustum(c);
+			Check.AssertEquals(f.fc, new Vector3f(0.0f, 0.0f, -10.0f));
+			Check.AssertEquals(f.fbl, new Vector3f(-10.0f,-10.0f, -10.0f));
+			Check.AssertEquals(f.fbr, new Vector3f( 10.0f,-10.0f, -10.0f));
+			Check.AssertEquals(f.ftl, new Vector3f(-10.0f, 10.0f, -10.0f));
+			Check.AssertEquals(f.ftr, new Vector3f( 10.0f, 10.0f, -10.0f));
+
+			Check.AssertEquals("Testing p", f.pointInFrustum(new Vector3f(0.0f, 0.0f, -5.0f)), true);
+			Check.AssertEquals(f.pointInFrustum(new Vector3f(10.0f, 10.0f, -10.0f)), true);
+			Check.AssertEquals(f.pointInFrustum(new Vector3f(1.0f, 1.0f, -1.0f)), true);
+			
+			Check.AssertEquals(f.pointInFrustum(new Vector3f(0.0f, 0.0f, 0.0f)), false);
+			Check.AssertEquals(f.pointInFrustum(new Vector3f(0.0f, 0.0f, 20.0f)), false);
+			Check.AssertEquals(f.pointInFrustum(new Vector3f(-20.0f, -20.0f, 20.0f)), false);
 		}
 	}
 }
