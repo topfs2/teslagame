@@ -84,6 +84,7 @@ namespace Tesla.GFX
 
 			//now compute the new UpVector (by cross product)
 			upVector = rightVector.Cross(frontVector);
+			upVector.Normalize();
 		}
 
 		public void rotateY (float angle)
@@ -102,6 +103,7 @@ namespace Tesla.GFX
 
 			//now compute the new RightVector (by cross product)
 			rightVector = frontVector.Cross(up);
+			rightVector.Normalize();
 		}
 
 		public void rotateZ (float angle)
@@ -110,9 +112,11 @@ namespace Tesla.GFX
 			
 			//Rotate viewdir around the right vector:
 			rightVector = rightVector*(float)Math.Cos(angle*PIdiv180) + upVector*(float)Math.Sin(angle*PIdiv180);
+			rightVector.Normalize();
 
 			//now compute the new UpVector (by cross product)
 			upVector = rightVector.Cross(frontVector);
+			upVector.Normalize();
 		}
 		
 		public void stepForward(float step)
