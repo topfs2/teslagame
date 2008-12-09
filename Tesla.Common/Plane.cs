@@ -19,7 +19,6 @@ namespace Tesla.Common
 			Vector3f vecA = p0A - p0;
 			Vector3f vecB = p0B - p0;
 			Vector3f normal = vecA.Cross(vecB);
-			normal.Normalize();
 			
 			a = normal.x;
 			b = normal.y;
@@ -99,6 +98,13 @@ namespace Tesla.Common
 			Check.AssertEquals(p.ToString(), p.distanceTo(new Vector3f(0.0f, 0.0f, 0.0f)).ToString(), 2.0f.ToString());
 			p = new Plane(v.x, v.y, v.z, -2);
 			Check.AssertEquals(p.ToString(), p.distanceTo(new Vector3f(0.0f, 0.0f, 0.0f)).ToString(), (-2.0f).ToString());
+			
+			p = new Plane(new Vector3f(0.0f, 0.0f, 0.0f), new Vector3f( 10.0f, -10.0f, 10.0f), new Vector3f(5.0f, 10.0f, 10.0f));
+
+			Check.AssertEquals(p.distanceTo(new Vector3f(0.0f, 0.0f, 0.0f)), 0.0f);
+			Check.AssertEquals(p.distanceTo(new Vector3f(5.0f, 10.0f, 10.0f)), 0.0f);
+			Check.AssertEquals(p.distanceTo(new Vector3f(10.0f, -10.0f, 10.0f)), 0.0f);
+			Check.AssertEquals(p.distanceTo(new Vector3f(0.0f, 0.0f, 5.0f)) >= 0 , true);
 		}
 		
 		private static void stdTest(string s, Plane p)
