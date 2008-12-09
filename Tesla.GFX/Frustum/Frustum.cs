@@ -17,7 +17,7 @@ namespace Tesla.GFX
 	public class Frustum : Drawable
 	{
 		Plane left, top, right, bottom, far, near;
-		Camera cam;
+		Camera camera;
 		float nearWidth, nearHeight, farWidth, farHeight;
 	
 		/* DEBUG */
@@ -28,7 +28,7 @@ namespace Tesla.GFX
 		
 		public Frustum(Camera camera)
 		{
-			this.cam = camera;
+			this.camera = camera;
 			//this.camera = camera;
 			// compute width and height of the near and far plane sections
 			float tang = (float)Math.Tan(ANG2RAD * camera.POV * 0.5) ;
@@ -36,10 +36,10 @@ namespace Tesla.GFX
 			nearWidth  = nearHeight  * camera.Ratio; 
 			farHeight  = camera.Far  * tang;
 			farWidth   = farHeight   * camera.Ratio;
-			calculateFrustum(camera);
+			calculateFrustum();
 		}
 		
-		public void calculateFrustum(Camera camera)
+		public void calculateFrustum()
 		{
 			Vector3f p = camera.getPosition().copy();
 			//Point3f ftl, ftr, fbl, fbr, ntl, ntr, nbl, nbr;
@@ -84,7 +84,25 @@ namespace Tesla.GFX
 			pl[FARP].set3Points(ftr,ftl,fbl);*/
 		}
 		
-		public bool pointInFrustum(Vector3f position)
+		public bool inFrustum(Sphere sphere)
+		{
+			if (left.distanceTo(sphere.position) < -sphere.radius)
+				return false;
+			if (right.distanceTo(sphere.position) < -sphere.radius)
+				return false;
+			if (top.distanceTo(sphere.position) < -sphere.radius)
+				return false;
+			if (bottom.distanceTo(sphere.position) < -sphere.radius)
+				return false;
+			if (far.distanceTo(sphere.position) < -sphere.radius)
+				return false;
+			if (near.distanceTo(sphere.position) < -sphere.radius)
+				return false;
+				
+			return true;
+		}
+		
+		public bool inFrustum(Vector3f position)
 		{
 			if (left.distanceTo(position) < 0)
 				return false;
@@ -102,17 +120,19 @@ namespace Tesla.GFX
 			return true;
 		}
 		
+		
+		
 		public void Draw (float frameTime, Frustum frustum)
 		{		
 			Gl.glDisable(Gl.GL_TEXTURE_2D);
 			Gl.glDisable(Gl.GL_LIGHTING);
 			Gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 			Gl.glBegin(Gl.GL_TRIANGLES);
-			Gl.glVertex3fv(cam.getPosition().vector);
+			Gl.glVertex3fv(camera.getPosition().vector);
 			Gl.glVertex3fv(fbl.vector);
 			Gl.glVertex3fv(fbr.vector);
 			
-			Gl.glVertex3fv(cam.getPosition().vector);
+			Gl.glVertex3fv(camera.getPosition().vector);
 			Gl.glVertex3fv(ftr.vector);
 			Gl.glVertex3fv(ftl.vector);
 			Gl.glEnd();
@@ -138,8 +158,8 @@ namespace Tesla.GFX
 			Gl.glVertex3f(bottom.a + fc.x, bottom.b + fc.y, bottom.c + fc.z);
 			
 			Gl.glColor3f(1.0f, 1.0f, 1.0f);
-			Gl.glVertex3fv(cam.getPosition().vector);
-			Gl.glVertex3fv((cam.getPosition() + cam.getFrontVector()*cam.Far).vector);
+			Gl.glVertex3fv(camera.getPosition().vector);
+			Gl.glVertex3fv((camera.getPosition() + camera.getFrontVector()*camera.Far).vector);
 			
 			Gl.glEnd();
 			
@@ -167,13 +187,13 @@ namespace Tesla.GFX
 			Check.AssertEquals(f.ftl, new Vector3f(-10.0f, 10.0f, -10.0f));
 			Check.AssertEquals(f.ftr, new Vector3f( 10.0f, 10.0f, -10.0f));
 
-			Check.AssertEquals("Testing p", f.pointInFrustum(new Vector3f(0.0f, 0.0f, -5.0f)), true);
-			Check.AssertEquals(f.pointInFrustum(new Vector3f(10.0f, 10.0f, -10.0f)), true);
-			Check.AssertEquals(f.pointInFrustum(new Vector3f(1.0f, 1.0f, -1.0f)), true);
+			Check.AssertEquals("Testing p", f.inFrustum(new Vector3f(0.0f, 0.0f, -5.0f)), true);
+			Check.AssertEquals(f.inFrustum(new Vector3f(10.0f, 10.0f, -10.0f)), true);
+			Check.AssertEquals(f.inFrustum(new Vector3f(1.0f, 1.0f, -1.0f)), true);
 			
-			Check.AssertEquals(f.pointInFrustum(new Vector3f(0.0f, 0.0f, 0.0f)), false);
-			Check.AssertEquals(f.pointInFrustum(new Vector3f(0.0f, 0.0f, 20.0f)), false);
-			Check.AssertEquals(f.pointInFrustum(new Vector3f(-20.0f, -20.0f, 20.0f)), false);
+			Check.AssertEquals(f.inFrustum(new Vector3f(0.0f, 0.0f, 0.0f)), false);
+			Check.AssertEquals(f.inFrustum(new Vector3f(0.0f, 0.0f, 20.0f)), false);
+			Check.AssertEquals(f.inFrustum(new Vector3f(-20.0f, -20.0f, 20.0f)), false);
 		}
 	}
 }
