@@ -27,6 +27,8 @@ namespace Tesla.GFX
 		ParticleEmitter particleEmitter;
 		ParticleFactory particleFactory;
 		
+		Sphere boundingSphere;
+		
 		private int CompareParticlesAgainstCamera(Particle x, Particle y)
 		{
 			Vector3f tmp1 = activeCamera.getPosition().copy();
@@ -50,6 +52,8 @@ namespace Tesla.GFX
 			listCollisionSurfaces = new List<CollisionSurface>();
 			listManipulators = new List<Manipulator>();
 			this.activeCamera = activeCamera;
+			
+			boundingSphere = new Sphere(particleEmitter.getPosition(), particleFactory.getRange());
 		}
 		
 		public void Draw(float frameTime, Frustum frustum)
@@ -113,10 +117,13 @@ namespace Tesla.GFX
 		{
 			particleFactory.preDraw();
 			int i = 0, j = 0;
-	        foreach (Particle p in listParticles)
-	        {
-				if (frustum.inFrustum(p.position))
-					p.Draw(activeCamera, frameTime);
+			if (frustum.inFrustum(boundingSphere))
+			{
+		        foreach (Particle p in listParticles)
+		        {
+					if (frustum.inFrustum(p.position))
+						p.Draw(activeCamera, frameTime);
+				}
 	        }
 		    particleFactory.postDraw();
 		}

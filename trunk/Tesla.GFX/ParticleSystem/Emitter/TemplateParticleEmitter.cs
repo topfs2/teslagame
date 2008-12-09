@@ -33,5 +33,10 @@ namespace Tesla.GFX
 		{
 			return active;
 		}
+		
+		public Vector3f getPosition()
+		{
+			return position.copy();
+		}
 	}
 }
