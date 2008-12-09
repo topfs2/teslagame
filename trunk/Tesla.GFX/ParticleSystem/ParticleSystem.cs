@@ -55,7 +55,7 @@ namespace Tesla.GFX
 		public void Draw(float frameTime, Frustum frustum)
 		{
 			updateParticles(frameTime);
-			drawParticles(frameTime);
+			drawParticles(frameTime, frustum);
 			
 			if (!endlessLife)
 				emitterLife -= frameTime;
@@ -109,12 +109,14 @@ namespace Tesla.GFX
 			//listParticles.Sort(CompareParticlesAgainstCamera);
 		}
 		
-		public void drawParticles(float frameTime)
+		public void drawParticles(float frameTime, Frustum frustum)
 		{
 			particleFactory.preDraw();
+			int i = 0, j = 0;
 	        foreach (Particle p in listParticles)
 	        {
-				p.Draw(activeCamera, frameTime);
+				if (frustum.inFrustum(p.position))
+					p.Draw(activeCamera, frameTime);
 	        }
 		    particleFactory.postDraw();
 		}

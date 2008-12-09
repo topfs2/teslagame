@@ -216,6 +216,7 @@ namespace Tesla.GFX
                 Gl.glLoadIdentity();
                 Glu.gluPerspective(45.0f, Width / (float)Height, 0.1f, 2000.0f);
                 camera = new Camera(new Vector3f(0.0f, 0.0f, 0.0f), 45.0f, (float)Width / (float)Height, 0.1f, 2000.0f);
+                frustum = new Frustum(camera);
                 Gl.glMatrixMode(Gl.GL_MODELVIEW);
                 Gl.glLoadIdentity();
                 
@@ -229,8 +230,6 @@ namespace Tesla.GFX
                 Log.Write("OpenGL: " + Gl.glGetString(error), LogType.CriticalError);
 		    }
 	    }
-	    
-	    private Camera testCamera;
 	    
 	    public void Add(DrawMethod drawMethod)
 	    {
@@ -271,6 +270,8 @@ namespace Tesla.GFX
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
 			Gl.glLoadIdentity();
 			camera.setCamera();
+			frustum.calculateFrustum();
+			
 			if (skyBox != null)
 				skyBox.Draw(camera.getPosition());
 
