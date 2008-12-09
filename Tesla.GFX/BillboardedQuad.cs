@@ -48,6 +48,8 @@ namespace Tesla.GFX
 		public void Draw (float frameTime, Frustum frustum)
 		{
 			Gl.glEnable(Gl.GL_BLEND);
+			Gl.glColor3f(1.0f, 1.0f, 1.0f);
+			Gl.glDisable(Gl.GL_LIGHTING);
 			Gl.glTranslatef(position.x, position.y, position.z);
 			Gl.glScalef(size.x, size.y, 1.0f);
 			texture.Bind();
