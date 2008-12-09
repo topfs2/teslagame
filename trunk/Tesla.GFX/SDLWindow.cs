@@ -149,7 +149,8 @@ namespace Tesla.GFX
 			if (frameTime > 0.0f && (alwaysUpdateMouse || (dx > 0 || dx < 0 || dy > 0 || dy < 0)))
 			{
 				float sensativity = 10.0f;
-				camera.rotateX(dy * frameTime * sensativity);
+				bool invertMouse = false;
+				camera.rotateX((invertMouse ? 1.0f : -1.0f ) * dy * frameTime * sensativity);
 				camera.rotateY(dx * frameTime * sensativity);
 				Sdl.SDL_WarpMouse((short)centerX, (short)centerY);
 			}
