@@ -44,7 +44,7 @@ namespace Tesla.GFX
 			this.position = position;
 			lookAt = new Vector3f(0.0f, 0.0f, 0.0f);
 			
-			frontVector = new Vector3f(0.0f, 0.0f, 1.0f);
+			frontVector = new Vector3f(0.0f, 0.0f, -1.0f);
 			rightVector = new Vector3f(1.0f, 0.0f, 0.0f);
 			upVector    = new Vector3f(0.0f, 1.0f, 0.0f);
 			calculateLookAtPosition = true;
@@ -101,7 +101,7 @@ namespace Tesla.GFX
 				up = new Vector3f(0.0f, 1.0f, 0.0f);
 
 			//now compute the new RightVector (by cross product)
-			rightVector = up.Cross(frontVector);
+			rightVector = frontVector.Cross(up);
 		}
 
 		public void rotateZ (float angle)
@@ -121,8 +121,10 @@ namespace Tesla.GFX
 		}
 		
 		public void stepSideway(float step)
-		{System.Console.Out.WriteLine(rightVector.ToString() + "*" + step + "=" + (rightVector * step).ToString());
+		{	System.Console.Out.Write(position.ToString());
 			position.add(rightVector * step);
+			Console.Out.Write(position.ToString() + "\n");
+			//Console.Out.Flush();
 		}
 		
 		public void stepUp(float step)
@@ -193,34 +195,34 @@ namespace Tesla.GFX
 		public static void test()
 		{
 			Camera c = new Camera(new Vector3f(0.0f, 0.0f, 0.0f), 45.0f, 1.3333f, 0.1f, 100.0f);
-			Check.AssertEquals(c.getFrontVector(), 	new Vector3f(0.0f, 0.0f, 1.0f));
+			Check.AssertEquals(c.getFrontVector(), 	new Vector3f(0.0f, 0.0f, -1.0f));
 			Check.AssertEquals(c.getUpVector(),		new Vector3f(0.0f, 1.0f, 0.0f));
 			Check.AssertEquals(c.getRightVector(),  new Vector3f(1.0f, 0.0f, 0.0f));
 			Check.AssertEquals(c.getPosition(), new Vector3f(0.0f, 0.0f, 0.0f));
 			
 			c.stepForward(1.0f);
-			Check.AssertEquals(c.getPosition(), new Vector3f(0.0f, 0.0f, 1.0f));
+			Check.AssertEquals(c.getPosition(), new Vector3f(0.0f, 0.0f, -1.0f));
 			c.stepSideway(1.0f);
-			Check.AssertEquals(c.getPosition(), new Vector3f(1.0f, 0.0f, 1.0f));
+			Check.AssertEquals(c.getPosition(), new Vector3f(1.0f, 0.0f, -1.0f));
 			c.stepUp(1.0f);
-			Check.AssertEquals(c.getPosition(), new Vector3f(1.0f, 1.0f, 1.0f));
+			Check.AssertEquals(c.getPosition(), new Vector3f(1.0f, 1.0f, -1.0f));
 			
 			int r = 7;
 			c.rotateY(180);
 			Vector3f v0 = c.getFrontVector();
 			v0 = new Vector3f((float)Math.Round(v0.x,r), (float)Math.Round(v0.y,r), (float)Math.Round(v0.z,r));
-			Check.AssertEquals(v0, new Vector3f(0.0f, 0.0f, -1.0f));
+			Check.AssertEquals("Testing frontvector after rotate", v0, new Vector3f(0.0f, 0.0f, 1.0f));
 			v0 = c.getRightVector();
 			v0 = new Vector3f((float)Math.Round(v0.x,r), (float)Math.Round(v0.y,r), (float)Math.Round(v0.z,r));
-			Check.AssertEquals(v0,  new Vector3f(-1.0f, 0.0f, 0.0f));
+			Check.AssertEquals("Testing rightvector after rotate", v0,  new Vector3f(-1.0f, 0.0f, 0.0f));
 			
 			                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      c.stepSideway(1.0f);
-			Check.AssertEquals(c.getPosition(), new Vector3f(0.0f, 1.0f, 1.0f));
+			Check.AssertEquals("Testing position after rotate", c.getPosition(), new Vector3f(0.0f, 1.0f, -1.0f));
 			
 			c.rotateY(180);
 			v0 = c.getFrontVector();
 			v0 = new Vector3f((float)Math.Round(v0.x,r), (float)Math.Round(v0.y,r), (float)Math.Round(v0.z,r));
-			Check.AssertEquals(v0, 	new Vector3f(0.0f, 0.0f, 1.0f));
+			Check.AssertEquals(v0, 	new Vector3f(0.0f, 0.0f, -1.0f));
 			v0 = c.getRightVector();
 			v0 = new Vector3f((float)Math.Round(v0.x,r), (float)Math.Round(v0.y,r), (float)Math.Round(v0.z,r));
 			Check.AssertEquals(v0,  new Vector3f(1.0f, 0.0f, 0.0f));
