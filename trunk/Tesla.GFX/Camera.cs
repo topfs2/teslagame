@@ -121,10 +121,8 @@ namespace Tesla.GFX
 		}
 		
 		public void stepSideway(float step)
-		{	System.Console.Out.Write(position.ToString());
+		{
 			position.add(rightVector * step);
-			Console.Out.Write(position.ToString() + "\n");
-			//Console.Out.Flush();
 		}
 		
 		public void stepUp(float step)
