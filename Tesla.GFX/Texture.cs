@@ -25,9 +25,6 @@ namespace Tesla.GFX
 		private static System.Collections.Generic.Dictionary<int, Texture> LoadedTextures = new System.Collections.Generic.Dictionary<int,Texture>();
 		private int TextureIndex;
 		
-		private int ImageWidth;
-		private int ImageHeight;
-		
 		private Texture(Bitmap image, TextureFilter textureFilter, int wrapMode)
 		{
 			image.RotateFlip(RotateFlipType.Rotate90FlipNone);
