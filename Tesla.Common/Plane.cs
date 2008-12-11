@@ -81,6 +81,11 @@ namespace Tesla.Common
 			return p.a == a && p.b == b && p.c == c && p.d == d; 
 		}
 
+        public override int GetHashCode()
+        {
+            float[] points = new float[] { a, b, c, d };
+            return points.GetHashCode();
+        }
 		
 		public static void test()
 		{
