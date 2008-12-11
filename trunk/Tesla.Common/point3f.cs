@@ -61,7 +61,7 @@ namespace Tesla.Common
 		public Vector3f divides(float lower)
 		{
 			if (lower == 0.0f)
-				throw new DivideByZeroException("Can´t divide with zero");
+				throw new DivideByZeroException("Can't divide with zero");
 			x /= lower;
 			y /= lower;
 			z /= lower;
@@ -212,6 +212,12 @@ namespace Tesla.Common
 			else
 				return false;
 		}
+
+        public override int GetHashCode()
+        {
+            float[] points = new float[] {x, y, z};
+            return points.GetHashCode();
+        }
 /* End of overrides */		
 		
 		public static void test()

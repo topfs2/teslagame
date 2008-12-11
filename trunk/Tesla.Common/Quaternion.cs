@@ -87,7 +87,7 @@ namespace Tesla.Common
 			return r;
 		}
 		
-		public string ToString()
+		public override string ToString()
 		{
 			return "[" + w + ", " + x + ", " + y + ", " + z + "]"; 
 		}

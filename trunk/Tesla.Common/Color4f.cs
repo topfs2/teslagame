@@ -89,7 +89,7 @@ namespace Tesla.Common
             get { return new float[] { r, g, b, a }; }
         }
         
-        public String ToString()
+        public override String ToString()
 		{
 			return "[" + a + ", " + r + ", " + g + ", " + b + "]";
 		}
