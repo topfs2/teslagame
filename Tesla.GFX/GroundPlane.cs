@@ -21,6 +21,11 @@ namespace Tesla.GFX
 		Texture texture;
 		int tiles;
 		
+		public GroundPlane(Texture texture, int tiles, Vector3f pointA, float distance) : this(texture, tiles, pointA + new Vector3f(distance / 2.0f, 0.0f, distance / 2.0f), pointA + new Vector3f(distance / 2.0f, 0.0f, -distance / 2.0f), pointA + new Vector3f(-distance / 2.0f, 0.0f, -distance / 2.0f), pointA + new Vector3f(-distance / 2.0f, 0.0f, distance / 2.0f))
+		{
+		
+		}
+		
 		public GroundPlane(Texture texture, int tiles, Vector3f pointA, Vector3f pointB, Vector3f pointC, Vector3f pointD)
 		{
 			this.texture = texture;
