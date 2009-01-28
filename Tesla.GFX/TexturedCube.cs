@@ -52,14 +52,11 @@ namespace Tesla.GFX
 			
 			float[] mcolor = { 1.0f, 1.0f, 1.0f, 1.0f };
 			Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_AMBIENT_AND_DIFFUSE, mcolor);
-			Gl.glEnable(Gl.GL_BLEND);
-			Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE);
 			Gl.glDisable(Gl.GL_DEPTH_TEST);
 			if (texture != null)
 				texture.Bind();
 			Gl.glColor3f(1.0f, 1.0f, 1.0f);
 			Gl.glTranslatef(pos.x, pos.y, pos.z);
-			//Gl.glRotatef(rot, rotation.x, rotation.y, rotation.z);
 			Gl.glRotatef(rotation.a, rotation.r, rotation.g, rotation.b);
 			Gl.glScalef(width, height, depth);
 			
