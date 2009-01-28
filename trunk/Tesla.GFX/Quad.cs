@@ -16,18 +16,20 @@ namespace Tesla.GFX
 	{
 		float width, height;
 		Vector3f pos;
+		Texture texture;
 		
-		public Quad(Vector3f pos, float width, float height)
+		public Quad(Texture texture, Vector3f pos, float width, float height)
 		{
 			this.pos = pos;
 			this.width = width;
 			this.height = height;
+			this.texture = texture;
 		}
 
 		public void Draw (float frameTime, Frustum frustum)
 		{
-			Gl.glDisable(Gl.GL_TEXTURE_2D);
-			Gl.glColor3f(1.0f, 1.0f, 1.0f);			
+			texture.Bind();
+			Gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);			
 			Gl.glBegin(Gl.GL_QUADS);
 			Gl.glNormal3f(0, 0, -1);
 
