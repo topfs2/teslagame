@@ -1,0 +1,17 @@
+// NullTexture.cs created with MonoDevelop
+// User: topfs at 9:18 PM 1/27/2009
+//
+// To change standard headers go to Edit->Preferences->Coding->Standard Headers
+//
+
+using System;
+using System.Drawing;
+namespace Tesla.GFX
+{
+	public class NullTexture : Texture
+	{
+		public void Bind()
+		{
+		}
+	}
+}

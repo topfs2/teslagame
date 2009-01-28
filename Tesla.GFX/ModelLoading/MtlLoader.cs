@@ -95,7 +95,7 @@ namespace Tesla.GFX.ModelLoading
                             {
                                 string[] splitted = regex.Split(line);
                                 if(splitted.Length>1)
-                                    texture = Texture.CreateFromFile(filePath + splitted[1]);
+                                    texture = new Tesla.GFX.BasicTexture(filePath + splitted[1]);
                             }
                         }
                     }

@@ -41,6 +41,8 @@ namespace Tesla.GFX
 		{
 			InitWindow(Name, Width, Height, bpp, Fullscreen);
 			InitGL();
+			Tao.DevIl.Il.ilInit();
+			Tao.DevIl.Ilut.ilutInit();
 		}
 
 		public SDLWindow()
@@ -148,7 +150,7 @@ namespace Tesla.GFX
 			
 			if (frameTime > 0.0f && (alwaysUpdateMouse || (dx > 0 || dx < 0 || dy > 0 || dy < 0)))
 			{
-				float sensativity = 10.0f;
+				float sensativity = 30.0f;
 				bool invertMouse = false;
 				camera.rotateX((invertMouse ? 1.0f : -1.0f ) * dy * frameTime * sensativity);
 				camera.rotateY(dx * frameTime * sensativity);
@@ -196,7 +198,7 @@ namespace Tesla.GFX
 				/* Setup LIGHTING  */
                 float[] LightAmbient = { 0.5f, 0.5f, 0.5f, 1.0f };
                 float[] LightDiffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
-                float[] LightPosition = { 10.0f, 10.0f, 10.0f, 1.0f };
+                float[] LightPosition = { 0.0f, 0.0f, 0.0f, 1.0f };
                 Gl.glLightfv(Gl.GL_LIGHT1, Gl.GL_AMBIENT, LightAmbient);
                 Gl.glLightfv(Gl.GL_LIGHT1, Gl.GL_DIFFUSE, LightDiffuse);
                 Gl.glLightfv(Gl.GL_LIGHT1, Gl.GL_POSITION, LightPosition);
@@ -280,27 +282,31 @@ namespace Tesla.GFX
 			foreach (Drawable d in drawables)
 				d.Draw(frameTime, frustum);
 			
-			/* Setup Ortho for 2D objects*/
-        	Gl.glDisable(Gl.GL_LIGHTING);
-			Gl.glDisable(Gl.GL_DEPTH_TEST);								// Disables Depth Testing
-			Gl.glMatrixMode(Gl.GL_PROJECTION);							// Select The Projection Matrix
-			Gl.glPushMatrix();											// Store The Projection Matrix
-			Gl.glLoadIdentity();										// Reset The Projection Matrix
-			Gl.glOrtho(0, Width, 0, Height, -1, 1);						// Set Up An Ortho Screen
-			Gl.glMatrixMode(Gl.GL_MODELVIEW);							// Select The Modelview Matrix
-			Gl.glPushMatrix();											// Store The Modelview Matrix
-			Gl.glLoadIdentity();										// Reset The Modelview Matrix
-			Gl.glBlendFunc(Gl.GL_ONE, Gl.GL_ONE);
-			foreach (Drawable2D d in drawables2D)
-				d.Draw(frameTime);
+			if (drawables2D.Count > 0)
+			{
+				/* Setup Ortho for 2D objects*/
+	        	Gl.glDisable(Gl.GL_LIGHTING);
+				Gl.glDisable(Gl.GL_DEPTH_TEST);								// Disables Depth Testing
+				Gl.glMatrixMode(Gl.GL_PROJECTION);							// Select The Projection Matrix
+				Gl.glPushMatrix();											// Store The Projection Matrix
+				Gl.glLoadIdentity();										// Reset The Projection Matrix
+				Gl.glOrtho(0, Width, 0, Height, -1, 1);						// Set Up An Ortho Screen
+				Gl.glMatrixMode(Gl.GL_MODELVIEW);							// Select The Modelview Matrix
+				Gl.glPushMatrix();											// Store The Modelview Matrix
+				Gl.glLoadIdentity();										// Reset The Modelview Matrix
+				Gl.glBlendFunc(Gl.GL_ONE, Gl.GL_ONE);
+				foreach (Drawable2D d in drawables2D)
+					d.Draw(frameTime);
 
-			/* Take back 3D modelview */
-			Gl.glMatrixMode(Gl.GL_PROJECTION);							// Select The Projection Matrix
-			Gl.glPopMatrix();											// Restore The Old Projection Matrix
-			Gl.glMatrixMode(Gl.GL_MODELVIEW);							// Select The Modelview Matrix
-			Gl.glPopMatrix();											// Restore The Old Projection Matrix
-			Gl.glEnable(Gl.GL_DEPTH_TEST);
-			Gl.glEnable(Gl.GL_LIGHTING);
+				/* Take back 3D modelview */
+				Gl.glMatrixMode(Gl.GL_PROJECTION);							// Select The Projection Matrix
+				Gl.glPopMatrix();											// Restore The Old Projection Matrix
+				Gl.glMatrixMode(Gl.GL_MODELVIEW);							// Select The Modelview Matrix
+				Gl.glPopMatrix();											// Restore The Old Projection Matrix
+				Gl.glEnable(Gl.GL_DEPTH_TEST);
+				Gl.glEnable(Gl.GL_LIGHTING);
+				Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
+			}
 
 			float[] fc = new float[]{94.0f / 256.0f, 94.0f / 256.0f, 110.0f / 256.0f};
 			Gl.glFogfv(Gl.GL_FOG_COLOR, fc);

@@ -18,11 +18,11 @@ namespace Tesla.GFX
 		
 		public SkyBox(string skyBoxPath)
 		{
-			left 	= Texture.CreateFromFile(skyBoxPath + "/skyrender0001.bmp", TextureFilter.Nearest, Gl.GL_CLAMP_TO_EDGE);
-			front 	= Texture.CreateFromFile(skyBoxPath + "/skyrender0002.bmp", TextureFilter.Nearest, Gl.GL_CLAMP_TO_EDGE);
-			right 	= Texture.CreateFromFile(skyBoxPath + "/skyrender0004.bmp", TextureFilter.Nearest, Gl.GL_CLAMP_TO_EDGE);
-			back 	= Texture.CreateFromFile(skyBoxPath + "/skyrender0005.bmp", TextureFilter.Nearest, Gl.GL_CLAMP_TO_EDGE);
-			top		= Texture.CreateFromFile(skyBoxPath + "/skyrender0003.bmp", TextureFilter.Nearest, Gl.GL_CLAMP_TO_EDGE);
+			left 	= new BasicTexture(skyBoxPath + "/skyrender0001.bmp", TextureFilter.Nearest);
+			front 	= new BasicTexture(skyBoxPath + "/skyrender0002.bmp");
+			right 	= new BasicTexture(skyBoxPath + "/skyrender0004.bmp");
+			back 	= new BasicTexture(skyBoxPath + "/skyrender0005.bmp");
+			top		= new BasicTexture(skyBoxPath + "/skyrender0003.bmp");
 		}
 
 		public void Draw (Vector3f pos)
