@@ -11,14 +11,12 @@ using Tao.DevIl;
 
 namespace Tesla.GFX
 {
-	public class Pixmap : IDisposable
+	public class Pixmap
 	{
 		private int width, height, bpp;
-		private byte[] data;
+		public byte[] data;
 		private int format;
-		
-		private int ilImage = -1;
-		
+
 		public Pixmap(byte[] data, int width, int height, int bpp, int format)
 		{
 			this.data = data;
@@ -33,6 +31,7 @@ namespace Tesla.GFX
             if (!System.IO.File.Exists(Path))
                 throw new System.IO.IOException("File doesn't exist: " + Path);
 
+			int ilImage;
             Il.ilGenImages(1, out ilImage);
             Il.ilBindImage(ilImage);
 
@@ -47,6 +46,8 @@ namespace Tesla.GFX
                 
                 format = Gl.GL_RGBA;
 				Marshal.Copy(Il.ilGetData(), data, 0, width * height * 4);
+				
+				Il.ilDeleteImages(1, ref ilImage);
             }
             else
                 throw new System.IO.IOException("Error While Loading: " + Path);
@@ -83,20 +84,10 @@ namespace Tesla.GFX
 				return data;
 			}
 		}
+		
 		public int getFormat()
 		{
 			return format;
-		}
-		
-		public bool isAllocated()
-		{
-			return (ilImage != -1);
-		}
-
-		public void Dispose()
-		{
-			if (ilImage != -1)
-				Il.ilDeleteImages(1, ref ilImage);
 		}
 	}
 }
