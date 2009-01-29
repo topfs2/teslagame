@@ -41,8 +41,6 @@ namespace Tesla.GFX
 			Gl.glGenTextures(1, TempGL);
 			Gl.glBindTexture(Gl.GL_TEXTURE_2D, TempGL[0]);
 
-			Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_LINEAR);
-			Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_LINEAR_MIPMAP_LINEAR);
 			Glu.gluBuild2DMipmaps(Gl.GL_TEXTURE_2D, pixmap.Bpp, pixmap.Width, pixmap.Height, pixmap.getFormat(), Gl.GL_UNSIGNED_BYTE, pixmap.Data);
 
 			textureID = TempGL[0];
