@@ -184,54 +184,50 @@ namespace Tesla.GFX
 		
         private void InitGL()
         {
-            try
-            {
-                Gl.glShadeModel(Gl.GL_SMOOTH);
-                Gl.glEnable(Gl.GL_TEXTURE_2D);
-                //Gl.glDepthFunc(Gl.GL_ALWAYS);
-				Gl.glDepthFunc(Gl.GL_LEQUAL);
-				Gl.glEnable(Gl.GL_DEPTH_TEST);
-				Gl.glEnable(Gl.GL_BLEND);
+            Gl.glShadeModel(Gl.GL_SMOOTH);
+            Gl.glEnable(Gl.GL_TEXTURE_2D);
+            //Gl.glDepthFunc(Gl.GL_ALWAYS);
+			Gl.glDepthFunc(Gl.GL_LEQUAL);
+			Gl.glEnable(Gl.GL_DEPTH_TEST);
+			Gl.glEnable(Gl.GL_BLEND);
 
-                Gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+            Gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-				/* Setup LIGHTING  */
-                float[] LightAmbient = { 0.5f, 0.5f, 0.5f, 1.0f };
-                float[] LightDiffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
-                float[] LightPosition = { 0.0f, 0.0f, 0.0f, 1.0f };
-                Gl.glLightfv(Gl.GL_LIGHT1, Gl.GL_AMBIENT, LightAmbient);
-                Gl.glLightfv(Gl.GL_LIGHT1, Gl.GL_DIFFUSE, LightDiffuse);
-                Gl.glLightfv(Gl.GL_LIGHT1, Gl.GL_POSITION, LightPosition);
-                Gl.glEnable(Gl.GL_LIGHT1);
-                Gl.glEnable(Gl.GL_LIGHTING);
-                
-                float[] LightSpot = {1.0f, 1.0f, 1.0f, 1.0f};
+			/* Setup LIGHTING  */
+            float[] LightAmbient = { 0.5f, 0.5f, 0.5f, 1.0f };
+            float[] LightDiffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
+            float[] LightPosition = { 0.0f, 0.0f, 0.0f, 1.0f };
+            Gl.glLightfv(Gl.GL_LIGHT1, Gl.GL_AMBIENT, LightAmbient);
+            Gl.glLightfv(Gl.GL_LIGHT1, Gl.GL_DIFFUSE, LightDiffuse);
+            Gl.glLightfv(Gl.GL_LIGHT1, Gl.GL_POSITION, LightPosition);
+            Gl.glEnable(Gl.GL_LIGHT1);
+            Gl.glEnable(Gl.GL_LIGHTING);
+            
+            float[] LightSpot = {1.0f, 1.0f, 1.0f, 1.0f};
 
 
-                //Gl.glBlendFunc(Gl.GL_ONE, Gl.GL_SRC_ALPHA);
-                //Gl.glBlendFunc(Gl.GL_SRC_ALPHA_SATURATE, Gl.GL_ONE); 
-                Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);  //perfekt för alla mina TexturedQuad
-                Gl.glHint(Gl.GL_PERSPECTIVE_CORRECTION_HINT, Gl.GL_NICEST);
+            //Gl.glBlendFunc(Gl.GL_ONE, Gl.GL_SRC_ALPHA);
+            //Gl.glBlendFunc(Gl.GL_SRC_ALPHA_SATURATE, Gl.GL_ONE); 
+            Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);  //perfekt för alla mina TexturedQuad
+            Gl.glHint(Gl.GL_PERSPECTIVE_CORRECTION_HINT, Gl.GL_NICEST);
 
-                /* Required setup stuff */
-                Gl.glViewport(0, 0, Width, Height);
-                Gl.glMatrixMode(Gl.GL_PROJECTION);
-                Gl.glLoadIdentity();
-                Glu.gluPerspective(45.0f, Width / (float)Height, 0.1f, 2000.0f);
-                camera = new Camera(new Vector3f(0.0f, 0.0f, 0.0f), 45.0f, (float)Width / (float)Height, 0.1f, 2000.0f);
-                frustum = new Frustum(camera);
-                Gl.glMatrixMode(Gl.GL_MODELVIEW);
-                Gl.glLoadIdentity();
-                
-                //Gl.glEnable(Gl.GL_CULL_FACE);
-                //Gl.glPolygonMode(Gl.GL_FRONT, Gl.GL_FILL);
-                //Gl.glFrontFace(Gl.GL_CW);
-            }
-            catch
-            {
-                int error = Gl.glGetError();
-                Log.Write("OpenGL: " + Gl.glGetString(error), LogType.CriticalError);
-		    }
+            /* Required setup stuff */
+            Gl.glViewport(0, 0, Width, Height);
+            Gl.glMatrixMode(Gl.GL_PROJECTION);
+            Gl.glLoadIdentity();
+            Glu.gluPerspective(45.0f, Width / (float)Height, 0.1f, 2000.0f);
+            camera = new Camera(new Vector3f(0.0f, 0.0f, 0.0f), 45.0f, (float)Width / (float)Height, 0.1f, 2000.0f);
+            frustum = new Frustum(camera);
+            Gl.glMatrixMode(Gl.GL_MODELVIEW);
+            Gl.glLoadIdentity();
+            
+            //Gl.glEnable(Gl.GL_CULL_FACE);
+            //Gl.glPolygonMode(Gl.GL_FRONT, Gl.GL_FILL);
+            //Gl.glFrontFace(Gl.GL_CW);
+            
+			int error = Gl.glGetError();
+            if (error != Gl.GL_NO_ERROR)
+            	Log.Write("OpenGL: " + Gl.glGetString(error), LogType.CriticalError);
 	    }
 	    
 	    public void Add(DrawMethod drawMethod)
