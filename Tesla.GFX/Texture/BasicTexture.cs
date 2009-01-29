@@ -64,6 +64,14 @@ namespace Tesla.GFX
 		public void Bind()
 		{
 			Gl.glBindTexture(Gl.GL_TEXTURE_2D, textureID);
+			
+   			if (GlExtensionLoader.IsExtensionSupported("GL_EXT_texture_filter_anisotropic"))
+			{
+				float anistropicFiltering = 0.0f;
+				Gl.glGetFloatv(Gl.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, out anistropicFiltering);
+				Gl.glTexParameterf(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAX_ANISOTROPY_EXT, anistropicFiltering);
+			}
+			
 			if (textureFilter == TextureFilter.Nearest)
             {
                     Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_NEAREST);
