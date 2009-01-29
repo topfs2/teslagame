@@ -19,6 +19,7 @@ namespace Tesla.GFX
 	public class BasicTexture : Texture
 	{
 		private int textureID;
+		private int width, height;
 		
 		public BasicTexture(String TexturePath) : this(TexturePath, TextureFilter.MipMap)
 		{
@@ -62,7 +63,18 @@ namespace Tesla.GFX
 			}
 
 			textureID = TempGL[0];
-			pixmap.Dispose();
+			width = pixmap.Width;
+			height = pixmap.Height;
+		}
+		
+		public void RegenerateTexture(Pixmap pixmap)
+		{
+			if (pixmap.Width > width || pixmap.Height > height)
+				throw new NotSupportedException("Cannot regenerate texture if the new texture is bigger than the old");
+			Gl.glEnable(Gl.GL_TEXTURE_2D);
+			Gl.glBindTexture(Gl.GL_TEXTURE_2D, textureID);
+			
+			Gl.glTexSubImage2D(Gl.GL_TEXTURE_2D, 0, 0, 0, pixmap.Width, pixmap.Height, Gl.GL_RGBA, Gl.GL_UNSIGNED_BYTE, pixmap.Data);
 		}
 		
 		public void Bind()
