@@ -49,10 +49,6 @@ namespace Tesla.GFX
 		public void Draw (float frameTime, Frustum frustum)
 		{
 			Gl.glPushMatrix();
-			
-			float[] mcolor = { 1.0f, 1.0f, 1.0f, 1.0f };
-			Gl.glMaterialfv(Gl.GL_FRONT, Gl.GL_AMBIENT_AND_DIFFUSE, mcolor);
-			Gl.glDisable(Gl.GL_DEPTH_TEST);
 			if (texture != null)
 				texture.Bind();
 			Gl.glColor3f(1.0f, 1.0f, 1.0f);
