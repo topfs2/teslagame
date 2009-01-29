@@ -16,10 +16,12 @@ namespace Tesla.GFX
 		Linear,
 		MipMap
 	}
+	
 	public class BasicTexture : Texture
 	{
 		private int textureID;
 		private int width, height;
+		private TextureFilter textureFilter;
 		
 		public BasicTexture(String TexturePath) : this(TexturePath, TextureFilter.MipMap)
 		{
@@ -39,30 +41,12 @@ namespace Tesla.GFX
 			Gl.glGenTextures(1, TempGL);
 			Gl.glBindTexture(Gl.GL_TEXTURE_2D, TempGL[0]);
 
-			if (textureFilter != TextureFilter.MipMap)
-			{
-                if (textureFilter == TextureFilter.Nearest)
-                {
-                        Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_NEAREST);
-                        Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_NEAREST);
-                       
-                }
-                else if (textureFilter == TextureFilter.Linear)
-                {
-                        Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_LINEAR);
-                        Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_LINEAR);
-                }
-
-				Gl.glTexImage2D(Gl.GL_TEXTURE_2D, 0, pixmap.Bpp, pixmap.Width, pixmap.Height, 0, pixmap.getFormat(), Gl.GL_UNSIGNED_BYTE, pixmap.Data);
-			}
-			else
-			{
-				Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_LINEAR);
-				Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_LINEAR_MIPMAP_NEAREST);
-				Glu.gluBuild2DMipmaps(Gl.GL_TEXTURE_2D, pixmap.Bpp, pixmap.Width, pixmap.Height, pixmap.getFormat(), Gl.GL_UNSIGNED_BYTE, pixmap.Data);
-			}
+			Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_LINEAR);
+			Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_LINEAR_MIPMAP_LINEAR);
+			Glu.gluBuild2DMipmaps(Gl.GL_TEXTURE_2D, pixmap.Bpp, pixmap.Width, pixmap.Height, pixmap.getFormat(), Gl.GL_UNSIGNED_BYTE, pixmap.Data);
 
 			textureID = TempGL[0];
+			this.textureFilter = textureFilter;
 			width = pixmap.Width;
 			height = pixmap.Height;
 		}
@@ -80,6 +64,22 @@ namespace Tesla.GFX
 		public void Bind()
 		{
 			Gl.glBindTexture(Gl.GL_TEXTURE_2D, textureID);
+			if (textureFilter == TextureFilter.Nearest)
+            {
+                    Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_NEAREST);
+                    Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_NEAREST);
+                   
+            }
+            else if (textureFilter == TextureFilter.Linear)
+            {
+                    Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_LINEAR);
+                    Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_LINEAR);
+            }
+            else
+            {
+            	Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_LINEAR);
+				Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_LINEAR_MIPMAP_LINEAR);
+            }
 		}
 	}
 }
