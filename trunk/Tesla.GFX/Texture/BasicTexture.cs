@@ -87,5 +87,8 @@ namespace Tesla.GFX
 				Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_LINEAR_MIPMAP_LINEAR);
             }
 		}
+		public void UnBind()
+		{
+		}
 	}
 }

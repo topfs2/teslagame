@@ -25,10 +25,11 @@ namespace Tesla.GFX
         float x_axis;
         float y_axis;
         float z_axis;
-		//Texture texture;
-		public GluSphere(/*Texture texure, */Vector3f position, float radius, int slices)
+		Texture texture;
+		
+		public GluSphere(Texture texture, Vector3f position, float radius, int slices)
 		{
-			//this.texture = texture;
+			this.texture = texture;
 			this.position = position;
 			this.radius = radius;
 			this.slices = slices;
@@ -37,8 +38,8 @@ namespace Tesla.GFX
 			
 			Glu.gluQuadricNormals(quad, Glu.GLU_SMOOTH);	// Create Smooth Normals ( NEW )
 			Glu.gluQuadricTexture(quad, Gl.GL_TRUE);		// Create Texture Coords ( NEW )
-			Glu.gluQuadricDrawStyle(quad, Glu.GLU_LINE);
-			
+			Glu.gluQuadricDrawStyle(quad, Glu.GLU_FILL);
+
 			angle  = 0.0f;
 	        x_axis = 0.0f;
 	        y_axis = 0.0f;
@@ -87,19 +88,17 @@ namespace Tesla.GFX
 
 		public void Draw (float frameTime, Frustum frustum)
 		{
-			//texture.Bind();
 			Gl.glPushMatrix();
 			Gl.glDisable(Gl.GL_LIGHTING);
-			Gl.glDisable(Gl.GL_TEXTURE_2D);
 			Gl.glColor3f(1.0f, 1.0f, 1.0f);
 			//Gl.glLoadIdentity();
 
 			Gl.glTranslatef(position.x, position.y, position.z);
 			Gl.glRotatef(angle, x_axis, y_axis, z_axis);
-			Glu.gluSphere(quad, radius, slices, slices);
-			
-			Gl.glEnable(Gl.GL_LIGHTING);
-			Gl.glEnable(Gl.GL_TEXTURE_2D);
+			//Gl.glScalef(radius, radius, radius);
+			texture.Bind();
+			Glu.gluSphere(quad, 1.0f, slices, slices);
+			texture.UnBind();
 			Gl.glPopMatrix();
 		}
 	}

@@ -79,6 +79,7 @@
     <File name="Texture/NullTexture.cs" subtype="Code" buildaction="Compile" />
     <File name="Texture/Pixmap.cs" subtype="Code" buildaction="Compile" />
     <File name="Texture/Texture.cs" subtype="Code" buildaction="Compile" />
+    <File name="Texture/CubeMapTexture.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
@@ -87,5 +88,6 @@
     <ProjectReference type="Assembly" localcopy="True" refto="../../taoframework-2.1.0/bin/Tao.OpenGl.dll" />
     <ProjectReference type="Gac" localcopy="True" refto="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <ProjectReference type="Assembly" localcopy="True" refto="../../taoframework-2.1.0/bin/Tao.DevIl.dll" />
+    <ProjectReference type="Assembly" localcopy="True" refto="../../taoframework-2.1.0/bin/Tao.FreeGlut.dll" />
   </References>
 </Project>
