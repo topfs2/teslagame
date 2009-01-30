@@ -25,9 +25,9 @@ namespace Tesla.GFX
         float x_axis;
         float y_axis;
         float z_axis;
-		Texture texture;
+		CubeMapTexture texture;
 		
-		public GluSphere(Texture texture, Vector3f position, float radius, int slices)
+		public GluSphere(CubeMapTexture texture, Vector3f position, float radius, int slices)
 		{
 			this.texture = texture;
 			this.position = position;
@@ -91,13 +91,11 @@ namespace Tesla.GFX
 			Gl.glPushMatrix();
 			Gl.glDisable(Gl.GL_LIGHTING);
 			Gl.glColor3f(1.0f, 1.0f, 1.0f);
-			//Gl.glLoadIdentity();
-
 			Gl.glTranslatef(position.x, position.y, position.z);
 			Gl.glRotatef(angle, x_axis, y_axis, z_axis);
-			//Gl.glScalef(radius, radius, radius);
+			texture.setCubeMapType(CubeMapType.Reflective);
 			texture.Bind();
-			Glu.gluSphere(quad, 1.0f, slices, slices);
+			Glu.gluSphere(quad, radius, slices, slices);
 			texture.UnBind();
 			Gl.glPopMatrix();
 		}

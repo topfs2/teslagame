@@ -10,6 +10,12 @@ using Tao.OpenGl;
 
 namespace Tesla.GFX
 {
+	public enum CubeMapType
+	{
+		Reflective,
+		None
+	}
+
 	public class CubeMapTexture : Texture
 	{
 		private int[] cube = {	Gl.GL_TEXTURE_CUBE_MAP_POSITIVE_X,
@@ -25,6 +31,7 @@ namespace Tesla.GFX
 									"positive_z",
 									"negative_z"	};
 		private int[] textures;
+		private CubeMapType type;
 				
 		public CubeMapTexture(String texturePath)
 		{
@@ -52,44 +59,53 @@ namespace Tesla.GFX
 			}
 		}
 		
+		public void setCubeMapType(CubeMapType type)
+		{
+			this.type = type;
+		}
+		
 		public void Bind()
 		{
-			Matrix44 m, invert;
-			
-			float[] modelview = new float[16];
-			Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX , modelview);
-			
-			m = new Matrix44(modelview);
-			
-			invert = m.invert();
-			Gl.glMatrixMode(Gl.GL_TEXTURE);
-    		Gl.glPushMatrix();
-			Gl.glMultMatrixf(invert.getVector());
-			
 			Gl.glEnable(Gl.GL_TEXTURE_CUBE_MAP);
 			Gl.glBindTexture(Gl.GL_TEXTURE_CUBE_MAP, textures[0]);
 			
-			Gl.glTexGeni(Gl.GL_S, Gl.GL_TEXTURE_GEN_MODE, Gl.GL_REFLECTION_MAP);
-			Gl.glTexGeni(Gl.GL_T, Gl.GL_TEXTURE_GEN_MODE, Gl.GL_REFLECTION_MAP);
-			Gl.glTexGeni(Gl.GL_R, Gl.GL_TEXTURE_GEN_MODE, Gl.GL_REFLECTION_MAP);
+			if (type == CubeMapType.Reflective)
+			{
+				Matrix44 m, invert;
+				
+				float[] modelview = new float[16];
+				Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX , modelview);
+				
+				m = new Matrix44(modelview);
+				
+				invert = m.invert();
+				Gl.glMatrixMode(Gl.GL_TEXTURE);
+	    		Gl.glPushMatrix();
+				Gl.glMultMatrixf(invert.getVector());
 
-			
-			Gl.glEnable(Gl.GL_TEXTURE_GEN_S);
-			Gl.glEnable(Gl.GL_TEXTURE_GEN_T);
-			Gl.glEnable(Gl.GL_TEXTURE_GEN_R);
-			Gl.glTexEnvi(Gl.GL_TEXTURE_ENV, Gl.GL_TEXTURE_ENV_MODE, Gl.GL_MODULATE);
+				Gl.glTexGeni(Gl.GL_S, Gl.GL_TEXTURE_GEN_MODE, Gl.GL_REFLECTION_MAP);
+				Gl.glTexGeni(Gl.GL_T, Gl.GL_TEXTURE_GEN_MODE, Gl.GL_REFLECTION_MAP);
+				Gl.glTexGeni(Gl.GL_R, Gl.GL_TEXTURE_GEN_MODE, Gl.GL_REFLECTION_MAP);
 
+				Gl.glEnable(Gl.GL_TEXTURE_GEN_S);
+				Gl.glEnable(Gl.GL_TEXTURE_GEN_T);
+				Gl.glEnable(Gl.GL_TEXTURE_GEN_R);
+			}
 		}
 		
 		public void UnBind()
 		{
+			if (type == CubeMapType.Reflective)
+			{
+				
+				Gl.glDisable(Gl.GL_TEXTURE_GEN_S);
+				Gl.glDisable(Gl.GL_TEXTURE_GEN_T);
+				Gl.glDisable(Gl.GL_TEXTURE_GEN_R);
+			}
 			Gl.glDisable(Gl.GL_TEXTURE_CUBE_MAP);
-			Gl.glDisable(Gl.GL_TEXTURE_GEN_S);
-			Gl.glDisable(Gl.GL_TEXTURE_GEN_T);
-			Gl.glDisable(Gl.GL_TEXTURE_GEN_R);
-			//glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-			//DrawSkyBox();
+
 			Gl.glPopMatrix();
+			Gl.glMatrixMode(Gl.GL_MODELVIEW);
 		}
 	}
 }
