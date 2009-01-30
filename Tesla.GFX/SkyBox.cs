@@ -14,15 +14,11 @@ namespace Tesla.GFX
 	
 	public class SkyBox
 	{
-		Texture top, left, right, front, back;
+		CubeMapTexture texture;
 		
-		public SkyBox(string skyBoxPath)
+		public SkyBox(CubeMapTexture texture)
 		{
-			left 	= new BasicTexture(skyBoxPath + "/skyrender0001.bmp", TextureFilter.Nearest);
-			front 	= new BasicTexture(skyBoxPath + "/skyrender0002.bmp");
-			right 	= new BasicTexture(skyBoxPath + "/skyrender0004.bmp");
-			back 	= new BasicTexture(skyBoxPath + "/skyrender0005.bmp");
-			top		= new BasicTexture(skyBoxPath + "/skyrender0003.bmp");
+			this.texture = texture;
 		}
 
 		public void Draw (Vector3f pos)
@@ -30,68 +26,74 @@ namespace Tesla.GFX
 			Gl.glPushMatrix();
 			Gl.glDisable(Gl.GL_LIGHTING);
 			Gl.glDepthMask(0);
-			//Gl.glDisable(Gl.GL_CULL_FACE );
-			//Gl.glEnable(Gl.GL_TEXTURE_2D);
-			//Gl.glDisable(Gl.GL_DEPTH_TEST);
-			Gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+			texture.setCubeMapType(CubeMapType.None);
 			Gl.glTranslatef(pos.x, pos.y, pos.z);
-			
-			left.Bind();
+			texture.Bind();
+			Gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+			float fExtent = 1.0f;
 			Gl.glBegin(Gl.GL_QUADS);
-				// Left Face
-				Gl.glNormal3f( 1.0f, 0.0f, 0.0f);					// Normal Pointing Left
-				Gl.glTexCoord2f(0.0f, 0.0f); Gl.glVertex3f(-1.0f, -1.0f, -1.0f);	// Point 1 (Left)
-				Gl.glTexCoord2f(1.0f, 0.0f); Gl.glVertex3f(-1.0f, -1.0f,  1.0f);	// Point 2 (Left)
-				Gl.glTexCoord2f(1.0f, 1.0f); Gl.glVertex3f(-1.0f,  1.0f,  1.0f);	// Point 3 (Left)
-				Gl.glTexCoord2f(0.0f, 1.0f); Gl.glVertex3f(-1.0f,  1.0f, -1.0f);	// Point 4 (Left)
+				// Negative X
+				Gl.glTexCoord3f(-1.0f, -1.0f, 1.0f);
+		        Gl.glVertex3f(-fExtent, -fExtent, fExtent);
+				Gl.glTexCoord3f(-1.0f, -1.0f, -1.0f);
+		        Gl.glVertex3f(-fExtent, -fExtent, -fExtent);
+				Gl.glTexCoord3f(-1.0f,  1.0f, -1.0f);
+		        Gl.glVertex3f(-fExtent, fExtent, -fExtent);
+				Gl.glTexCoord3f(-1.0f, 1.0f, 1.0f);
+		        Gl.glVertex3f(-fExtent, fExtent, fExtent);
+		        
+		        // Positive Z
+				Gl.glTexCoord3f( 1.0f,    -1.0f,    1.0f);
+		        Gl.glVertex3f(   fExtent, -fExtent, fExtent);
+				Gl.glTexCoord3f(-1.0f,    -1.0f,    1.0f);
+		        Gl.glVertex3f(  -fExtent, -fExtent, fExtent);
+				Gl.glTexCoord3f(-1.0f,    1.0f,     1.0f);
+		        Gl.glVertex3f(  -fExtent, fExtent,  fExtent);
+				Gl.glTexCoord3f( 1.0f,    1.0f,     1.0f);
+		        Gl.glVertex3f(   fExtent, fExtent,  fExtent);
+		        
+		        // Positive X
+				Gl.glTexCoord3f( 1.0f, 1.0f,-1.0f);
+		        Gl.glVertex3f(fExtent, fExtent,-fExtent);
+				Gl.glTexCoord3f( 1.0f, 1.0f, 1.0f);
+		        Gl.glVertex3f( fExtent, fExtent, fExtent);
+				Gl.glTexCoord3f( 1.0f,-1.0f, 1.0f);
+		        Gl.glVertex3f( fExtent,-fExtent, fExtent);
+				Gl.glTexCoord3f( 1.0f, -1.0f, -1.0f);
+		        Gl.glVertex3f( fExtent, -fExtent, -fExtent);
+		        
+		        // Negative Z
+				Gl.glTexCoord3f(-1.0f,     1.0f,    -1.0f);
+		        Gl.glVertex3f(  -fExtent,  fExtent, -fExtent);
+				Gl.glTexCoord3f( 1.0f,     1.0f,    -1.0f);
+		        Gl.glVertex3f(   fExtent,  fExtent, -fExtent);
+				Gl.glTexCoord3f( 1.0f,    -1.0f,    -1.0f);
+		        Gl.glVertex3f(   fExtent, -fExtent, -fExtent);
+				Gl.glTexCoord3f(-1.0f,    -1.0f,    -1.0f);
+		        Gl.glVertex3f(  -fExtent, -fExtent, -fExtent);
+		        
+		        // Positive Y
+				Gl.glTexCoord3f( 1.0f,     1.0f,     1.0f);
+		        Gl.glVertex3f(   fExtent,  fExtent,  fExtent);
+				Gl.glTexCoord3f(-1.0f,     1.0f,     1.0f);
+		        Gl.glVertex3f(  -fExtent,  fExtent,  fExtent);
+				Gl.glTexCoord3f(-1.0f,     1.0f,    -1.0f);
+		        Gl.glVertex3f(  -fExtent,  fExtent, -fExtent);
+				Gl.glTexCoord3f( 1.0f,     1.0f,    -1.0f);
+		        Gl.glVertex3f(   fExtent,  fExtent, -fExtent);
+		        
+		        // Negative Y
+				Gl.glTexCoord3f( 1.0f,    -1.0f,     1.0f);
+		        Gl.glVertex3f(   fExtent, -fExtent,  fExtent);
+				Gl.glTexCoord3f(-1.0f,    -1.0f,     1.0f);
+		        Gl.glVertex3f(  -fExtent, -fExtent,  fExtent);
+				Gl.glTexCoord3f(-1.0f,    -1.0f,    -1.0f);
+		        Gl.glVertex3f(  -fExtent, -fExtent, -fExtent);
+				Gl.glTexCoord3f( 1.0f,    -1.0f,    -1.0f);
+		        Gl.glVertex3f(   fExtent, -fExtent, -fExtent);
 			Gl.glEnd();
-			
-			front.Bind();
-			Gl.glBegin(Gl.GL_QUADS);
-				// Front Face
-				Gl.glNormal3f( 0.0f, 0.0f, -1.0f);					// Normal Pointing Towards Viewer
-				Gl.glTexCoord2f(0.0f, 0.0f); Gl.glVertex3f(-1.0f, -1.0f,  1.0f);	// Point 1 (Front)
-				Gl.glTexCoord2f(1.0f, 0.0f); Gl.glVertex3f( 1.0f, -1.0f,  1.0f);	// Point 2 (Front)
-				Gl.glTexCoord2f(1.0f, 1.0f); Gl.glVertex3f( 1.0f,  1.0f,  1.0f);	// Point 3 (Front)
-				Gl.glTexCoord2f(0.0f, 1.0f); Gl.glVertex3f(-1.0f,  1.0f,  1.0f);	// Point 4 (Front)
-			Gl.glEnd();
-
-			// Top Face			
-			top.Bind();
-			Gl.glBegin(Gl.GL_QUADS);
-				Gl.glNormal3f( 0.0f, -1.0f, 0.0f);					// Normal Pointing Up
-				Gl.glTexCoord2f(1.0f, 0.0f); Gl.glVertex3f(-1.0f,  1.0f, -1.0f);	// Point 1 (Top)
-				Gl.glTexCoord2f(1.0f, 1.0f); Gl.glVertex3f(-1.0f,  1.0f,  1.0f);	// Point 2 (Top)
-				Gl.glTexCoord2f(0.0f, 1.0f); Gl.glVertex3f( 1.0f,  1.0f,  1.0f);	// Point 3 (Top)
-				Gl.glTexCoord2f(0.0f, 0.0f); Gl.glVertex3f( 1.0f,  1.0f, -1.0f);	// Point 4 (Top)
-			Gl.glEnd();
-			
-			right.Bind();			
-			Gl.glBegin(Gl.GL_QUADS);
-				// Right face
-				Gl.glNormal3f(-1.0f, 0.0f, 0.0f);					// Normal Pointing Right
-				Gl.glTexCoord2f(1.0f, 0.0f); Gl.glVertex3f( 1.0f, -1.0f, -1.0f);	// Point 1 (Right)
-				Gl.glTexCoord2f(1.0f, 1.0f); Gl.glVertex3f( 1.0f,  1.0f, -1.0f);	// Point 2 (Right)
-				Gl.glTexCoord2f(0.0f, 1.0f); Gl.glVertex3f( 1.0f,  1.0f,  1.0f);	// Point 3 (Right)
-				Gl.glTexCoord2f(0.0f, 0.0f); Gl.glVertex3f( 1.0f, -1.0f,  1.0f);	// Point 4 (Right)
-			Gl.glEnd();
-
-			// Back Face
-			back.Bind();
-			Gl.glBegin(Gl.GL_QUADS);
-				Gl.glNormal3f( 0.0f, 0.0f, 1.0f);					// Normal Pointing Away From Viewer
-				Gl.glTexCoord2f(1.0f, 0.0f); Gl.glVertex3f(-1.0f, -1.0f, -1.0f);	// Point 1 (Back)
-				Gl.glTexCoord2f(1.0f, 1.0f); Gl.glVertex3f(-1.0f,  1.0f, -1.0f);	// Point 2 (Back)
-				Gl.glTexCoord2f(0.0f, 1.0f); Gl.glVertex3f( 1.0f,  1.0f, -1.0f);	// Point 3 (Back)
-				Gl.glTexCoord2f(0.0f, 0.0f); Gl.glVertex3f( 1.0f, -1.0f, -1.0f);	// Point 4 (Back)
-			Gl.glEnd();
-			
-			
-			Gl.glEnable(Gl.GL_LIGHTING);
-			
+			texture.UnBind();
 			Gl.glDepthMask(1);
-			//Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_WRAP_S, Gl.GL_MIRRORED_REPEAT_ARB);
-			//Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_WRAP_T, Gl.GL_MIRRORED_REPEAT_ARB);
 			Gl.glPopMatrix();
 		}
 	}
