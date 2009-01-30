@@ -13,5 +13,6 @@ namespace Tesla.GFX
 	public interface Texture
 	{
 		void Bind();
+		void UnBind();
 	}
 }
