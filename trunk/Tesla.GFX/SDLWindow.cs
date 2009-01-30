@@ -31,6 +31,7 @@ namespace Tesla.GFX
 		private string Name;
 
 		private int centerX, centerY;
+		private int exceptions;
 		
 		private SkyBox skyBox;
 		
@@ -62,6 +63,7 @@ namespace Tesla.GFX
 			Fullscreen = fullscreen;
 			buttonActionDelegate = new ButtonAction(buttonAction);
 			alwaysUpdateMouse = true;
+			exceptions = 0;
 			
 			
             if (Fullscreen)
@@ -163,6 +165,7 @@ namespace Tesla.GFX
             try
             {
 				Draw(frameTime);
+				exceptions = 0;
             }
             catch (DivideByZeroException e)
             {
@@ -171,7 +174,14 @@ namespace Tesla.GFX
             }
             catch (Exception e)
             {
-				Log.Write(e.Message.ToString());
+            	Log.Write(e.Message.ToString());
+            	if (exceptions < 9)
+            		exceptions++;
+            	else
+            	{
+            		quitFlag = true;
+            		Log.Write("More that 10 consecutive exceptions in a row, force quit");
+            	}
 		    }
 
             return quitFlag;
