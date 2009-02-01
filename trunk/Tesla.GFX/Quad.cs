@@ -32,11 +32,10 @@ namespace Tesla.GFX
 			Gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);			
 			Gl.glBegin(Gl.GL_QUADS);
 			Gl.glNormal3f(0, 0, -1);
-
-			Gl.glTexCoord2f(0, 1); Gl.glVertex3f(pos.x, pos.y, pos.z);
-            Gl.glTexCoord2f(1, 1); Gl.glVertex3f(pos.x + width, pos.y, pos.z);
-            Gl.glTexCoord2f(1, 0); Gl.glVertex3f(pos.x + width, pos.y - height, pos.z);
-            Gl.glTexCoord2f(0, 0); Gl.glVertex3f(pos.x, pos.y - height, pos.z);
+			Gl.glTexCoord2f(0, 0); Gl.glVertex3f(pos.x, pos.y, pos.z);
+            Gl.glTexCoord2f(1, 0); Gl.glVertex3f(pos.x + width, pos.y, pos.z);
+            Gl.glTexCoord2f(1, 1); Gl.glVertex3f(pos.x + width, pos.y - height, pos.z);
+            Gl.glTexCoord2f(0, 1); Gl.glVertex3f(pos.x, pos.y - height, pos.z);
 
 			Gl.glEnd();
 		}
