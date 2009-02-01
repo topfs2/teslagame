@@ -11,36 +11,38 @@ using Tesla.Common;
 namespace Tesla.Audio
 {
 	public class AudioListener
-	{
-		Vector3f position, velocity, orientation;
-		
-		public AudioListener() : this(new Vector3f(0.0f, 0.0f, 0.0f), new Vector3f(0.0f, 0.0f, 0.0f), new Vector3f(0.0f, 0.0f, 0.0f))
+	{		
+		public AudioListener() : this(new Vector3f(0.0f, 0.0f, 0.0f), new Vector3f(0.0f, 0.0f, 0.0f), new Vector3f(0.0f, 0.0f, -1.0f), new Vector3f(0.0f, 1.0f, 0.0f))
 		{
 		}
 		
-		public AudioListener(Vector3f position, Vector3f velocity, Vector3f orientation)
+		public AudioListener(Vector3f position, Vector3f velocity, Vector3f frontVector, Vector3f upVector)
 		{
 			setPosition(position);
 			setVelocity(velocity);
-			setOrientation(orientation);
+			setOrientation(frontVector, upVector);
 		}
 		
 		public void setPosition(Vector3f position)
 		{
-			this.position = position;
 			Al.alListenerfv(Al.AL_POSITION, position.vector);
 		}
 		
 		public void setVelocity(Vector3f velocity)
 		{
-			this.velocity = velocity;
 	    	Al.alListenerfv(Al.AL_VELOCITY, velocity.vector);
 		}
 		
-		public void setOrientation(Vector3f orientation)
+		public void setOrientation(Vector3f frontVector, Vector3f upVector)
 		{
-			this.velocity = velocity;
-	    	Al.alListenerfv(Al.AL_ORIENTATION, orientation.vector);
+			float[] orientation = new float[6];
+			orientation[0] = frontVector.x;
+			orientation[1] = frontVector.y;
+			orientation[2] = frontVector.z;
+			orientation[3] = upVector.x;
+			orientation[4] = upVector.y;
+			orientation[5] = upVector.z;
+	    	Al.alListenerfv(Al.AL_ORIENTATION, orientation);
 		}
 	}
 }
