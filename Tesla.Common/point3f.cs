@@ -218,33 +218,5 @@ namespace Tesla.Common
             float[] points = new float[] {x, y, z};
             return points.GetHashCode();
         }
-/* End of overrides */		
-		
-		public static void test()
-		{
-			Vector3f v0, v1;
-		
-			Check.AssertEquals(new Vector3f(1.0f, 0.0f, 0.0f), new Vector3f(1.0f, 0.0f, 0.0f));
-			Check.AssertEquals(new Vector3f(2.0f, 0.0f, 0.0f).Normalize(), new Vector3f(1.0f, 0.0f, 0.0f));
-			Check.AssertEquals(new Vector3f(1.0f, 0.0f, 2.0f) + new Vector3f(-1.0f, 2.0f, 2.0f) , new Vector3f(0.0f, 2.0f, 4.0f));
-			
-//			Consider two vectors, a = (1,2,3) and b = (4,5,6). The cross product a × b is
-//          a × b = (1,2,3) × (4,5,6) = ((2×6 - 3×5), (3×4 - 1×6), (1×5 - 2×4)) = (-3,6,-3). 
-			v0 = new Vector3f(1.0f, 2.0f, 3.0f);
-			v1 = new Vector3f(4.0f, 5.0f, 6.0f);
-			Check.AssertEquals(v0.ToString() + "x" + v1.ToString(), v0.Cross(v1), new Vector3f(-3.0f, 6.0f, -3.0f));
-//			Consider two vectors, a = (3,0,0) and b = (0,2,0). The cross product a × b is
-// 			a × b = (3,0,0) × (0,2,0) = ((0×0 - 0×2), (0×0 - 3×0), (3×2 - 0×0)) = (0,0,6). 			
-			v0 = new Vector3f(3.0f, 0.0f, 0.0f);
-			v1 = new Vector3f(0.0f, 2.0f, 0.0f);
-			Check.AssertEquals(v0.ToString() + "x" + v1.ToString(), v0.Cross(v1), new Vector3f(0.0f, 0.0f, 6.0f));
-			
-			v0 = new Vector3f(1.0f, 0.0f, 0.0f);
-			v1 = new Vector3f(0.0f, 0.0f, -1.0f);
-			Check.AssertEquals(v0.ToString() + "x" + v1.ToString(), v0.Cross(v1), new Vector3f(0.0f, 1.0f, 0.0f));
-			
-			Check.AssertEquals(new Vector3f(1.0f, 1.0f, 1.0f) * 2.0f, new Vector3f(2.0f, 2.0f, 2.0f));
-			Check.AssertEquals(new Vector3f(1.0f, 1.0f, 1.0f) * new Vector3f(0.0f, 0.0f, 0.0f), 0.0f);
-		}
 	}
 }
