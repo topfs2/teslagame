@@ -26,8 +26,10 @@
     <File name="Line.cs" subtype="Code" buildaction="Compile" />
     <File name="Sphere.cs" subtype="Code" buildaction="Compile" />
     <File name="Matrix44.cs" subtype="Code" buildaction="Compile" />
+    <File name="Vector3fTest.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <ProjectReference type="Gac" localcopy="True" refto="nunit.framework, Version=2.2.0.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77" />
   </References>
 </Project>
