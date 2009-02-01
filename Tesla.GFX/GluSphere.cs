@@ -93,8 +93,8 @@ namespace Tesla.GFX
 			Gl.glColor3f(1.0f, 1.0f, 1.0f);
 			Gl.glTranslatef(position.x, position.y, position.z);
 			Gl.glRotatef(angle, x_axis, y_axis, z_axis);
-			texture.setCubeMapType(CubeMapType.Reflective);
 			texture.Bind();
+			Gl.glScalef(radius, radius, radius);
 			Glu.gluSphere(quad, radius, slices, slices);
 			texture.UnBind();
 			Gl.glPopMatrix();

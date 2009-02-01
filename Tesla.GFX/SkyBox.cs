@@ -26,7 +26,6 @@ namespace Tesla.GFX
 			Gl.glPushMatrix();
 			Gl.glDisable(Gl.GL_LIGHTING);
 			Gl.glDepthMask(0);
-			texture.setCubeMapType(CubeMapType.None);
 			Gl.glTranslatef(pos.x, pos.y, pos.z);
 			texture.Bind();
 			Gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);

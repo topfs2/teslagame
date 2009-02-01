@@ -33,11 +33,12 @@ namespace Tesla.GFX
 		private int[] textures;
 		private CubeMapType type;
 				
-		public CubeMapTexture(String texturePath)
+		public CubeMapTexture(String texturePath, CubeMapType type)
 		{
 			if (!texturePath.EndsWith("/"))
 				texturePath += "/";
 
+			this.type = type;
 			textures = new int[1];
 			Gl.glGenTextures(1, textures);
 			Gl.glBindTexture(Gl.GL_TEXTURE_CUBE_MAP, textures[0]);
@@ -57,11 +58,6 @@ namespace Tesla.GFX
 			    pixmap = new Pixmap(texturePath + path[i] + ".bmp");
 			    Gl.glTexImage2D(cube[i], 0, pixmap.Bpp, pixmap.Width, pixmap.Height, 0, pixmap.getFormat(), Gl.GL_UNSIGNED_BYTE, pixmap.Data);
 			}
-		}
-		
-		public void setCubeMapType(CubeMapType type)
-		{
-			this.type = type;
 		}
 		
 		public void Bind()
