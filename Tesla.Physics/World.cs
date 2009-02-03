@@ -17,7 +17,7 @@ namespace Tesla.Physics
 		List<Space> listSpaces;
 		List<BodyBox> listBodiesBoxes;
 		List<BodySphere> listBodiesSpheres;
-		IntPtr heightField;
+		//IntPtr heightField;
 		IntPtr worldID, contactGroup;
 		
 		public World(float gravityX, float gravityY, float gravityZ)
