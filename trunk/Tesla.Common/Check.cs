@@ -25,16 +25,26 @@ namespace Tesla.Common
 	
 		public static void AssertEquals(String s, object o1, object o2)
 		{
-			if (o1.Equals(o2))
+			if (o1 != null && o2 != null && o1.Equals(o2))
 			{
 				s = "Sucess" + (s.Length > 0 ? ":\t" : "\t") + s + " => " + o1.ToString();
 				succeded++;
 			}
-			else
-			{
-				s = "Failed" + (s.Length > 0 ? ":\t" : "\t") + s + " => " + o1.ToString() + " != " + o2.ToString();
-				failed++;
-			}
+            else if (o1 == null && o2 == null)
+            {
+                s = "Sucess" + (s.Length > 0 ? ":\t" : "\t") + s + " => " + null;
+                succeded++;
+            }
+            else
+            {
+                if (o1 == null)
+                    s = "Failed" + (s.Length > 0 ? ":\t" : "\t") + s + " => " + "null" + " != " + o2.ToString();
+                else if (o2 == null)
+                    s = "Failed" + (s.Length > 0 ? ":\t" : "\t") + s + " => " + o1.ToString() + " != null";
+                else
+                    s = "Failed" + (s.Length > 0 ? ":\t" : "\t") + s + " => " + o1.ToString() + " != " + o2.ToString();
+                failed++;
+            }
 				
 			System.Console.Out.WriteLine(s);
 		}

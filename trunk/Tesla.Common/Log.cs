@@ -5,6 +5,11 @@
 //
 
 using System;
+using System.IO;
+using System.Globalization;
+using System.Collections;
+using System.Text.RegularExpressions;
+using Tesla.Common;
 
 namespace Tesla.Common
 {
@@ -20,11 +25,7 @@ namespace Tesla.Common
 	
 	public class Log
 	{
-		
-		public Log()
-		{
-		}
-		
+
 		public static void Write(string text)
 		{
 			Write(text, LogType.Debug);
@@ -57,7 +58,6 @@ namespace Tesla.Common
 				Type = "Default: ";
 				break;
 			}
-			
 			System.Console.WriteLine(Type + text);
 		}
 	}
