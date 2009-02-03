@@ -37,7 +37,7 @@ namespace Tesla.GFX
 		
 		public bool setActive(bool activate)
 		{
-			return (this.active = active);
+			return (this.active = activate);
 		}
 
 		public bool collisionDetect (Vector3f pointA, Vector3f pointB)

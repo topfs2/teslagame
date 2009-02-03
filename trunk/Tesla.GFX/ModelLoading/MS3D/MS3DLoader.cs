@@ -9,7 +9,7 @@ using System.IO;
 
 using Tesla.Common;
 
-namespace Tesla.GFX
+namespace Tesla.GFX.ModelLoading
 {
 	public class MS3DLoader
 	{
@@ -23,7 +23,7 @@ namespace Tesla.GFX
 		
 		private class MS3DVertex
 		{
-			public sbyte boneInder;
+			//public sbyte boneInder;
 			public Vector3f position;
 			public byte flags;
 			public byte referanceCount;

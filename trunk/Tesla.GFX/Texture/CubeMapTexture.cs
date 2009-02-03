@@ -5,7 +5,7 @@
 //
 using System;
 using Tesla.Common;
-
+using System.Drawing.Imaging;
 using Tao.OpenGl;
 
 namespace Tesla.GFX
@@ -67,7 +67,7 @@ namespace Tesla.GFX
 			
 			if (type == CubeMapType.Reflective)
 			{
-				Matrix44 m, invert;
+                Matrix44 m, invert;
 				
 				float[] modelview = new float[16];
 				Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX , modelview);
