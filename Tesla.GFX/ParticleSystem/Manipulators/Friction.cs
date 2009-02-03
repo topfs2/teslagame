@@ -12,7 +12,6 @@ namespace Tesla.GFX
 	public class Friction : TemplateManipulator
 	{
 		float strength;
-		Vector3f direction;
 		
 		public Friction(float strength)
 		{

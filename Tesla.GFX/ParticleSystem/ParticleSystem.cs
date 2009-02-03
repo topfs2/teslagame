@@ -116,7 +116,8 @@ namespace Tesla.GFX
 		public void drawParticles(float frameTime, Frustum frustum)
 		{
 			particleFactory.preDraw();
-			int i = 0, j = 0;
+            //int i = 0;
+            //int j = 0;
 			if (frustum.inFrustum(boundingSphere))
 			{
 		        foreach (Particle p in listParticles)

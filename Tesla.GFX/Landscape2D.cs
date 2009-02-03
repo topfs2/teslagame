@@ -13,7 +13,7 @@ namespace Tesla.GFX
 {
 	public class Landscape2D : Drawable
 	{
-		static float d = -10, l = -10;				   
+		//static float d = -10, l = -10;				   
 		public SuperVertex[] vertrices;
 		Texture texture;
 		public Landscape2D(Texture texture)

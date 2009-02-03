@@ -25,7 +25,7 @@ namespace Tesla.GFX
 
 		
 		SuperVertex[] vertrices;
-		int indicesType;
+		//int indicesType;
 		int[] drawIndices;
 		int width, depth;
 		int[] vboReference;
@@ -120,7 +120,7 @@ namespace Tesla.GFX
 		
 		private void generateDrawIndices()
 		{
-			indicesType = Gl.GL_QUADS;
+			//indicesType = Gl.GL_QUADS;
 			drawIndices = new int[width * depth * 4];
 			for (int z = 0; z < (depth - 1); z++)
 			{
@@ -248,8 +248,8 @@ namespace Tesla.GFX
 
             this.baseTexture.Bind();
 
-		
-			if( true ) // supports VBO
+            bool useVBO = true;
+			if(useVBO) // supports VBO
 			{
 				Gl.glBindBufferARB( Gl.GL_ARRAY_BUFFER_ARB, vboReference[0] );
 				Gl.glVertexPointer( 3, Gl.GL_FLOAT, 0, null );		// Set The Vertex Pointer To The Vertex Buffer
