@@ -23,7 +23,7 @@ namespace Tesla.GFX.ModelLoading
         public ObjLoader(string fileName)
         {
             MtlLoader ml = new MtlLoader();
-            materials = ml.LoadFile(fileName);
+            materials = ml.Load(fileName);
             SetNumformat();
         }
 
@@ -33,20 +33,12 @@ namespace Tesla.GFX.ModelLoading
             SetNumformat();
         }
 
-        /// <summary>
-        /// A Material File (.mtl) must be set <i>before</i> the model is loaded.
-        /// </summary>
-        /// <param name="fileName">Path to the material file</param>
         public void SetMaterialFile(string fileName)
         {
             MtlLoader ml = new MtlLoader();
-            materials = ml.LoadFile(fileName);
+            materials = ml.Load(fileName);
         }
 
-        /// <summary>
-        /// A Material Dictionary must be set <i>before</i> the model is loaded.
-        /// </summary>
-        /// <param name="materials"></param>
         public void SetMaterialDictionary(Dictionary<string, Material> materials)
         {
             this.materials = materials;
@@ -64,12 +56,6 @@ namespace Tesla.GFX.ModelLoading
             return LoadModel(fileName);
         }
 
-        /// <summary>
-        /// Parses a Drawable model from the specified file path.
-        /// </summary>
-        /// <param name="fileName"></param>
-        /// <param name="position"></param>
-        /// <returns></returns>
         public LoadableModel LoadModel(String fileName)
         {
             int polygonCount = 0;
@@ -176,7 +162,7 @@ namespace Tesla.GFX.ModelLoading
                 if (g.Count() > 0)
                     cleanGroups.Add(g);
             }
-            Log.Write("Loaded \"" + fileName + "\" with " + polygonCount + " polygons in " + groupCount + " groups.", LogType.Info);
+            Log.Write("Loaded \"" + fileName + "\" with " + polygonCount + " polygons in " + groupCount + " groups.");
             return new LoadableModel(cleanGroups.ToArray());
         }
 
