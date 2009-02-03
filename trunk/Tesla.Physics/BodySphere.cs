@@ -17,7 +17,7 @@ namespace Tesla.Physics
 		Space space;
 		IntPtr bodyID, geomID;
 		
-		Ode.dMass mass;
+		//Ode.dMass mass;
 		Vector3f position;
 		Color4f rotationOGL;
 		
