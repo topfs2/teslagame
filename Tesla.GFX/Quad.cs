@@ -38,6 +38,7 @@ namespace Tesla.GFX
             Gl.glTexCoord2f(0, 1); Gl.glVertex3f(pos.x, pos.y - height, pos.z);
 
 			Gl.glEnd();
+			texture.UnBind();
 		}
 	}
 }
