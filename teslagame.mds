@@ -5,12 +5,14 @@
       <Entry build="True" name="Tesla.GFX" configuration="Debug" />
       <Entry build="True" name="Tesla.Common" configuration="Debug" />
       <Entry build="True" name="Tesla.Physics" configuration="Debug" />
+      <Entry build="True" name="Tesla.Audio" configuration="Debug" />
     </Configuration>
     <Configuration name="Release" ctype="CombineConfiguration">
       <Entry build="True" name="Tesla" configuration="Release" />
       <Entry build="True" name="Tesla.GFX" configuration="Release" />
       <Entry build="True" name="Tesla.Common" configuration="Release" />
       <Entry build="True" name="Tesla.Physics" configuration="Release" />
+      <Entry build="True" name="Tesla.Audio" configuration="Release" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="Tesla" single="True">
@@ -19,11 +21,13 @@
     <Execute type="None" entry="Tesla.GFX" />
     <Execute type="None" entry="Tesla.Common" />
     <Execute type="None" entry="Tesla.Physics" />
+    <Execute type="None" entry="Tesla.Audio" />
   </StartMode>
   <Entries>
     <Entry filename="Tesla/Tesla.mdp" />
     <Entry filename="Tesla.GFX/Tesla.GFX.mdp" />
     <Entry filename="Tesla.Common/Tesla.Common.mdp" />
     <Entry filename="Tesla.Physics/Tesla.Physics.mdp" />
+    <Entry filename="Tesla.Audio/Tesla.Audio.mdp" />
   </Entries>
 </Combine>

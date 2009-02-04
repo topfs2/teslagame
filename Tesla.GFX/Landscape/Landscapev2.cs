@@ -18,6 +18,19 @@ namespace Tesla.GFX
 		public Vector3f position, normal;
 		public Color4f color;
 		public Vector2f texCoord;
+		
+		public void draw()
+		{
+			if (normal != null)
+				Gl.glNormal3fv(normal.vector);
+			if (texCoord != null)
+				Gl.glTexCoord2f(texCoord.x, texCoord.y);
+			if (color != null)
+				Gl.glColor4f(color.r, color.g, color.b, color.a);
+			
+			if (position != null)
+				Gl.glVertex3fv(position.vector);
+		}
 	}
 	
 	public class Landscapev2 : Drawable
@@ -236,11 +249,20 @@ namespace Tesla.GFX
 		
 		public static TexturedCube tc;
 
+public float[] mcolor = { 1.0f, 1.0f, 1.0f, 1.0f };
+public float[] mcolor3 = { 1.0f, 1.0f, 1.0f, 1.0f };
+public float[] mcolor2 = { -0.2f, -0.2f, -0.2f, 1.0f };
+
 		public void Draw (float frameTime, Frustum frustum)
 		{
 			Gl.glPushMatrix();
 			//Gl.glDisable(Gl.GL_LIGHTING);
 
+			//Gl.glMaterialfv(Gl.GL_FRONT_AND_BACK, Gl.GL_AMBIENT_AND_DIFFUSE, mcolor);
+
+			//Gl.glMaterialfv(Gl.GL_FRONT_AND_BACK, Gl.GL_EMISSION, mcolor2);
+			/*Gl.glMaterialfv(Gl.GL_FRONT_AND_BACK, Gl.GL_SPECULAR, mcolor3);
+			Gl.glMaterialfv(Gl.GL_FRONT_AND_BACK, Gl.GL_SHININESS, mcolor3);*/
             Gl.glEnableClientState(Gl.GL_TEXTURE_COORD_ARRAY);
             Gl.glEnableClientState(Gl.GL_NORMAL_ARRAY);
             Gl.glEnableClientState(Gl.GL_VERTEX_ARRAY);

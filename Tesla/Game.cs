@@ -38,6 +38,8 @@ namespace Tesla
 		
 		static void LoadObjects()
 		{
+			w.setSkyBox(new SkyBox(new CubeMapTexture(c.defaultPath + "CubeMap/sky0", CubeMapType.None)));
+			
 			TexturedCube tc = new TexturedCube(new BasicTexture(c.defaultPath + "Texture/Tile/crate.png"), new Vector3f(0.0f, 0.0f, -10.0f), 1.0f, 1.0f, 1.0f);
 			w.Add(tc);
 		}
