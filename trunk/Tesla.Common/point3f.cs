@@ -12,6 +12,10 @@ namespace Tesla.Common
 	{
 		public float x, y, z;
 		
+		public Vector3f() : this(0.0f, 0.0f, 0.0f)
+		{
+		}
+		
 		public Vector3f(double x, double y, double z)
 		{
 			set((float)x, (float)y, (float)z);
