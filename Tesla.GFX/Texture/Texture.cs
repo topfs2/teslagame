@@ -13,7 +13,6 @@ namespace Tesla.GFX
 	public interface Texture
 	{
 		void Bind();
-		void TexCoord(float s, float t);
 		void UnBind();
 	}
 }
