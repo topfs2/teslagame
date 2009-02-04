@@ -46,17 +46,17 @@ namespace Tesla.GFX
 
 		public void Draw (float frameTime, Frustum frustum)
 		{
+			//Gl.glDisable(Gl.GL_LIGHTING);
+			Gl.glColor3f(1.0f, 1.0f, 1.0f);
 			if (texture != null)
 				texture.Bind();
-			//Gl.glDisable(Gl.GL_LIGHTING);
-			Gl.glEnable(Gl.GL_TEXTURE_2D);
-			Gl.glColor3f(1.0f, 1.0f, 1.0f);
 			Gl.glBegin(Gl.GL_QUADS);	
 			Gl.glNormal3fv(normal.vector);
 			Gl.glTexCoord2f(0	 , 0);		Gl.glVertex3fv(pointA.vector);
 			Gl.glTexCoord2f(0	 , tiles);	Gl.glVertex3fv(pointB.vector);
 			Gl.glTexCoord2f(tiles, tiles); 	Gl.glVertex3fv(pointC.vector);
 			Gl.glTexCoord2f(tiles, 0); 		Gl.glVertex3fv(pointD.vector);
+			texture.UnBind();
 			Gl.glEnd();
 		}
 	}
