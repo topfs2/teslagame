@@ -79,6 +79,9 @@ namespace Tesla.Physics
 		
 		public void update(float frameTime)
 		{
+			if (frameTime == 0.0f)
+				return;
+			
             // process all collisions within the scene. We need to provide this 
             // with a callback to actually process any collisions that occur between bodies, 
             // In this case, NearCallback.
