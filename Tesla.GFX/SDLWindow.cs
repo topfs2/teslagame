@@ -38,29 +38,23 @@ namespace Tesla.GFX
 		private Camera camera;
 		public  CollisionSurface ground;
 
-		public SDLWindow(string Name, int Width, int Height, int bpp, bool Fullscreen)
+		public SDLWindow(Configuration configuration)
 		{
-			InitWindow(Name, Width, Height, bpp, Fullscreen);
-			InitGL();
+			InitWindow(configuration);
+			InitGL(configuration);
 			Tao.DevIl.Il.ilInit();
 			Tao.DevIl.Ilut.ilutInit();
 		}
-
-		public SDLWindow()
-		{
-			InitWindow("Default", 200, 200, 32, true);
-			InitGL();
-		}
 		
-		private void InitWindow(string name, int width, int height, int bpp, bool fullscreen)
+		private void InitWindow(Configuration configuration)
 		{
-			this.width = width;
-			this.height = height;
+			width = configuration.resWidth;
+			height = configuration.resHeight;
 			centerX = width / 2;
 			centerY = height / 2;
-			this.bpp = bpp;
-			Name = name;
-			Fullscreen = fullscreen;
+			bpp = configuration.bpp;
+			Name = configuration.title;
+			Fullscreen = configuration.fullscreen;
 			buttonActionDelegate = new ButtonAction(buttonAction);
 			alwaysUpdateMouse = true;
 			exceptions = 0;
@@ -192,7 +186,7 @@ namespace Tesla.GFX
 			return camera;
 		}
 		
-        private void InitGL()
+        private void InitGL(Configuration configuration)
         {
             Gl.glShadeModel(Gl.GL_SMOOTH);
             Gl.glEnable(Gl.GL_TEXTURE_2D);
