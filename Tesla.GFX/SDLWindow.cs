@@ -198,14 +198,16 @@ namespace Tesla.GFX
             Gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 			/* Setup LIGHTING  */
-            float[] LightAmbient = { 0.5f, 0.5f, 0.5f, 1.0f };
-            float[] LightDiffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
-            float[] LightPosition = { 0.0f, 0.0f, 0.0f, 1.0f };
+			float[] LightAmbient = { 0.1f, 0.09f, 0.06f, 1.0f };
+			float[] LightDiffuse = { 1.0f, 0.819607843f, 0.450980392f, 1.0f };
+			float[] LightPosition = { -0.33f, 0.33f, -0.33f, 0.0f };
+			Gl.glEnable(Gl.GL_LIGHTING);
+			Gl.glEnable(Gl.GL_LIGHT1);
             Gl.glLightfv(Gl.GL_LIGHT1, Gl.GL_AMBIENT, LightAmbient);
             Gl.glLightfv(Gl.GL_LIGHT1, Gl.GL_DIFFUSE, LightDiffuse);
             Gl.glLightfv(Gl.GL_LIGHT1, Gl.GL_POSITION, LightPosition);
-            Gl.glEnable(Gl.GL_LIGHT1);
-            Gl.glEnable(Gl.GL_LIGHTING);
+            
+            
             
             float[] LightSpot = {1.0f, 1.0f, 1.0f, 1.0f};
 

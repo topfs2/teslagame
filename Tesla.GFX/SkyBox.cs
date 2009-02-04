@@ -93,6 +93,7 @@ namespace Tesla.GFX
 			Gl.glEnd();
 			texture.UnBind();
 			Gl.glDepthMask(1);
+			Gl.glEnable(Gl.GL_LIGHTING);
 			Gl.glPopMatrix();
 		}
 	}

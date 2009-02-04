@@ -12,6 +12,7 @@ using Tesla.Common;
 using Tesla.GFX.ModelLoading;
 using Tesla.Audio;
 using Tao.Sdl;
+using Tao.OpenGl;
 
 namespace Tesla
 {
@@ -40,9 +41,14 @@ namespace Tesla
 		{
 			w.setSkyBox(new SkyBox(new CubeMapTexture(c.defaultPath + "CubeMap/sky0", CubeMapType.None)));
 			
-			Landscape2D l = new Landscape2D(new BasicTexture(c.defaultPath + "Texture/Tile/rock512.bmp"), new BasicTexture(c.defaultPath + "Texture/Tile/grassb512.bmp"));
+			Font font = SDLFontv2.Create(c.defaultPath + "Fonts/zektonbi.ttf", 32);
+			w.Add(new SimpleFontHandler(font, "welcome to TESLA!", new Vector2f(10.0f, 10.0f), new Color4f(1.0f, 1.0f, 1.0f, 1.0f)));
+			Landscape2D l = new Landscape2D(new BasicTexture(c.defaultPath + "Texture/Tile/rock512.bmp"), new BasicTexture(c.defaultPath + "Texture/Tile/grass.jpg"));
 			w.Add(l);
+			
+			
 		}
+		
 		
 		public static void Main(string[] args)
 		{
@@ -55,6 +61,7 @@ namespace Tesla
 			
 			FPSCounter frameCounter = new FPSCounter();
 			bool quitFlag = false;
+			
 			while(!quitFlag)
 			{
 				float frameTime = frameCounter.Update();
