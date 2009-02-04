@@ -40,8 +40,8 @@ namespace Tesla
 		{
 			w.setSkyBox(new SkyBox(new CubeMapTexture(c.defaultPath + "CubeMap/sky0", CubeMapType.None)));
 			
-			TexturedCube tc = new TexturedCube(new BasicTexture(c.defaultPath + "Texture/Tile/crate.png"), new Vector3f(0.0f, 0.0f, -10.0f), 1.0f, 1.0f, 1.0f);
-			w.Add(tc);
+			Landscape2D l = new Landscape2D(new BasicTexture(c.defaultPath + "Texture/Tile/rock512.bmp"), new BasicTexture(c.defaultPath + "Texture/Tile/grassb512.bmp"));
+			w.Add(l);
 		}
 		
 		public static void Main(string[] args)
@@ -49,6 +49,9 @@ namespace Tesla
 			Initialize();
 			
 			LoadObjects();
+			
+			w.getActiveCamera().getPosition().set(10.0f, 2.0f, 10.0f);
+			w.getActiveCamera().rotateX(-3.0f);
 			
 			FPSCounter frameCounter = new FPSCounter();
 			bool quitFlag = false;
