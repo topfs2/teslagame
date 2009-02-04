@@ -14,98 +14,61 @@ namespace Tesla.GFX
 	public class Landscape2D : Drawable
 	{
 		//static float d = -10, l = -10;				   
-		public SuperVertex[] vertrices;
-		Texture texture;
-		public Landscape2D(Texture texture)
+		public SuperVertex[,] vertrices;
+		Texture textureWall, textureGround;
+		
+			int width = 40;
+			int depth = 20;		
+		
+		public Landscape2D(Texture textureWall, Texture textureGround)
 		{
-			this.texture = texture;
+			this.textureWall = textureWall;
+			this.textureGround = textureGround;
 			Log.Write("Creating heightData");
 			Random rand = new Random();
-			int max = 40;
-			float maxHeightDifference = 1;
-			float[] height = new float[max];
-			string s = "height: ";
-			float last = 0.0f;
-			for (int i = 0; i < max; i++)
-			{
-				height[i] = ((0.5f - (float)rand.NextDouble()) * maxHeightDifference) + last;
-				last = height[i];
-				s += height[i] + " ";
-			}
-			Log.Write(s);
-			generateTerrain(height);
-			generateNormal(height.Length);
-			generateTexCoords(height);
-		}
-		
-		private void generateTexCoords(float []height)
-		{
-			float maxH = 0.0f;
-			foreach (SuperVertex v in vertrices)
-			{
-				if (v.position.y > maxH)
-					maxH = v.position.y;
-			}
-			float scaleX = 2;
-			float scaleZ = 1;
-			float l = scaleX / (float)height.Length;
-			maxH += 10.0f;
 
-			for (int i = 0; i < (height.Length-1); i++)
+			float maxHeightDifference = 0.5f;
+			float maxScramble = 0.05f;
+			vertrices = new SuperVertex[width, depth];
+			float last = 0.0f;
+			float ratio = (float)width / (float)depth;
+			for (int i = 0; i < width; i++)
 			{
-				vertrices[0 + i*8].texCoord = new Vector2f(i*l	 , 0);
-				vertrices[1 + i*8].texCoord = new Vector2f(i*l	 , 1);
-				vertrices[2 + i*8].texCoord = new Vector2f((i+1)*l, 1);
-				vertrices[3 + i*8].texCoord = new Vector2f((i+1)*l, 0);
+				float h = ((0.5f - (float)rand.NextDouble()) * maxHeightDifference) + last;
 				
-				vertrices[4 + i*8].texCoord = new Vector2f(i*l	 , 0);
-				vertrices[5 + i*8].texCoord = new Vector2f(i*l	 , scaleZ);
-				vertrices[6 + i*8].texCoord = new Vector2f((i+1)*l, scaleZ);
-				vertrices[7 + i*8].texCoord = new Vector2f((i+1)*l, 0);
+				for (int j = 0; j < depth; j++)
+				{
+					vertrices[i, j] = new SuperVertex();
+					vertrices[i, j].position = new Vector3f(i, h + ((0.5f - (float)rand.NextDouble()) * maxScramble), -j);
+					vertrices[i, j].texCoord = new Vector2f((float)i / (float)depth, ((float)j / (float)depth));
+				}
+				last = h;
 			}
+			
+			calculateNormals();
 		}
 		
-		private void generateNormal(int length)
+		private void calculateNormals()
 		{
-			Vector3f norm = new Vector3f(0.0f, 0.0f, 1.0f);
-			
-			for (int i = 0; i < (length-1); i++)
+			Vector3f vecA, vecB, vecC, vecD, normA, normB, normC, normD;
+			for (int z = 1; z < (depth - 1); z++)
 			{
-				vertrices[4 + i*8].normal = new Vector3f(0, 1, 0);
-				vertrices[5 + i*8].normal = new Vector3f(0, 1, 0);
-				vertrices[6 + i*8].normal = new Vector3f(0, 1, 0);
-				vertrices[7 + i*8].normal = new Vector3f(0, 1, 0);
-				
-				vertrices[0 + i*8].normal = norm;
-				vertrices[1 + i*8].normal = norm;
-				vertrices[2 + i*8].normal = norm;
-				vertrices[3 + i*8].normal = norm;
-			}
-		}
-		
-		private void generateTerrain(float []height)
-		{
-			Log.Write("generateTerrain");
-			Random rand = new Random();
-			vertrices = new SuperVertex[((height.Length-1) * 8)];
-			for (int i = 0; i < ((height.Length-1) * 8); i++)
-				vertrices[i] = new SuperVertex();
-			
-			for (int i = 0; i < (height.Length-1); i++)
-			{
-				vertrices[0 + i*8].position = new Vector3f(i  , -10.0f   , 0.0f);
-				vertrices[1 + i*8].position = new Vector3f(i  , height[i], 0.0f);
-				vertrices[2 + i*8].position = new Vector3f(i+1, height[i+1], 0.0f);
-				vertrices[3 + i*8].position = new Vector3f(i+1, -10.0f, 0.0f);
-				
-				vertrices[4 + i*8].position = new Vector3f(i, height[i], 0);
-				vertrices[5 + i*8].position = new Vector3f(i, height[i], 13.0f);
-				vertrices[6 + i*8].position = new Vector3f(i+1, height[i+1], 13.0f);
-				vertrices[7 + i*8].position = new Vector3f(i+1, height[i+1], 0);
-			}
-			foreach ( SuperVertex v in vertrices)
-			{
-				v.color = new Color4f(1.0f, (float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble());
+				for (int x = 1; x < (width - 1); x++)
+				{
+					Vector3f p = vertrices[x , z].position;
+					vecA = vertrices[x-1 , z ].position.diff(p);
+					vecB = vertrices[x   ,z-1].position.diff(p);
+					vecC = vertrices[x+1 ,z  ].position.diff(p);
+					vecD = vertrices[x   ,z+1].position.diff(p);
+					
+					normA = vecA.Cross(vecD);
+					normB = vecD.Cross(vecC);
+					normC = vecC.Cross(vecB);
+					normD = vecB.Cross(vecA);
+					
+					vertrices[x , z].normal = normA.add(normB).add(normC).add(normD);
+					vertrices[x , z].normal.Normalize();
+				}
 			}
 		}
 		
@@ -116,16 +79,40 @@ namespace Tesla.GFX
 			//Gl.glDisable(Gl.GL_LIGHTING);
 			Gl.glEnable(Gl.GL_DEPTH_TEST);
 			//Gl.glDisable(Gl.GL_TEXTURE_2D);
-			texture.Bind();
+			textureWall.Bind();
 			Gl.glBegin(Gl.GL_QUADS);
-			foreach (SuperVertex v in vertrices)
+			for (int i = 0; i < width - 1; i++)
 			{
-				Gl.glNormal3fv(v.normal.vector);
-				Gl.glTexCoord2f(v.texCoord.x, v.texCoord.y);
-				Gl.glColor4f(v.color.r, v.color.g, v.color.b, v.color.a); 
-				Gl.glVertex3fv(v.position.vector);
+				float fiz = (float)i;
+				fiz /= 5.0f;
+				float fio = (float)i + 1.0f;
+				fio /= 5.0f;
+				Gl.glTexCoord2f(fiz, 1);
+				Gl.glVertex3f(i, vertrices[i, 0].position.y, 0);
+				Gl.glTexCoord2f(fio, 1);
+				Gl.glVertex3f(i+1, vertrices[i+1, 0].position.y, 0);
+				Gl.glTexCoord2f(fio, 0);
+				Gl.glVertex3f(i+1, -5, 0);
+				Gl.glTexCoord2f(fiz, 0);
+				Gl.glVertex3f(i  , -5, 0);
 			}
 			Gl.glEnd();
+			textureWall.UnBind();
+			
+			textureGround.Bind();
+			Gl.glBegin(Gl.GL_QUADS);
+			for (int i = 0; i < width - 1; i++)
+			{
+				for (int j = 0; j < depth - 1; j++)
+				{
+					vertrices[i  ,j  ].draw();
+					vertrices[i+1,j  ].draw();
+					vertrices[i+1,j+1].draw();
+					vertrices[i  ,j+1].draw();					
+				}
+			}
+			Gl.glEnd();
+			textureGround.UnBind();
 		}
 	}
 }
