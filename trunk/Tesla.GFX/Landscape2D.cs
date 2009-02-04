@@ -27,11 +27,12 @@ namespace Tesla.GFX
 			Log.Write("Creating heightData");
 			Random rand = new Random();
 
-			float maxHeightDifference = 0.5f;
-			float maxScramble = 0.05f;
+			float maxHeightDifference = 0.75f;
+			float maxScramble = 0.3f;
 			vertrices = new SuperVertex[width, depth];
 			float last = 0.0f;
 			float ratio = (float)width / (float)depth;
+			int mul = 2;
 			for (int i = 0; i < width; i++)
 			{
 				float h = ((0.5f - (float)rand.NextDouble()) * maxHeightDifference) + last;
@@ -40,7 +41,7 @@ namespace Tesla.GFX
 				{
 					vertrices[i, j] = new SuperVertex();
 					vertrices[i, j].position = new Vector3f(i, h + ((0.5f - (float)rand.NextDouble()) * maxScramble), -j);
-					vertrices[i, j].texCoord = new Vector2f((float)i / (float)depth, ((float)j / (float)depth));
+					vertrices[i, j].texCoord = new Vector2f((float)(i * mul) / (float)depth, ((float)(j * mul) / (float)depth));
 				}
 				last = h;
 			}
@@ -67,6 +68,7 @@ namespace Tesla.GFX
 					normD = vecB.Cross(vecA);
 					
 					vertrices[x , z].normal = normA.add(normB).add(normC).add(normD);
+					vertrices[x , z].normal.invert();
 					vertrices[x , z].normal.Normalize();
 				}
 			}
@@ -74,11 +76,8 @@ namespace Tesla.GFX
 		
 		public void Draw (float frameTime, Frustum frustum)
 		{
-			Gl.glPolygonMode(Gl.GL_FRONT, Gl.GL_FILL);
-			Gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-			//Gl.glDisable(Gl.GL_LIGHTING);
-			Gl.glEnable(Gl.GL_DEPTH_TEST);
-			//Gl.glDisable(Gl.GL_TEXTURE_2D);
+			Gl.glEnable(Gl.GL_COLOR_MATERIAL);
+			Gl.glColor3f(1.0f, 1.0f, 1.0f);
 			textureWall.Bind();
 			Gl.glBegin(Gl.GL_QUADS);
 			for (int i = 0; i < width - 1; i++)
@@ -87,6 +86,7 @@ namespace Tesla.GFX
 				fiz /= 5.0f;
 				float fio = (float)i + 1.0f;
 				fio /= 5.0f;
+				Gl.glNormal3f(0.0f, 0.0f, 1.0f);
 				Gl.glTexCoord2f(fiz, 1);
 				Gl.glVertex3f(i, vertrices[i, 0].position.y, 0);
 				Gl.glTexCoord2f(fio, 1);
