@@ -14,7 +14,10 @@
     </Configuration>
   </Configurations>
   <Contents>
-    <File name="newLandscape.cs" subtype="Code" buildaction="Compile" />
+    <File name="newLandscape.cs" subtype="Code" buildaction="Nothing" />
+    <File name="Game.cs" subtype="Code" buildaction="Compile" />
+    <File name="FPSCounter.cs" subtype="Code" buildaction="Compile" />
+    <File name="FPSCounterTest.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
@@ -24,5 +27,7 @@
     <ProjectReference type="Assembly" localcopy="True" refto="../../taoframework-2.1.0/bin/Tao.Ode.dll" />
     <ProjectReference type="Assembly" localcopy="True" refto="../../taoframework-2.1.0/bin/Tao.OpenGl.dll" />
     <ProjectReference type="Assembly" localcopy="True" refto="../../taoframework-2.1.0/bin/Tao.Sdl.dll" />
+    <ProjectReference type="Project" localcopy="True" refto="Tesla.Audio" />
+    <ProjectReference type="Gac" localcopy="True" refto="nunit.framework, Version=2.2.0.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77" />
   </References>
 </Project>
