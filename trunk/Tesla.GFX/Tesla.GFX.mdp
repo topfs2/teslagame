@@ -20,12 +20,9 @@
     <File name="Geometry.cs" subtype="Code" buildaction="Compile" />
     <File name="GluSphere.cs" subtype="Code" buildaction="Compile" />
     <File name="GroundPlane.cs" subtype="Code" buildaction="Compile" />
-    <File name="Landscape.cs" subtype="Code" buildaction="Compile" />
     <File name="Landscape2D.cs" subtype="Code" buildaction="Compile" />
-    <File name="LandscapeGeometry.cs" subtype="Code" buildaction="Compile" />
     <File name="MultiTexturedCube.cs" subtype="Code" buildaction="Compile" />
     <File name="MultiTexturedQuad.cs" subtype="Code" buildaction="Compile" />
-    <File name="PlainGeometry.cs" subtype="Code" buildaction="Compile" />
     <File name="Quad.cs" subtype="Code" buildaction="Compile" />
     <File name="SDLWindow.cs" subtype="Code" buildaction="Compile" />
     <File name="SkyBox.cs" subtype="Code" buildaction="Compile" />
