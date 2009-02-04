@@ -5,30 +5,35 @@
 //
 
 using System;
+using Tesla.Common;
 using Tao.OpenAl;
 
 namespace Tesla.Audio
 {
-	public class AudioContext
+	public class AudioContext : IDisposable
 	{
-		public AudioContext()
-		{
-		}
+		private static bool SubSystemsInitialized = false;
 		
-		public static void initialize()
+		public AudioContext(Configuration c)
 		{
 	    	Al.alGetError();
-			Alut.alutInit();
+			if (!SubSystemsInitialized)
+			{
+				Alut.alutInit();
+				SubSystemsInitialized = true;
+			}
+			
+			Check();
 		}
 		
-		public static void deinitialize()
+		public void Dispose()
 		{
 			AudioSource.unload();
 			AudioData.unload();
 			Alut.alutExit();
 		}
 		
-		public static bool checkForError()
+		private bool Check()
 		{
 			int error = Al.alGetError();
 			if (error != Al.AL_NO_ERROR)
@@ -36,5 +41,7 @@ namespace Tesla.Audio
 			else
 				return true;
 		}
+		
+		
 	}
 }
