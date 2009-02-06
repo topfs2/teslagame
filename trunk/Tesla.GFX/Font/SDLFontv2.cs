@@ -26,47 +26,36 @@ namespace Tesla.GFX.Font
         private SortedList<char, SDLGlyph> GlyphList = new SortedList<char, SDLGlyph>();
 
         private SDLFontv2(string FontPath, int Size, FontStyle Style)
-        {            
-            this.FontPath = GetFontPath(FontPath);
+        {
+			if (!File.Exists(FontPath))
+				throw new FileNotFoundException("Could not find font " + FontPath);
+			
+            this.FontPath = FontPath;
 
             if (SdlTtf.TTF_WasInit() != 1)
                 SdlTtf.TTF_Init();
 
-            if (this.FontPath != null)
+            this.m_Font = SdlTtf.TTF_OpenFont(this.FontPath, Size);
+            this.FontSize = Size;
+            this.Style = Style;
+            switch (Style)
             {
-                this.m_Font = SdlTtf.TTF_OpenFont(this.FontPath, Size);
-                this.FontSize = Size;
-                this.Style = Style;
-                switch (Style)
-                {
-                    case FontStyle.Bold:
-                        SdlTtf.TTF_SetFontStyle(this.m_Font, SdlTtf.TTF_STYLE_BOLD);
-                        break;
-                    case FontStyle.Italic:
-                        SdlTtf.TTF_SetFontStyle(this.m_Font, SdlTtf.TTF_STYLE_ITALIC);
-                        break;
-                    case FontStyle.Regular:
-                        SdlTtf.TTF_SetFontStyle(this.m_Font, SdlTtf.TTF_STYLE_NORMAL);
-                        break;
-                    case FontStyle.Underline:
-                        SdlTtf.TTF_SetFontStyle(this.m_Font, SdlTtf.TTF_STYLE_UNDERLINE);
-                        break;
-                }
+                case FontStyle.Bold:
+                    SdlTtf.TTF_SetFontStyle(this.m_Font, SdlTtf.TTF_STYLE_BOLD);
+                    break;
+                case FontStyle.Italic:
+                    SdlTtf.TTF_SetFontStyle(this.m_Font, SdlTtf.TTF_STYLE_ITALIC);
+                    break;
+                case FontStyle.Regular:
+                    SdlTtf.TTF_SetFontStyle(this.m_Font, SdlTtf.TTF_STYLE_NORMAL);
+                    break;
+                case FontStyle.Underline:
+                    SdlTtf.TTF_SetFontStyle(this.m_Font, SdlTtf.TTF_STYLE_UNDERLINE);
+                    break;
             }
         }
-        private SDLFontv2(string FontPath, int Size)
+        private SDLFontv2(string FontPath, int Size) : this(FontPath, Size, FontStyle.Regular)
         {
-            this.FontPath = GetFontPath(FontPath);
-
-            if (SdlTtf.TTF_WasInit() == 0)
-                SdlTtf.TTF_Init();
-
-            if (this.FontPath != null)
-            {
-                this.m_Font = SdlTtf.TTF_OpenFont(this.FontPath, Size);
-                this.FontSize = Size;
-                SdlTtf.TTF_SetFontStyle(this.m_Font, SdlTtf.TTF_STYLE_NORMAL);
-            }
         }
 
 
@@ -277,37 +266,6 @@ namespace Tesla.GFX.Font
             Gl.glEndList();
 
             SGlyph.DispList = NewList;
-        }
-
-        private string CheckFontPath(string UnkownFont)
-        {
-            string FontPath = null;
-
-            if (File.Exists(UnkownFont))
-                FontPath = UnkownFont;
-            /*else if (File.Exists(Program.StartupPath + UnkownFont))
-                FontPath = Program.StartupPath + UnkownFont;
-            else if (File.Exists(Program.StartupPath + "/" + UnkownFont))
-                FontPath = Program.StartupPath + "/" + UnkownFont;
-            else if (File.Exists(Program.StartupPath + "/Fonts/" + UnkownFont))
-                FontPath = Program.StartupPath + "/Fonts/" + UnkownFont;
-            else if (File.Exists(Environment.GetEnvironmentVariable("SystemRoot") + "/Fonts/" + UnkownFont))
-                FontPath = Environment.GetEnvironmentVariable("SystemRoot") + "/Fonts/" + UnkownFont;*/
-
-            return FontPath;
-        }
-        private string GetFontPath(string UnkownFont)
-        {
-            if (this.CheckFontPath(UnkownFont) != null)
-                return this.CheckFontPath(UnkownFont);
-            else if (this.CheckFontPath(UnkownFont + ".ttf") != null)
-                return this.CheckFontPath(UnkownFont + ".ttf");
-            else if (this.CheckFontPath(UnkownFont.ToLower()) != null)
-                return this.CheckFontPath(UnkownFont.ToLower());
-            else if (this.CheckFontPath(UnkownFont.ToLower() + ".ttf") != null)
-                return this.CheckFontPath(UnkownFont.ToLower() + ".ttf");
-            else
-                return null;
         }
 
         private void DeleteUnmanaged()
