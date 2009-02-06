@@ -103,5 +103,15 @@ namespace Tesla.GFX
 			Gl.glPopMatrix();
 			Gl.glMatrixMode(Gl.GL_MODELVIEW);
 		}
+
+		public float Width ()
+		{
+			throw new NotImplementedException();
+		}
+
+		public float Height ()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
