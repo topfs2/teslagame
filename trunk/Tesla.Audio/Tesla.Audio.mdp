@@ -20,6 +20,8 @@
     <File name="Listener.cs" subtype="Code" buildaction="Compile" />
     <File name="Source.cs" subtype="Code" buildaction="Compile" />
     <File name="Sound.cs" subtype="Code" buildaction="Compile" />
+    <File name="LoopingSource.cs" subtype="Code" buildaction="Compile" />
+    <File name="Ambient.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />

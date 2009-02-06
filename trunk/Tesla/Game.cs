@@ -25,6 +25,7 @@ namespace Tesla
 		static Listener listener; 
 		
 		static Sound gunShot;
+		static Ambient rain;
 		
 		static void Initialize()
 		{
@@ -59,6 +60,7 @@ namespace Tesla
 		static void LoadAudio()
 		{
 			gunShot   = new Sound(c.defaultPath + "Audio/gunshot2.wav");
+			rain      = new Ambient(c.defaultPath + "Ambient/Forest.wav");
 		}
 		
 		
@@ -101,7 +103,7 @@ namespace Tesla
 			lastPressed = System.Environment.TickCount;
 			
 			
-			if (keyState[Sdl.SDLK_h] > 0)
+			if (keyState[Sdl.SDLK_e] > 0)
 				gunShot.play(new Vector3f(), new Vector3f());
 		}
 	}
