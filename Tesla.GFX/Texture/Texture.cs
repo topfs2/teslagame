@@ -14,5 +14,7 @@ namespace Tesla.GFX
 	{
 		void Bind();
 		void UnBind();
+		float Width();
+		float Height();
 	}
 }

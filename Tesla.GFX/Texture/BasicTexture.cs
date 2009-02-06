@@ -90,5 +90,15 @@ namespace Tesla.GFX
 		public void UnBind()
 		{
 		}
+
+		public float Width ()
+		{
+			return width;
+		}
+
+		public float Height ()
+		{
+			return height;
+		}
 	}
 }

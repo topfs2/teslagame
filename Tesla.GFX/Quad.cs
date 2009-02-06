@@ -14,15 +14,21 @@ namespace Tesla.GFX
 	
 	public class Quad : Drawable
 	{
-		float width, height;
+		float width, height, u, v;
 		Vector3f pos;
 		Texture texture;
 		
-		public Quad(Texture texture, Vector3f pos, float width, float height)
+		public Quad(Texture texture, Vector3f pos, float maximumWidth, float tileX, float tileY) : this(texture, pos, maximumWidth, maximumWidth * texture.Height() / texture.Width(), tileX, tileY) 
+		{
+		}
+		
+		public Quad(Texture texture, Vector3f pos, float width, float height, float tileX, float tileY)
 		{
 			this.pos = pos;
-			this.width = width;
-			this.height = height;
+			this.width = width * tileX;
+			this.height = height * tileY;
+			u = tileX;
+			v = tileY;
 			this.texture = texture;
 		}
 
@@ -33,9 +39,9 @@ namespace Tesla.GFX
 			Gl.glBegin(Gl.GL_QUADS);
 			Gl.glNormal3f(0, 0, -1);
 			Gl.glTexCoord2f(0, 0); Gl.glVertex3f(pos.x, pos.y, pos.z);
-            Gl.glTexCoord2f(1, 0); Gl.glVertex3f(pos.x + width, pos.y, pos.z);
-            Gl.glTexCoord2f(1, 1); Gl.glVertex3f(pos.x + width, pos.y - height, pos.z);
-            Gl.glTexCoord2f(0, 1); Gl.glVertex3f(pos.x, pos.y - height, pos.z);
+            Gl.glTexCoord2f(u, 0); Gl.glVertex3f(pos.x + width, pos.y, pos.z);
+            Gl.glTexCoord2f(u, v); Gl.glVertex3f(pos.x + width, pos.y - height, pos.z);
+            Gl.glTexCoord2f(0, v); Gl.glVertex3f(pos.x, pos.y - height, pos.z);
 
 			Gl.glEnd();
 			texture.UnBind();
