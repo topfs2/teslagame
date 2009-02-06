@@ -11,9 +11,7 @@ using Tesla.Common;
 
 namespace Tesla.Audio
 {
-	
-	
-	public class Sound
+	public class Sound : IDisposable
 	{
 		Queue<Source> sources;
 		Buffer audioBuffer;
@@ -42,6 +40,17 @@ namespace Tesla.Audio
 			sources.Enqueue(source);
 
 			Console.WriteLine("NbrSources: " + sources.Count);
+		}
+
+		public void Dispose ()
+		{
+			foreach (Source s in sources)
+			{
+				s.stop();
+				s.Dispose();
+			}
+			
+			audioBuffer.Dispose();
 		}
 		
 	}

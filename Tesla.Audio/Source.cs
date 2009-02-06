@@ -12,31 +12,22 @@ namespace Tesla.Audio
 {
 	internal class Source : IDisposable
 	{
-		private int sourceID;
+		protected int sourceID;
 		private static System.Collections.Generic.List<int> sources = new System.Collections.Generic.List<int>();
-		
-		public Source(Buffer buffer, float rolloff) : this(buffer, new Vector3f(0.0f, 0.0f, 0.0f), new Vector3f(0.0f, 0.0f, 0.0f), rolloff, false)
-		{
-		}
-		
-		public Source(Buffer buffer, Vector3f position, Vector3f velocity, float rolloff, bool loop)
+	
+		public Source(Buffer buffer, float rolloff)
 		{
 			Al.alGenSources(1, out sourceID);
 			
 	    	Al.alSourcef(sourceID,  Al.AL_PITCH, 1.0f);
 	    	Al.alSourcef(sourceID,  Al.AL_GAIN, 1.0f);
-			setPosition(position);
-			setVelocity(velocity);
-			
 	    	Al.alSourcei(sourceID,  Al.AL_BUFFER, buffer.getBuffer());
-
-			Al.alSourcei(sourceID,  Al.AL_LOOPING, loop ? Al.AL_TRUE : Al.AL_FALSE);
 			Al.alSourcef(sourceID, Al.AL_ROLLOFF_FACTOR, rolloff);
-			//Al.alSourcei(sourceID, Al.AL_SOURCE_RELATIVE, Al.AL_TRUE);
+
 			sources.Add(sourceID);
 			
-			int error = Al.alGetError();
-			if (error != Al.AL_NO_ERROR)
+			int error = Alut.alutGetError();
+			if (error != Alut.ALUT_ERROR_NO_ERROR)
 				throw new Exception(Alut.alutGetErrorString(error));
 		}
 		
@@ -60,6 +51,12 @@ namespace Tesla.Audio
 		{
 			Al.alSourcefv(sourceID, Al.AL_VELOCITY, velocity.vector);
 		}
+		
+		public void setRelative(bool relative)
+		{
+			Al.alSourcei(sourceID, Al.AL_SOURCE_RELATIVE, relative ? Al.AL_TRUE : Al.AL_FALSE);
+		}
+		                        
 		
 		public void play()
 		{
