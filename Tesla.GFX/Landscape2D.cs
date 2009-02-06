@@ -14,42 +14,58 @@ namespace Tesla.GFX
 	public class Landscape2D : Drawable
 	{
 		//static float d = -10, l = -10;				   
-		public SuperVertex[,] vertrices;
+		private SuperVertex[,] upperVertrices;
+		private SuperVertex[,] lowerVertrices;
 		Texture textureWall, textureGround;
 		
-			int width = 40;
+			int width = 80;
 			int depth = 20;		
 		
-		public Landscape2D(Texture textureWall, Texture textureGround)
+		public Landscape2D(Texture textureWall, Texture textureGround, float translateY)
 		{
 			this.textureWall = textureWall;
 			this.textureGround = textureGround;
 			Log.Write("Creating heightData");
+			
+			upperVertrices = new SuperVertex[width, depth];
+			generateVertrices(upperVertrices,  1.0f + translateY, 0.35f, 0.1f);
+			generateNormals(upperVertrices, true);
+			lowerVertrices = new SuperVertex[width, depth];
+			generateVertrices(lowerVertrices, -5.0f + translateY, 0.55f, 0.1f);
+			generateNormals(lowerVertrices, false);
+		}
+		
+		private void generateVertrices(SuperVertex[,] vertrices, float translateY, float maxHeightDifference, float maxScramble)
+		{
 			Random rand = new Random();
-
-			float maxHeightDifference = 0.75f;
-			float maxScramble = 0.3f;
-			vertrices = new SuperVertex[width, depth];
 			float last = 0.0f;
 			float ratio = (float)width / (float)depth;
 			int mul = 2;
 			for (int i = 0; i < width; i++)
 			{
-				float h = ((0.5f - (float)rand.NextDouble()) * maxHeightDifference) + last;
+				float h = ((0.5f - (float)rand.NextDouble()) * maxHeightDifference) + last + translateY;
+				
+				float x = (float)i / 2.0f;
 				
 				for (int j = 0; j < depth; j++)
 				{
+					float y = (float)j / 2.0f;
 					vertrices[i, j] = new SuperVertex();
-					vertrices[i, j].position = new Vector3f(i, h + ((0.5f - (float)rand.NextDouble()) * maxScramble), -j);
+					vertrices[i, j].position = new Vector3f(x, h + ((0.5f - (float)rand.NextDouble()) * maxScramble), -y);
 					vertrices[i, j].texCoord = new Vector2f((float)(i * mul) / (float)depth, ((float)(j * mul) / (float)depth));
 				}
-				last = h;
+				last = h - translateY;
 			}
 			
-			calculateNormals();
+			for (int i = 0; i < width; i++)
+			{
+				vertrices[i, 0].position.y -= maxHeightDifference; 
+				vertrices[i, 1].position.y -= (maxHeightDifference) / 2.0f;
+			}
 		}
 		
-		private void calculateNormals()
+		
+		private void generateNormals(SuperVertex[,] vertrices, bool invertNormal)
 		{
 			Vector3f vecA, vecB, vecC, vecD, normA, normB, normC, normD;
 			for (int z = 1; z < (depth - 1); z++)
@@ -68,7 +84,8 @@ namespace Tesla.GFX
 					normD = vecB.Cross(vecA);
 					
 					vertrices[x , z].normal = normA.add(normB).add(normC).add(normD);
-					vertrices[x , z].normal.invert();
+					if (invertNormal)
+						vertrices[x , z].normal.invert();
 					vertrices[x , z].normal.Normalize();
 				}
 			}
@@ -88,13 +105,14 @@ namespace Tesla.GFX
 				fio /= 5.0f;
 				Gl.glNormal3f(0.0f, 0.0f, 1.0f);
 				Gl.glTexCoord2f(fiz, 1);
-				Gl.glVertex3f(i, vertrices[i, 0].position.y, 0);
+				Gl.glVertex3f(upperVertrices[i, 0].position.x, upperVertrices[i, 0].position.y, 0);
 				Gl.glTexCoord2f(fio, 1);
-				Gl.glVertex3f(i+1, vertrices[i+1, 0].position.y, 0);
+				Gl.glVertex3f(upperVertrices[i+1, 0].position.x, upperVertrices[i+1, 0].position.y, 0);
+				
 				Gl.glTexCoord2f(fio, 0);
-				Gl.glVertex3f(i+1, -5, 0);
+				Gl.glVertex3f(lowerVertrices[i+1, 0].position.x, lowerVertrices[i+1, 0].position.y, 0);
 				Gl.glTexCoord2f(fiz, 0);
-				Gl.glVertex3f(i  , -5, 0);
+				Gl.glVertex3f(lowerVertrices[i, 0].position.x  , lowerVertrices[i, 0].position.y, 0);
 			}
 			Gl.glEnd();
 			textureWall.UnBind();
@@ -105,10 +123,15 @@ namespace Tesla.GFX
 			{
 				for (int j = 0; j < depth - 1; j++)
 				{
-					vertrices[i  ,j  ].draw();
-					vertrices[i+1,j  ].draw();
-					vertrices[i+1,j+1].draw();
-					vertrices[i  ,j+1].draw();					
+					upperVertrices[i  ,j  ].draw();
+					upperVertrices[i+1,j  ].draw();
+					upperVertrices[i+1,j+1].draw();
+					upperVertrices[i  ,j+1].draw();
+					
+					lowerVertrices[i  ,j  ].draw();
+					lowerVertrices[i+1,j  ].draw();
+					lowerVertrices[i+1,j+1].draw();
+					lowerVertrices[i  ,j+1].draw();		
 				}
 			}
 			Gl.glEnd();
