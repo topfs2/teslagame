@@ -15,11 +15,11 @@ namespace Tesla.Audio
 		private int sourceID;
 		private static System.Collections.Generic.List<int> sources = new System.Collections.Generic.List<int>();
 		
-		public AudioSource(AudioData buffer, float rolloff) : this(buffer, new Vector3f(0.0f, 0.0f, 0.0f), new Vector3f(0.0f, 0.0f, 0.0f), rolloff, false)
+		public AudioSource(AudioBuffer buffer, float rolloff) : this(buffer, new Vector3f(0.0f, 0.0f, 0.0f), new Vector3f(0.0f, 0.0f, 0.0f), rolloff, false)
 		{
 		}
 		
-		public AudioSource(AudioData buffer, Vector3f position, Vector3f velocity, float rolloff, bool loop)
+		public AudioSource(AudioBuffer buffer, Vector3f position, Vector3f velocity, float rolloff, bool loop)
 		{
 			Al.alGenSources(1, out sourceID);
 			
@@ -32,6 +32,7 @@ namespace Tesla.Audio
 
 			Al.alSourcei(sourceID,  Al.AL_LOOPING, loop ? Al.AL_TRUE : Al.AL_FALSE);
 			Al.alSourcef(sourceID, Al.AL_ROLLOFF_FACTOR, rolloff);
+			Al.alSourcei(sourceID, Al.AL_SOURCE_RELATIVE, Al.AL_TRUE);
 			sources.Add(sourceID);
 			
 			int error = Al.alGetError();

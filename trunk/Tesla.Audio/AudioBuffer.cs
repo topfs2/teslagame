@@ -10,7 +10,7 @@ using Tao.OpenAl;
 
 namespace Tesla.Audio
 {
-	public class AudioData : IDisposable
+	public class AudioBuffer : IDisposable
 	{
 		private static Dictionary<string, int> buffers = new Dictionary<string,int>();
 		
@@ -21,7 +21,7 @@ namespace Tesla.Audio
 			return bufferID;
 		}
 		
-		public AudioData(string fileName)
+		public AudioBuffer(string fileName)
 		{
 			if (buffers.ContainsKey(fileName))
 				bufferID = buffers[fileName];
