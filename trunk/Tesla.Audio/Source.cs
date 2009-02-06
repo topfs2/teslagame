@@ -10,16 +10,16 @@ using Tesla.Common;
 
 namespace Tesla.Audio
 {
-	public class AudioSource : IDisposable
+	internal class Source : IDisposable
 	{
 		private int sourceID;
 		private static System.Collections.Generic.List<int> sources = new System.Collections.Generic.List<int>();
 		
-		public AudioSource(AudioBuffer buffer, float rolloff) : this(buffer, new Vector3f(0.0f, 0.0f, 0.0f), new Vector3f(0.0f, 0.0f, 0.0f), rolloff, false)
+		public Source(Buffer buffer, float rolloff) : this(buffer, new Vector3f(0.0f, 0.0f, 0.0f), new Vector3f(0.0f, 0.0f, 0.0f), rolloff, false)
 		{
 		}
 		
-		public AudioSource(AudioBuffer buffer, Vector3f position, Vector3f velocity, float rolloff, bool loop)
+		public Source(Buffer buffer, Vector3f position, Vector3f velocity, float rolloff, bool loop)
 		{
 			Al.alGenSources(1, out sourceID);
 			

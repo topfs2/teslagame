@@ -28,8 +28,8 @@ namespace Tesla.Audio
 		
 		public void Dispose()
 		{
-			AudioSource.unload();
-			AudioBuffer.unload();
+			Source.unload();
+			Buffer.unload();
 			Alut.alutExit();
 		}
 		
