@@ -25,7 +25,7 @@ namespace Tesla
 		static Listener listener; 
 		
 		static Sound gunShot;
-		static Ambient rain;
+		static Ambient ambient;
 		
 		static void Initialize()
 		{
@@ -59,8 +59,8 @@ namespace Tesla
 		
 		static void LoadAudio()
 		{
-			gunShot   = new Sound(c.defaultPath + "Audio/gunshot2.wav");
-			rain      = new Ambient(c.defaultPath + "Ambient/Forest.wav");
+			gunShot = new Sound(c.defaultPath + "Audio/gunshot2.wav");
+			ambient = new Ambient(c.defaultPath + "Ambient/BugsAndBirds.wav");
 		}
 		
 		
