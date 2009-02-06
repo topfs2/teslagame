@@ -32,7 +32,7 @@ namespace Tesla.Audio
 
 			Al.alSourcei(sourceID,  Al.AL_LOOPING, loop ? Al.AL_TRUE : Al.AL_FALSE);
 			Al.alSourcef(sourceID, Al.AL_ROLLOFF_FACTOR, rolloff);
-			Al.alSourcei(sourceID, Al.AL_SOURCE_RELATIVE, Al.AL_TRUE);
+			//Al.alSourcei(sourceID, Al.AL_SOURCE_RELATIVE, Al.AL_TRUE);
 			sources.Add(sourceID);
 			
 			int error = Al.alGetError();

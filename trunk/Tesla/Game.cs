@@ -23,6 +23,8 @@ namespace Tesla
 		
 		static AudioContext audioContext;
 		static AudioListener listener; 
+		
+		static SimpleSound gunShot;
 		static void Initialize()
 		{
 			c  = new Configuration("config.dat");
@@ -55,6 +57,7 @@ namespace Tesla
 		
 		static void LoadAudio()
 		{
+			gunShot = new SimpleSound(c.defaultPath + "Audio/gunshot2.wav");
 		}
 		
 		
@@ -87,9 +90,18 @@ namespace Tesla
 			listener.setPosition(c.getPosition());
 			listener.setOrientation(c.getFrontVector(), c.getUpVector());
 		}
+		
+		static int lastPressed;
 
 		static void buttonAction(byte[] keyState, int numberKeys, float frameTime)
 		{
+			if (lastPressed + 100 > System.Environment.TickCount)
+				return;
+			lastPressed = System.Environment.TickCount;
+			
+			
+			if (keyState[Sdl.SDLK_h] > 0)
+				gunShot.play(new Vector3f(), new Vector3f());
 		}
 	}
 }
