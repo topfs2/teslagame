@@ -22,14 +22,15 @@ namespace Tesla
         static Configuration c = new Configuration("config.dat");
 		
 		static AudioContext audioContext;
-		static AudioListener listener; 
+		static Listener listener; 
 		
-		static SimpleSound gunShot;
+		static Sound gunShot;
+		
 		static void Initialize()
 		{
 			c  = new Configuration("config.dat");
 			audioContext = new AudioContext(c);
-			listener = new AudioListener();
+			listener = new Listener();
 			
 			w = new SDLWindow(c);
 			w.Add(buttonAction);
@@ -57,7 +58,7 @@ namespace Tesla
 		
 		static void LoadAudio()
 		{
-			gunShot = new SimpleSound(c.defaultPath + "Audio/gunshot2.wav");
+			gunShot   = new Sound(c.defaultPath + "Audio/gunshot2.wav");
 		}
 		
 		

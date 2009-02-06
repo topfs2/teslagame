@@ -10,7 +10,7 @@ using Tao.OpenAl;
 
 namespace Tesla.Audio
 {
-	public class AudioBuffer : IDisposable
+	internal class Buffer : IDisposable
 	{
 		private static Dictionary<string, int> buffers = new Dictionary<string,int>();
 		
@@ -21,7 +21,7 @@ namespace Tesla.Audio
 			return bufferID;
 		}
 		
-		public AudioBuffer(string fileName)
+		public Buffer(string fileName)
 		{
 			if (buffers.ContainsKey(fileName))
 				bufferID = buffers[fileName];
@@ -33,6 +33,7 @@ namespace Tesla.Audio
 		{
 			if (!System.IO.File.Exists(fileName))
 				throw new System.IO.FileNotFoundException("Couln´t find " + fileName);
+
 			int buffer = Alut.alutCreateBufferFromFile(fileName);
 			int error = Al.alGetError();
 			if (error == Al.AL_NO_ERROR)

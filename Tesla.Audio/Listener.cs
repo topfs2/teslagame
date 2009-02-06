@@ -10,13 +10,13 @@ using Tesla.Common;
 
 namespace Tesla.Audio
 {
-	public class AudioListener
+	public class Listener
 	{		
-		public AudioListener() : this(new Vector3f(0.0f, 0.0f, 0.0f), new Vector3f(0.0f, 0.0f, 0.0f), new Vector3f(0.0f, 0.0f, -1.0f), new Vector3f(0.0f, 1.0f, 0.0f))
+		public Listener() : this(new Vector3f(0.0f, 0.0f, 0.0f), new Vector3f(0.0f, 0.0f, 0.0f), new Vector3f(0.0f, 0.0f, -1.0f), new Vector3f(0.0f, 1.0f, 0.0f))
 		{
 		}
 		
-		public AudioListener(Vector3f position, Vector3f velocity, Vector3f frontVector, Vector3f upVector)
+		public Listener(Vector3f position, Vector3f velocity, Vector3f frontVector, Vector3f upVector)
 		{
 			setPosition(position);
 			setVelocity(velocity);

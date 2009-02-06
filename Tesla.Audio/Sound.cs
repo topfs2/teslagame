@@ -13,25 +13,25 @@ namespace Tesla.Audio
 {
 	
 	
-	public class SimpleSound
+	public class Sound
 	{
-		Queue<AudioSource> sources;
-		AudioBuffer audioBuffer;
-		public SimpleSound(string fileName) : this(fileName, 1)
+		Queue<Source> sources;
+		Buffer audioBuffer;
+		public Sound(string fileName) : this(fileName, 1)
 		{
 		}
 		
-		public SimpleSound(string fileName, int numberOfSourcesHint)
+		public Sound(string fileName, int numberOfSourcesHint)
 		{
-			audioBuffer = new AudioBuffer(fileName);
-			sources = new Queue<AudioSource>(numberOfSourcesHint);
+			audioBuffer = new Buffer(fileName);
+			sources = new Queue<Source>(numberOfSourcesHint);
 		}
 		
 		public void play(Vector3f position, Vector3f velocity)
 		{
-			AudioSource source;
+			Source source;
 			if (sources.Count == 0 || sources.Peek().isPlaying())
-				source = new AudioSource(audioBuffer, 1.0f);
+				source = new Source(audioBuffer, 1.0f);
 			else
 				source = sources.Dequeue();
 			
