@@ -17,10 +17,9 @@ namespace Tesla.Audio
 		public Ambient(string fileName)
 		{
 			audioBuffer = new Buffer(fileName);
-			source = new LoopingSource(audioBuffer, 0.0f);
-			source.play();
-			source.setPosition(new Vector3f());
-			source.setRelative(true);
+			source = new LoopingSource(audioBuffer, 1.0f);
+			source.play(new Vector3f(), true);
+
 		}
 
 		public void Dispose ()

@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using Tao.OpenAl;
+using Tesla.Common;
 
 namespace Tesla.Audio
 {
@@ -35,19 +36,31 @@ namespace Tesla.Audio
 				throw new System.IO.FileNotFoundException("Couln´t find " + fileName);
 
 			int buffer = Alut.alutCreateBufferFromFile(fileName);
-			int error = Al.alGetError();
-			if (error == Al.AL_NO_ERROR)
+
+			if (Check("CreateBuffer"))
 			{
 				buffers.Add(fileName, buffer);
 				return buffer;
 			}
 			else
-				throw new Exception(Alut.alutGetErrorString(error));
+				throw new Exception("Error creating buffer from " + fileName);
+		}
+		
+		private static bool Check(string function)
+		{
+			int error = Alut.alutGetError();
+			if (error != Alut.ALUT_ERROR_NO_ERROR)
+			{
+				Log.Write("Buffer - Alut error in " + function + ": " + error);
+				return false;
+			}
+			return true;
 		}
 		
 		public void Dispose ()
 		{
 			Al.alDeleteBuffers(1, ref bufferID);
+			Check("Dispose");
 		}
 		
 		public static void unload()
@@ -58,6 +71,7 @@ namespace Tesla.Audio
 				int b = bufferList[i];
 				Al.alDeleteBuffers(1, ref b);
 				bufferList[i] = b;
+				Check("unload[" + i + "]");
 			}
 		}
 	}
