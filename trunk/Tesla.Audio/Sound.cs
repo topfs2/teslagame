@@ -25,21 +25,17 @@ namespace Tesla.Audio
 			sources = new Queue<Source>(numberOfSourcesHint);
 		}
 		
-		public void play(Vector3f position, Vector3f velocity)
+		public void play(Vector3f position)
 		{
 			Source source;
 			if (sources.Count == 0 || sources.Peek().isPlaying())
 				source = new Source(audioBuffer, 1.0f);
 			else
 				source = sources.Dequeue();
-			
-			source.setPosition(position);
-			source.setVelocity(velocity);
-			source.play();
+
+			source.play(position, false);
 			
 			sources.Enqueue(source);
-
-			Console.WriteLine("NbrSources: " + sources.Count);
 		}
 
 		public void Dispose ()

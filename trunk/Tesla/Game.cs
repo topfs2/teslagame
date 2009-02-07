@@ -24,7 +24,7 @@ namespace Tesla
 		static AudioContext audioContext;
 		static Listener listener; 
 		
-		static Sound gunShot;
+		static Weapon gun;
 		static Ambient ambient;
 		
 		static void Initialize()
@@ -59,7 +59,6 @@ namespace Tesla
 		
 		static void LoadAudio()
 		{
-			gunShot = new Sound(c.defaultPath + "Audio/gunshot2.wav");
 			ambient = new Ambient(c.defaultPath + "Ambient/BugsAndBirds.wav");
 		}
 		
@@ -69,7 +68,11 @@ namespace Tesla
 			Initialize();
 			
 			LoadObjects();
+			/* Load small Sounds before ambient as otherwise we get error creating buffer */
+			gun = new Weapon(1000, 10, new Sound(c.defaultPath + "Audio/laserfire3.wav"));
 			LoadAudio();
+
+			
 			
 			w.getActiveCamera().getPosition().set(10.0f, 2.0f, 10.0f);
 			w.getActiveCamera().rotateX(-3.0f);
@@ -98,13 +101,8 @@ namespace Tesla
 
 		static void buttonAction(byte[] keyState, int numberKeys, float frameTime)
 		{
-			if (lastPressed + 100 > System.Environment.TickCount)
-				return;
-			lastPressed = System.Environment.TickCount;
-			
-			
-			if (keyState[Sdl.SDLK_e] > 0)
-				gunShot.play(new Vector3f(), new Vector3f());
+			if (keyState[Sdl.SDLK_e] > 0 && gun.canFire())
+				gun.Fire(w.getActiveCamera().getPosition() - new Vector3f(0.0f, 0.0f, 1.0f));
 		}
 	}
 }

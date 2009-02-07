@@ -9,8 +9,6 @@ using Tao.OpenAl;
 
 namespace Tesla.Audio
 {
-	
-	
 	internal class LoopingSource : Source
 	{
 		public LoopingSource(Buffer buffer, float rolloff) : base(buffer, rolloff)
