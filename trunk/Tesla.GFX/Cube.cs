@@ -76,6 +76,8 @@ namespace Tesla.GFX
 			rot -= 0.10f;
 			
 			Gl.glPopMatrix();
+			
+			Gl.glEnable(Gl.GL_TEXTURE_2D);
 		}
 	}
 }

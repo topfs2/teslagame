@@ -26,8 +26,11 @@ namespace Tesla
 		
 		static Weapon gun;
 		static Ambient ambient;
-		static ParticleSystem ps;
-		static ParticleEmitter pe;
+		
+		static Effect myEffect;
+
+		static Quad player;
+		static Vector3f playerPosition;
 		
 		static void Initialize()
 		{
@@ -47,7 +50,6 @@ namespace Tesla
 		static void LoadObjects()
 		{
 			w.setSkyBox(new SkyBox(new CubeMapTexture(c.defaultPath + "CubeMap/sky0", CubeMapType.None)));
-			
 			w.Add(new HUD(c.defaultPath));
 			Vector3f va, vb, vc, vd;
 			va = new Vector3f(-100.0f, 0.0f, -10.0f);
@@ -56,21 +58,12 @@ namespace Tesla
 			vd = new Vector3f(-100.0f, 0.0f,  50.0f);
 			w.Add(new GroundPlane(new BasicTexture(c.defaultPath + "Texture/Tile/chess0.jpg"), 16, 4, new Vector3f(0.0f, 0.0f, -20.0f), 200, 50.0f));
 			w.Add(new Quad(new BasicTexture(c.defaultPath + "Texture/Foilage/Vine with alpha.png"), new Vector3f(-100, 0.65f, 5.001f), 10.0f, 20.0f, 1.0f));
+			myEffect = new Effect(w.getActiveCamera(), c);
+			w.Add(myEffect);
 
-			
-			Texture t = new BasicTexture(c.defaultPath + "Texture/Particle/p.png");
-			pe = new PointEmitter(new Vector3f(0.0f, 2.0f, 0.0f));
-			
-			Vector3f minV = new Vector3f(-1.0f, -1.0f, -1.0f);
-			Vector3f maxV = new Vector3f( 1.0f,  1.0f,  1.0f);
-			Vector3f g = new Vector3f(0.0f, -0.001f, 0.0f);
-			
-			Color4f minC = new Color4f(1.0f, 0.0f, 0.0f, 0.0f);
-			Color4f maxC = new Color4f(1.0f, 1.0f, 1.0f, 1.0f);
-			
-			ParticleFactory pf = new BillboardedParticleFactory(t, minV, maxV, g, 0.0f, 1.0f, minC, maxC, 0.2f);
-			ps = new ParticleSystem(pe, pf, w.getActiveCamera(), false, 0.4f, 1000);
-			w.Add(ps);
+			playerPosition = new Vector3f();
+			player = new Quad(new BasicTexture(c.defaultPath + "How/Media/Girl/Move1.png"), playerPosition, 1.0f, 1.0f, 1.0f, 1.0f);
+			w.Add(player);
 		}
 		
 		static void LoadAudio()
@@ -85,7 +78,7 @@ namespace Tesla
 			
 			LoadObjects();
 			/* Load small Sounds before ambient as otherwise we get error creating buffer */
-			gun = new Weapon(1000, 10, new Sound(c.defaultPath + "Audio/laserfire3.wav"));
+			gun = new Weapon(1000, 10, new Sound(c.defaultPath + "Audio/laserfire3.wav"), myEffect);
 			LoadAudio();
 
 			
@@ -100,6 +93,8 @@ namespace Tesla
 			{
 				float frameTime = frameCounter.Update();
 				quitFlag = w.Update(frameTime);
+				playerPosition.set(new Vector3f(1.0f, 1.0f, 0.0f).stretch(w.getActiveCamera().getPosition()));
+				Console.Out.WriteLine(playerPosition.ToString());
 				updateAudio();
 			}
 
@@ -119,9 +114,9 @@ namespace Tesla
 		{
 			if (keyState[Sdl.SDLK_e] > 0 && gun.canFire())
 			{
-				gun.Fire(w.getActiveCamera().getPosition() - new Vector3f(0.0f, 0.0f, 1.0f));
-				pe.setPosition(new Vector3f(1.0f, 1.0f, 0.0f).stretch(w.getActiveCamera().getPosition()));
-				ps.reset();
+				Vector3f direction = new Vector3f(1.0f, 1.0f, 0.0f).stretch(w.getActiveCamera().getFrontVector()).Normalize();
+				
+				gun.Fire(playerPosition, direction);
 			}
 		}
 	}
