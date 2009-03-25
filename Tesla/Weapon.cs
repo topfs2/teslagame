@@ -30,6 +30,11 @@ namespace Tesla
 				return true;
 		}
 		
+		public string ammoString()
+		{
+			return "12 / 23";
+		}
+		
 		public void Fire(Vector3f position)
 		{
 			if (!canFire())
