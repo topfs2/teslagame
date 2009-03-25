@@ -44,7 +44,7 @@ namespace Tesla.GFX
 			texture.Bind();
 			Gl.glEnable(Gl.GL_BLEND );
 			Gl.glDisable(Gl.GL_LIGHTING);
-			Gl.glDepthMask( Gl.GL_FALSE );
+			Gl.glDepthMask( false );
 			//Gl.glDisable(Gl.GL_DEPTH_TEST);
 			Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE);
 			
@@ -91,7 +91,7 @@ namespace Tesla.GFX
 
 			Gl.glDisable( Gl.GL_POINT_SPRITE_ARB );
 			
-			Gl.glDepthMask( Gl.GL_TRUE );
+			Gl.glDepthMask( true );
 			Gl.glEnable(Gl.GL_LIGHTING);
 		}
 
