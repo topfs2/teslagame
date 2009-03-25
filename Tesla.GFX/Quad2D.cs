@@ -25,7 +25,7 @@ namespace Tesla.GFX
 
 		public void Draw (float frameTime)
 		{
-			//texture.Bind();
+			texture.Bind();
             Gl.glTranslatef(x, y, 0.0f);
             Gl.glBegin(Gl.GL_QUADS);
             Gl.glTexCoord2f(0, 0); Gl.glVertex3f(0.0f, 0.0f, 0);

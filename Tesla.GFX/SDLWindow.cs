@@ -296,7 +296,6 @@ namespace Tesla.GFX
 				Gl.glMatrixMode(Gl.GL_MODELVIEW);							// Select The Modelview Matrix
 				Gl.glPushMatrix();											// Store The Modelview Matrix
 				Gl.glLoadIdentity();										// Reset The Modelview Matrix
-				Gl.glBlendFunc(Gl.GL_ONE, Gl.GL_ONE);
 				foreach (Drawable2D d in drawables2D)
 					d.Draw(frameTime);
 
@@ -307,7 +306,6 @@ namespace Tesla.GFX
 				Gl.glPopMatrix();											// Restore The Old Projection Matrix
 				Gl.glEnable(Gl.GL_DEPTH_TEST);
 				Gl.glEnable(Gl.GL_LIGHTING);
-				Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
 			}
 
 			float[] fc = new float[]{94.0f / 256.0f, 94.0f / 256.0f, 110.0f / 256.0f};
