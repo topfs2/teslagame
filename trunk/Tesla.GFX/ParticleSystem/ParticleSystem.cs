@@ -16,6 +16,7 @@ namespace Tesla.GFX
 	public class ParticleSystem : Drawable
 	{
 		bool  endlessLife;
+		float defaultEmitterLife;
 		float emitterLife;
 		List<Particle> listParticles;
 		//int lastTickCount;
@@ -46,7 +47,7 @@ namespace Tesla.GFX
 			this.particleFactory = particleFactory;
 		
 			this.endlessLife = endlessLife;
-			this.emitterLife = emitterLife;
+			this.emitterLife = defaultEmitterLife = emitterLife;
 			this.maxParticles = maxParticles;
 			listParticles = new List<Particle>(maxParticles);
 			listCollisionSurfaces = new List<CollisionSurface>();
@@ -82,6 +83,7 @@ namespace Tesla.GFX
 		public void reset()
 		{
 			listParticles.Clear();
+			emitterLife = defaultEmitterLife;
 		}
 		
 		/*public Point3f linkedPosition()
@@ -118,7 +120,7 @@ namespace Tesla.GFX
 			particleFactory.preDraw();
             //int i = 0;
             //int j = 0;
-			if (frustum.inFrustum(boundingSphere))
+			//if (frustum.inFrustum(boundingSphere)) //TODO Not working properly
 			{
 		        foreach (Particle p in listParticles)
 		        {
