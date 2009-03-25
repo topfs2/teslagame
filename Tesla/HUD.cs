@@ -9,31 +9,28 @@ using System.Collections.Generic;
 using Tesla.GFX.Font;
 using Tesla.Common;
 using Tao.OpenGl;
-using Tao.FtGl;
 
 namespace Tesla.GFX
 {
 	public class HUD : Drawable2D 
 	{
 		List<Drawable2D> objects;
-		Tao.FtGl.FtGl.FTFont f;
+		GLFTFont f;
 		
 		public HUD(string defaultPath)
 		{
 			objects = new List<Drawable2D>();
-			f = new Tao.FtGl.FtGl.FTGLTextureFont(defaultPath + "Fonts/FreeSans.ttf");
-			f.FaceSize(144);
-			objects.Add(new Quad2D(new BasicTexture(defaultPath + "GPLTextures/tango_bullet_icon/32x32/apps/bullet.png"), 100.0f, 100.0f));
+			f = new GLFTFont(defaultPath + "Fonts/FreeSans.ttf", 64);
+			objects.Add(new Quad2D(new BasicTexture(defaultPath + "GPLTextures/tango_bullet_icon/32x32/apps/bullet.png"), 10.0f, 10.0f));
 		}
 
 		public void Draw (float frameTime)
 		{
 			foreach (Drawable2D d in objects)
 				d.Draw(frameTime);
-			String s = "Test";
-			
-			Gl.glColor3f(0.0f, 0.0f, 0.0f);
-			f.Render(s + " " + frameTime);
+			String s = "Welcome to Tesla!!!!";
+
+			f.Draw(s, new Vector2f(10.0f, 650.0f), new Color4f(1.0f, 0.0f, 0.0f, 0.0f));
 		}
 	}
 }

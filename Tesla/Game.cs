@@ -46,8 +46,8 @@ namespace Tesla
 		{
 			w.setSkyBox(new SkyBox(new CubeMapTexture(c.defaultPath + "CubeMap/sky0", CubeMapType.None)));
 			
-			Font font = SDLFontv2.Create(c.defaultPath + "Fonts/zektonbi.ttf", 32);
-			w.Add(new SimpleFontHandler(font, "welcome to TESLA!", new Vector2f(10.0f, 10.0f), new Color4f(1.0f, 1.0f, 1.0f, 1.0f)));
+			w.Add(new HUD(c.defaultPath));
+			
 			Landscape2D l = new Landscape2D(new BasicTexture(c.defaultPath + "Texture/Tile/rock512.bmp"), new BasicTexture(c.defaultPath + "Texture/Tile/grass.jpg"), 0.0f);
 			w.Add(l);
 			
