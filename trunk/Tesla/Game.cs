@@ -31,6 +31,7 @@ namespace Tesla
 
 		static Quad player;
 		static Vector3f playerPosition;
+		static Vector3f playerVelocity;
 		
 		static void Initialize()
 		{
@@ -61,7 +62,8 @@ namespace Tesla
 			myEffect = new Effect(w.getActiveCamera(), c);
 			w.Add(myEffect);
 
-			playerPosition = new Vector3f();
+			playerPosition = new Vector3f(0.0f, 1.0f, 0.0f);
+			playerVelocity = new Vector3f();
 			player = new Quad(new BasicTexture(c.defaultPath + "How/Media/Girl/Move1.png"), playerPosition, 1.0f, 1.0f, 1.0f, 1.0f);
 			w.Add(player);
 		}
@@ -92,9 +94,19 @@ namespace Tesla
 			while(!quitFlag)
 			{
 				float frameTime = frameCounter.Update();
+				
+				//playerPosition.set(new Vector3f(1.0f, 0.0f, 0.0f).stretch(w.getActiveCamera().getPosition()) + new Vector3f(0.0f, 1.0f, 0.0f));
+				
+				playerVelocity.y -= 0.01f * frameTime;
+				playerPosition.set(playerPosition + playerVelocity);
+				
+				if (playerPosition.y < 1.0f)
+				{
+					playerPosition.y = 1.0f;
+					playerVelocity.y = 0;
+				}
+				
 				quitFlag = w.Update(frameTime);
-				playerPosition.set(new Vector3f(1.0f, 1.0f, 0.0f).stretch(w.getActiveCamera().getPosition()));
-				Console.Out.WriteLine(playerPosition.ToString());
 				updateAudio();
 			}
 
@@ -115,9 +127,17 @@ namespace Tesla
 			if (keyState[Sdl.SDLK_e] > 0 && gun.canFire())
 			{
 				Vector3f direction = new Vector3f(1.0f, 1.0f, 0.0f).stretch(w.getActiveCamera().getFrontVector()).Normalize();
-				
 				gun.Fire(playerPosition, direction);
 			}
+			
+			if (keyState[Sdl.SDLK_SPACE] > 0)
+				playerVelocity.y += 0.052f * frameTime;
+			
+			playerVelocity.x -= playerVelocity.x * 10.0f * frameTime;
+			if (keyState[Sdl.SDLK_j] > 0)
+				playerVelocity.x = -0.005f;
+			else if (keyState[Sdl.SDLK_l] > 0)
+				playerVelocity.x =  0.005f;
 		}
 	}
 }

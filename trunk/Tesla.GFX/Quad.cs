@@ -35,7 +35,7 @@ namespace Tesla.GFX
 		public void Draw (float frameTime, Frustum frustum)
 		{
 			texture.Bind();
-			Gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);			
+			Gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 			Gl.glBegin(Gl.GL_QUADS);
 			Gl.glNormal3f(0, 0, -1);
 			Gl.glTexCoord2f(0, 0); Gl.glVertex3f(pos.x, pos.y, pos.z);
