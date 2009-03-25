@@ -15,5 +15,7 @@ namespace Tesla.GFX
 		Particle emit(ParticleFactory particleFactory);
 		
 		Vector3f getPosition();
+		
+		void setPosition(Vector3f position);
 	}
 }

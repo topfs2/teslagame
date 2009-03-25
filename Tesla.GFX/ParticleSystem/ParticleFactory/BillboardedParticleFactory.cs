@@ -55,6 +55,7 @@ namespace Tesla.GFX
 		{
 			Gl.glDepthMask( true );
 			Gl.glEnable(Gl.GL_LIGHTING);
+			Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
 		}
 
 		public Particle createParticle (Vector3f emitterPosition, bool emitterUseDirection, Vector3f emitterDirection)

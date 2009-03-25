@@ -45,7 +45,7 @@ namespace Tesla.GFX
 			Gl.glEnable(Gl.GL_BLEND );
 			Gl.glDisable(Gl.GL_LIGHTING);
 			Gl.glDepthMask( false );
-			//Gl.glDisable(Gl.GL_DEPTH_TEST);
+			Gl.glDisable(Gl.GL_DEPTH_TEST);
 			Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE);
 			
 			float[] quadratic =  { 1.0f, 0.0f, 0.01f };
@@ -93,6 +93,8 @@ namespace Tesla.GFX
 			
 			Gl.glDepthMask( true );
 			Gl.glEnable(Gl.GL_LIGHTING);
+			Gl.glEnable(Gl.GL_DEPTH_TEST);
+			Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
 		}
 
 		public Particle createParticle (Vector3f emitterPosition, bool emitterUseDirection, Vector3f emitterDirection)

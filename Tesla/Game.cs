@@ -26,6 +26,8 @@ namespace Tesla
 		
 		static Weapon gun;
 		static Ambient ambient;
+		static ParticleSystem ps;
+		static ParticleEmitter pe;
 		
 		static void Initialize()
 		{
@@ -54,6 +56,21 @@ namespace Tesla
 			vd = new Vector3f(-100.0f, 0.0f,  50.0f);
 			w.Add(new GroundPlane(new BasicTexture(c.defaultPath + "Texture/Tile/chess0.jpg"), 16, 4, new Vector3f(0.0f, 0.0f, -20.0f), 200, 50.0f));
 			w.Add(new Quad(new BasicTexture(c.defaultPath + "Texture/Foilage/Vine with alpha.png"), new Vector3f(-100, 0.65f, 5.001f), 10.0f, 20.0f, 1.0f));
+
+			
+			Texture t = new BasicTexture(c.defaultPath + "Texture/Particle/p.png");
+			pe = new PointEmitter(new Vector3f(0.0f, 2.0f, 0.0f));
+			
+			Vector3f minV = new Vector3f(-1.0f, -1.0f, -1.0f);
+			Vector3f maxV = new Vector3f( 1.0f,  1.0f,  1.0f);
+			Vector3f g = new Vector3f(0.0f, -0.001f, 0.0f);
+			
+			Color4f minC = new Color4f(1.0f, 0.0f, 0.0f, 0.0f);
+			Color4f maxC = new Color4f(1.0f, 1.0f, 1.0f, 1.0f);
+			
+			ParticleFactory pf = new BillboardedParticleFactory(t, minV, maxV, g, 0.0f, 1.0f, minC, maxC, 0.2f);
+			ps = new ParticleSystem(pe, pf, w.getActiveCamera(), false, 0.4f, 1000);
+			w.Add(ps);
 		}
 		
 		static void LoadAudio()
@@ -101,7 +118,11 @@ namespace Tesla
 		static void buttonAction(byte[] keyState, int numberKeys, float frameTime)
 		{
 			if (keyState[Sdl.SDLK_e] > 0 && gun.canFire())
+			{
 				gun.Fire(w.getActiveCamera().getPosition() - new Vector3f(0.0f, 0.0f, 1.0f));
+				pe.setPosition(new Vector3f(1.0f, 1.0f, 0.0f).stretch(w.getActiveCamera().getPosition()));
+				ps.reset();
+			}
 		}
 	}
 }
