@@ -25,7 +25,7 @@ namespace Tesla.GFX
 		{
 			Gl.glPushMatrix();
 			Gl.glDisable(Gl.GL_LIGHTING);
-			Gl.glDepthMask(0);
+			Gl.glDepthMask(false);
 			Gl.glTranslatef(pos.x, pos.y, pos.z);
 			texture.Bind();
 			Gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -92,7 +92,7 @@ namespace Tesla.GFX
 		        Gl.glVertex3f(   fExtent, -fExtent, -fExtent);
 			Gl.glEnd();
 			texture.UnBind();
-			Gl.glDepthMask(1);
+			Gl.glDepthMask(true);
 			Gl.glEnable(Gl.GL_LIGHTING);
 			Gl.glPopMatrix();
 		}
