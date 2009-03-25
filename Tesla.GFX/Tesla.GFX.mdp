@@ -30,7 +30,6 @@
     <File name="Water.cs" subtype="Code" buildaction="Compile" />
     <File name="Font/Drawable2D.cs" subtype="Code" buildaction="Compile" />
     <File name="Font/Font.cs" subtype="Code" buildaction="Compile" />
-    <File name="Font/NeheFont.cs" subtype="Code" buildaction="Compile" />
     <File name="Font/SDLFontv2.cs" subtype="Code" buildaction="Compile" />
     <File name="Font/SimpleFontHandler.cs" subtype="Code" buildaction="Compile" />
     <File name="Frustum/Frustum.cs" subtype="Code" buildaction="Compile" />
@@ -77,6 +76,7 @@
     <File name="Texture/Pixmap.cs" subtype="Code" buildaction="Compile" />
     <File name="Texture/Texture.cs" subtype="Code" buildaction="Compile" />
     <File name="Texture/CubeMapTexture.cs" subtype="Code" buildaction="Compile" />
+    <File name="Quad2D.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
@@ -86,5 +86,6 @@
     <ProjectReference type="Gac" localcopy="True" refto="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <ProjectReference type="Assembly" localcopy="True" refto="../../taoframework-2.1.0/bin/Tao.DevIl.dll" />
     <ProjectReference type="Assembly" localcopy="True" refto="../../taoframework-2.1.0/bin/Tao.FreeGlut.dll" />
+    <ProjectReference type="Assembly" localcopy="True" refto="../../taoframework-2.1.0/bin/Tao.FtGl.dll" />
   </References>
 </Project>

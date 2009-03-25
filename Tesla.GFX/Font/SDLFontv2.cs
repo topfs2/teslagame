@@ -61,6 +61,7 @@ namespace Tesla.GFX.Font
 
         public void Draw(string Text, Vector2f position, Color4f Color)
         {
+			Gl.glBlendFunc(Gl.GL_ONE, Gl.GL_ONE);
             char[] TextCharArray = Text.ToCharArray();
 
             int LastIndex = 0;
@@ -80,7 +81,8 @@ namespace Tesla.GFX.Font
             {
                 DrawCharArray(SubTextArrays[i], position.x, position.y - (this.FontSize * i), Color);
             }
-            //DrawCharArray(TextCharArray, Coord.X, Coord.Y, Color);
+			
+			Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
         }
 
         private void DrawCharArray(char[] TextCharArray, float X, float Y, Color4f Color)
@@ -181,8 +183,8 @@ namespace Tesla.GFX.Font
             
             Sdl.SDL_Color color = new Sdl.SDL_Color(255, 255, 255, 255);
             /* Use SDL_TTF to render our text */
-            IntPtr Test = SdlTtf.TTF_RenderGlyph_Shaded(m_Font, (short)Char, color, new Sdl.SDL_Color(0, 0, 0, 0));
-            //IntPtr Test = SdlTtf.TTF_RenderGlyph_Blended(m_Font, (short)Char, color);
+            //IntPtr Test = SdlTtf.TTF_RenderGlyph_Shaded(m_Font, (short)Char, color, new Sdl.SDL_Color(0, 0, 0, 0));
+            IntPtr Test = SdlTtf.TTF_RenderGlyph_Blended(m_Font, (short)Char, color);
             //initial = test;
             initial = (Sdl.SDL_Surface)System.Runtime.InteropServices.Marshal.PtrToStructure(Test, typeof(Sdl.SDL_Surface));
 
