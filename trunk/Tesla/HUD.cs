@@ -17,32 +17,23 @@ namespace Tesla.GFX
 	{
 		List<Drawable2D> objects;
 		Tao.FtGl.FtGl.FTFont f;
-		Tao.FtGl.FtGl.FTFont f2;
 		
 		public HUD(string defaultPath)
 		{
 			objects = new List<Drawable2D>();
-			objects.Add(new Quad2D(new BasicTexture(defaultPath + "GPLTextures/Overlay.png"), 0.0f, 0.0f));
-			//f = new FontTTF(defaultPath + "Fonts/FreeSans.ttf", 32);
 			f = new Tao.FtGl.FtGl.FTGLTextureFont(defaultPath + "Fonts/FreeSans.ttf");
 			f.FaceSize(144);
-			f2 = new Tao.FtGl.FtGl.FTGLTextureFont(defaultPath + "Fonts/FreeSans.ttf");
-			f2.FaceSize(160);
 			objects.Add(new Quad2D(new BasicTexture(defaultPath + "GPLTextures/tango_bullet_icon/32x32/apps/bullet.png"), 100.0f, 100.0f));
 		}
 
 		public void Draw (float frameTime)
 		{
-			/* (Drawable2D d in objects)
-				d.Draw(frameTime);*/
+			foreach (Drawable2D d in objects)
+				d.Draw(frameTime);
 			String s = "Test";
 			
-			Gl.glColor3f(1.0f, 1.0f, 1.0f);
+			Gl.glColor3f(0.0f, 0.0f, 0.0f);
 			f.Render(s + " " + frameTime);
-
-			
-			//Gl.glBlendFunc(Gl.GL_ONE, Gl.GL_ONE);
-			//f.Draw("These many left, me friend", new Vector3f(30.0f, 50.0f, 0.0f), new Color4f(0.5f, 0.3f, 1.0f, 1.0f));
 		}
 	}
 }
