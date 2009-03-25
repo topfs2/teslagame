@@ -47,14 +47,13 @@ namespace Tesla
 			w.setSkyBox(new SkyBox(new CubeMapTexture(c.defaultPath + "CubeMap/sky0", CubeMapType.None)));
 			
 			w.Add(new HUD(c.defaultPath));
-			
-			Landscape2D l = new Landscape2D(new BasicTexture(c.defaultPath + "Texture/Tile/rock512.bmp"), new BasicTexture(c.defaultPath + "Texture/Tile/grass.jpg"), 0.0f);
-			w.Add(l);
-			
-			Landscape2D l2 = new Landscape2D(new BasicTexture(c.defaultPath + "Texture/Tile/rock512.bmp"), new BasicTexture(c.defaultPath + "Texture/Tile/grass.jpg"), -10.0f);
-			w.Add(l2);	
-			
-			w.Add(new Quad(new BasicTexture(c.defaultPath + "Texture/Foilage/Vine with alpha.png"), new Vector3f(5,-4,0.001f), 8.0f, 1.0f, 1.0f));
+			Vector3f va, vb, vc, vd;
+			va = new Vector3f(-100.0f, 0.0f, -10.0f);
+			vb = new Vector3f( 100.0f, 0.0f, -10.0f);
+			vc = new Vector3f( 100.0f, 0.0f,  50.0f);
+			vd = new Vector3f(-100.0f, 0.0f,  50.0f);
+			w.Add(new GroundPlane(new BasicTexture(c.defaultPath + "Texture/Tile/chess0.jpg"), 16, 4, new Vector3f(0.0f, 0.0f, -20.0f), 200, 50.0f));
+			w.Add(new Quad(new BasicTexture(c.defaultPath + "Texture/Foilage/Vine with alpha.png"), new Vector3f(-100, 0.65f, 5.001f), 10.0f, 20.0f, 1.0f));
 		}
 		
 		static void LoadAudio()
