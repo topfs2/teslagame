@@ -14,12 +14,14 @@ namespace Tesla
 	{
 		int reloadTime, damage, lastFired;
 		Sound sound;
+		Effect effect;
 		
-		public Weapon(int reloadTime, int damage, Sound sound)
+		public Weapon(int reloadTime, int damage, Sound sound, Effect effect)
 		{
 			this.reloadTime = reloadTime;
 			this.damage = damage;
 			this.sound = sound;
+			this.effect = effect;
 		}
 		
 		public bool canFire()
@@ -35,12 +37,13 @@ namespace Tesla
 			return "12 / 23";
 		}
 		
-		public void Fire(Vector3f position)
+		public void Fire(Vector3f position, Vector3f direction)
 		{
 			if (!canFire())
 				return;
 			
 			sound.play(position);
+			effect.play(position, direction);
 			lastFired = System.Environment.TickCount;
 		}
 	}
