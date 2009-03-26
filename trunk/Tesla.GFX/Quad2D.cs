@@ -6,6 +6,7 @@
 
 using System;
 using Tao.OpenGl;
+using Tesla.Common;
 
 namespace Tesla.GFX
 {
@@ -14,20 +15,19 @@ namespace Tesla.GFX
 	public class Quad2D : Drawable2D
 	{
 		Texture texture;
-		float x, y;
-		
-		public Quad2D(Texture texture, float x, float y)
+		Vector2f position;
+			
+		public Quad2D(Texture texture, Vector2f position)
 		{
 			this.texture = texture;
-			this.x = x;
-			this.y = y;
+			this.position = position;
 		}
 
 		public void Draw (float frameTime)
 		{
 			texture.Bind();
 			Gl.glPushMatrix();
-            Gl.glTranslatef(x, y, 0.0f);
+            Gl.glTranslatef(position.x, position.y, 0.0f);
 			Gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
             Gl.glBegin(Gl.GL_QUADS);
             Gl.glTexCoord2f(0, 0); Gl.glVertex3f(0.0f, 0.0f, 0);

@@ -21,7 +21,7 @@ namespace Tesla.GFX
 		{
 			objects = new List<Drawable2D>();
 			f = new GLFTFont(defaultPath + "Fonts/FreeSans.ttf", 64);
-			objects.Add(new Quad2D(new BasicTexture(defaultPath + "GPLTextures/tango_bullet_icon/32x32/apps/bullet.png"), 10.0f, 10.0f));
+			objects.Add(new Quad2D(new BasicTexture(defaultPath + "GPLTextures/tango_bullet_icon/32x32/apps/bullet.png"), new Vector2f(10.0f, 10.0f)));
 		}
 
 		public void Draw (float frameTime)
