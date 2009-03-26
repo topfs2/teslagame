@@ -29,7 +29,7 @@ namespace Tesla
 		
 		static Effect myEffect;
 
-		static Quad player;
+		static AnimatedQuad player;
 		static Vector3f playerPosition;
 		static Vector3f playerVelocity;
 		
@@ -64,7 +64,12 @@ namespace Tesla
 
 			playerPosition = new Vector3f(0.0f, 1.0f, 0.0f);
 			playerVelocity = new Vector3f();
-			player = new Quad(new BasicTexture(c.defaultPath + "How/Media/Girl/Move1.png"), playerPosition, 1.0f, 1.0f, 1.0f, 1.0f);
+
+			BasicTexture[] textures = new BasicTexture[8];
+			for (int i = 1; i <= 8; i++)
+				textures[i-1] = new BasicTexture(c.defaultPath + "How/Media/Girl/Move" + i + ".png");
+			
+			player = new AnimatedQuad(textures, playerPosition, 1.0f, textures[0].Width() / textures[0].Height());
 			w.Add(player);
 		}
 		
