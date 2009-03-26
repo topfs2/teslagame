@@ -18,6 +18,8 @@ namespace Tesla
 		ParticleSystem ps;
 		ParticleEmitter pe;
 
+		BillboardedQuad quad;
+		
 		Vector3f position;
 		Vector3f direction;
 		
@@ -37,12 +39,15 @@ namespace Tesla
 			
 			pf = new BillboardedParticleFactory(t, minV, maxV, g, 0.0f, 1.0f, minC, maxC, 0.2f);
 			ps = new ParticleSystem(pe, pf, camera, true, 0.0f, 1000);
+			
+			quad = new BillboardedQuad(new BasicTexture(c.defaultPath + "Texture/Particle/Flare.png"), camera, position, new Vector2f(1.0f, 1.0f));
 		}
 
 		public void Draw (float frameTime, Frustum frustum)
 		{
-			position.set( position + frameTime * direction * 100.0f);
+			position.set( position + frameTime * direction * 10.0f);
 			ps.Draw(frameTime, frustum);
+			quad.Draw(frameTime, frustum);
 		}
 		
 		public void play(Vector3f position, Vector3f direction)
