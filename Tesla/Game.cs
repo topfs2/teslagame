@@ -76,7 +76,7 @@ namespace Tesla
 			w.Add(player);
 			
 			crosshairPosition = new Vector3f(3.0f, 1.0f, 0.0f);
-			w.Add(new Quad(new BasicTexture(c.defaultPath + "Texture/Particle/crosshairs.png"), crosshairPosition, 1.0f, 1.0f, 1.0f));
+			w.Add(new BillboardedQuad(new BasicTexture(c.defaultPath + "Texture/Particle/crosshairs.png"), w.getActiveCamera(), crosshairPosition, new Vector2f(1.0f, 1.0f)));
 		}
 		
 		static void LoadAudio()

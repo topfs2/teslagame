@@ -49,11 +49,12 @@ namespace Tesla.GFX
 		{
 			Gl.glEnable(Gl.GL_BLEND);
 			Gl.glColor3f(1.0f, 1.0f, 1.0f);
-			Gl.glDisable(Gl.GL_LIGHTING);
+			Gl.glPushMatrix();
 			Gl.glTranslatef(position.x, position.y, position.z);
 			Gl.glScalef(size.x, size.y, 1.0f);
 			texture.Bind();
 			Gl.glCallList(displayList);
+			Gl.glPopMatrix();
 		}
 	}
 }
