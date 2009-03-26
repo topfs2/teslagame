@@ -33,6 +33,8 @@ namespace Tesla
 		static Vector3f playerPosition;
 		static Vector3f playerVelocity;
 		
+		static Vector3f crosshairPosition;
+		
 		static void Initialize()
 		{
 			c  = new Configuration("config.dat");
@@ -65,12 +67,16 @@ namespace Tesla
 			playerPosition = new Vector3f(0.0f, 1.0f, 0.0f);
 			playerVelocity = new Vector3f();
 
+
 			BasicTexture[] textures = new BasicTexture[8];
 			for (int i = 1; i <= 8; i++)
 				textures[i-1] = new BasicTexture(c.defaultPath + "How/Media/Girl/Move" + i + ".png");
 			
 			player = new AnimatedQuad(textures, playerPosition, 1.0f, textures[0].Width() / textures[0].Height());
 			w.Add(player);
+			
+			crosshairPosition = new Vector3f(3.0f, 1.0f, 0.0f);
+			w.Add(new Quad(new BasicTexture(c.defaultPath + "Texture/Particle/crosshairs.png"), crosshairPosition, 1.0f, 1.0f, 1.0f));
 		}
 		
 		static void LoadAudio()
@@ -90,8 +96,9 @@ namespace Tesla
 
 			
 			
-			w.getActiveCamera().getPosition().set(10.0f, 2.0f, 10.0f);
+			w.getActiveCamera().getPosition().set(0.0f, 0.0f, 10.0f);
 			w.getActiveCamera().rotateX(-3.0f);
+			//w.getActiveCamera().linkLookAtPosition(playerPosition);
 			
 			FPSCounter frameCounter = new FPSCounter();
 			bool quitFlag = false;
@@ -104,6 +111,12 @@ namespace Tesla
 				
 				playerVelocity.y -= 0.01f * frameTime;
 				playerPosition.set(playerPosition + playerVelocity);
+				crosshairPosition.set(crosshairPosition + playerVelocity);
+				
+				float zoom = crosshairPosition.length(playerPosition) * -2.0f;
+				Console.Out.WriteLine(zoom);
+				zoom = zoom > -10.0f ? -10.0f : zoom;
+				w.getActiveCamera().getPosition().set(w.getActiveCamera().getFrontVector().copy().stretch(zoom) + ((playerPosition + crosshairPosition) * 0.5f));
 				
 				if (playerPosition.y < 1.0f)
 				{
@@ -131,18 +144,44 @@ namespace Tesla
 		{
 			if (keyState[Sdl.SDLK_e] > 0 && gun.canFire())
 			{
-				Vector3f direction = new Vector3f(1.0f, 1.0f, 0.0f).stretch(w.getActiveCamera().getFrontVector()).Normalize();
+				Vector3f direction = (crosshairPosition - playerPosition).Normalize();
+				Console.Out.WriteLine(direction.ToString());
 				gun.Fire(playerPosition, direction);
 			}
 			
 			if (keyState[Sdl.SDLK_SPACE] > 0)
+			{
 				playerVelocity.y += 0.052f * frameTime;
+			}
 			
+			/*if (keyState[Sdl.SDLK_a] > 0)
+				camera.stepSideway(-motion);
+			if (keyState[Sdl.SDLK_d] > 0)
+				camera.stepSideway( motion);
+			if (keyState[Sdl.SDLK_w] > 0)
+				camera.stepForward( motion);
+			if (keyState[Sdl.SDLK_s] > 0)
+				camera.stepForward(-motion);
+			if (keyState[Sdl.SDLK_r] > 0)
+				camera.stepUp( motion);
+			if (keyState[Sdl.SDLK_f] > 0)
+				camera.stepUp(-motion);*/
+
 			playerVelocity.x -= playerVelocity.x * 10.0f * frameTime;
-			if (keyState[Sdl.SDLK_j] > 0)
+			if (keyState[Sdl.SDLK_a] > 0)
 				playerVelocity.x = -0.005f;
-			else if (keyState[Sdl.SDLK_l] > 0)
+			if (keyState[Sdl.SDLK_d] > 0)
 				playerVelocity.x =  0.005f;
+			
+			
+			if (keyState[Sdl.SDLK_UP] > 0)
+			    crosshairPosition.y += (frameTime * 4.0f);
+			if (keyState[Sdl.SDLK_DOWN] > 0)
+				crosshairPosition.y -= (frameTime * 4.0f);
+			if (keyState[Sdl.SDLK_LEFT] > 0)
+				crosshairPosition.x -= (frameTime * 4.0f);
+			if (keyState[Sdl.SDLK_RIGHT] > 0)
+				crosshairPosition.x += (frameTime * 4.0f);
 		}
 	}
 }

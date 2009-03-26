@@ -36,7 +36,7 @@ namespace Tesla
 			Color4f maxC = new Color4f(1.0f, 1.0f, 1.0f, 1.0f);
 			
 			pf = new BillboardedParticleFactory(t, minV, maxV, g, 0.0f, 1.0f, minC, maxC, 0.2f);
-			ps = new ParticleSystem(pe, pf, camera, false, 0.4f, 1000);
+			ps = new ParticleSystem(pe, pf, camera, true, 0.0f, 1000);
 		}
 
 		public void Draw (float frameTime, Frustum frustum)
