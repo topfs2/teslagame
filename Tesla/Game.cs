@@ -61,6 +61,9 @@ namespace Tesla
 			vc = new Vector3f( 100.0f, 0.0f,  50.0f);
 			vd = new Vector3f(-100.0f, 0.0f,  50.0f);
 			w.Add(new GroundPlane(new BasicTexture(c.defaultPath + "Texture/Tile/chess0.jpg"), 70, 7, new Vector3f(0.0f, 0.0f, -5.0f), 200, 20.0f));
+
+			w.Add(gun);
+			w.Add(gun2);			
 			
 			playerPosition = new Vector3f(0.0f, 1.0f, 0.0f);
 			playerVelocity = new Vector3f();
@@ -69,8 +72,6 @@ namespace Tesla
 				textures[i-1] = new BasicTexture(c.defaultPath + "How/Media/Girl/Move" + i + ".png");
 			player = new AnimatedQuad(textures, playerPosition, 1.0f, textures[0].Width() / textures[0].Height());
 			w.Add(player);
-			w.Add(gun);
-			w.Add(gun2);
 			w.Add(new Quad(new BasicTexture(c.defaultPath + "Texture/Foilage/Vine with alpha.png"), new Vector3f(-100, 0.65f, 5.001f), 10.0f, 20.0f, 1.0f));
 			w.Add(new BillboardedQuad(new BasicTexture(c.defaultPath + "Texture/Particle/crosshairs.png"), w.getActiveCamera(),  crosshairPosition, new Vector2f(1.0f, 1.0f)));
 		}
