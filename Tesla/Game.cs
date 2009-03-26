@@ -26,8 +26,6 @@ namespace Tesla
 		
 		static Weapon gun;
 		static Ambient ambient;
-		
-		static Effect myEffect;
 
 		static AnimatedQuad player;
 		static Vector3f playerPosition;
@@ -53,7 +51,7 @@ namespace Tesla
 		static void LoadObjects()
 		{
 			w.setSkyBox(new SkyBox(new CubeMapTexture(c.defaultPath + "CubeMap/sky0", CubeMapType.None)));
-			crosshairPosition   = new Vector3f(3.0f, 1.0f, 0.0f);
+			crosshairPosition = new Vector3f(3.0f, 1.0f, 0.0f);
 			
 			w.Add(new HUD(c.defaultPath));
 			Vector3f va, vb, vc, vd;
@@ -61,9 +59,7 @@ namespace Tesla
 			vb = new Vector3f( 100.0f, 0.0f, -10.0f);
 			vc = new Vector3f( 100.0f, 0.0f,  50.0f);
 			vd = new Vector3f(-100.0f, 0.0f,  50.0f);
-			w.Add(new GroundPlane(new BasicTexture(c.defaultPath + "Texture/Tile/chess0.jpg"), 16, 4, new Vector3f(0.0f, 0.0f, -20.0f), 200, 50.0f));
-			myEffect = new Effect(w.getActiveCamera(), c);
-			w.Add(myEffect);
+			w.Add(new GroundPlane(new BasicTexture(c.defaultPath + "Texture/Tile/chess0.jpg"), 70, 7, new Vector3f(0.0f, 0.0f, -5.0f), 200, 20.0f));
 			
 			playerPosition = new Vector3f(0.0f, 1.0f, 0.0f);
 			playerVelocity = new Vector3f();
@@ -89,9 +85,9 @@ namespace Tesla
 			
 			LoadObjects();
 			/* Load small Sounds before ambient as otherwise we get error creating buffer */
-			gun = new Weapon(1000, 10, new Sound(c.defaultPath + "Audio/laserfire3.wav"), myEffect);
+			gun = new MissileWeapon(c.defaultPath, w.getActiveCamera());
 			LoadAudio();
-
+			w.Add(gun);
 			
 			
 			w.getActiveCamera().getPosition().set(0.0f, 0.0f, 10.0f);
@@ -142,9 +138,7 @@ namespace Tesla
 		{
 			if (keyState[Sdl.SDLK_e] > 0 && gun.canFire())
 			{
-				Vector3f direction = (crosshairPosition - playerPosition).Normalize();
-				Console.Out.WriteLine(direction.ToString());
-				gun.Fire(playerPosition, direction);
+				gun.Fire(playerPosition, crosshairPosition);
 			}
 			
 			if (keyState[Sdl.SDLK_SPACE] > 0)
