@@ -53,6 +53,8 @@ namespace Tesla
 		static void LoadObjects()
 		{
 			w.setSkyBox(new SkyBox(new CubeMapTexture(c.defaultPath + "CubeMap/sky0", CubeMapType.None)));
+			crosshairPosition   = new Vector3f(3.0f, 1.0f, 0.0f);
+			
 			w.Add(new HUD(c.defaultPath));
 			Vector3f va, vb, vc, vd;
 			va = new Vector3f(-100.0f, 0.0f, -10.0f);
@@ -60,23 +62,19 @@ namespace Tesla
 			vc = new Vector3f( 100.0f, 0.0f,  50.0f);
 			vd = new Vector3f(-100.0f, 0.0f,  50.0f);
 			w.Add(new GroundPlane(new BasicTexture(c.defaultPath + "Texture/Tile/chess0.jpg"), 16, 4, new Vector3f(0.0f, 0.0f, -20.0f), 200, 50.0f));
-			w.Add(new Quad(new BasicTexture(c.defaultPath + "Texture/Foilage/Vine with alpha.png"), new Vector3f(-100, 0.65f, 5.001f), 10.0f, 20.0f, 1.0f));
 			myEffect = new Effect(w.getActiveCamera(), c);
 			w.Add(myEffect);
-
+			
 			playerPosition = new Vector3f(0.0f, 1.0f, 0.0f);
 			playerVelocity = new Vector3f();
-
-
 			BasicTexture[] textures = new BasicTexture[8];
 			for (int i = 1; i <= 8; i++)
 				textures[i-1] = new BasicTexture(c.defaultPath + "How/Media/Girl/Move" + i + ".png");
-			
 			player = new AnimatedQuad(textures, playerPosition, 1.0f, textures[0].Width() / textures[0].Height());
 			w.Add(player);
-			
-			crosshairPosition = new Vector3f(3.0f, 1.0f, 0.0f);
-			w.Add(new BillboardedQuad(new BasicTexture(c.defaultPath + "Texture/Particle/crosshairs.png"), w.getActiveCamera(), crosshairPosition, new Vector2f(1.0f, 1.0f)));
+		
+			w.Add(new Quad(new BasicTexture(c.defaultPath + "Texture/Foilage/Vine with alpha.png"), new Vector3f(-100, 0.65f, 5.001f), 10.0f, 20.0f, 1.0f));
+			w.Add(new BillboardedQuad(new BasicTexture(c.defaultPath + "Texture/Particle/crosshairs.png"), w.getActiveCamera(),  crosshairPosition, new Vector2f(1.0f, 1.0f)));
 		}
 		
 		static void LoadAudio()
