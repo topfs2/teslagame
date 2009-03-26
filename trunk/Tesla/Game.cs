@@ -25,6 +25,7 @@ namespace Tesla
 		static Listener listener; 
 		
 		static Weapon gun;
+		static Weapon gun2;
 		static Ambient ambient;
 
 		static AnimatedQuad player;
@@ -68,7 +69,8 @@ namespace Tesla
 				textures[i-1] = new BasicTexture(c.defaultPath + "How/Media/Girl/Move" + i + ".png");
 			player = new AnimatedQuad(textures, playerPosition, 1.0f, textures[0].Width() / textures[0].Height());
 			w.Add(player);
-		
+			w.Add(gun);
+			w.Add(gun2);
 			w.Add(new Quad(new BasicTexture(c.defaultPath + "Texture/Foilage/Vine with alpha.png"), new Vector3f(-100, 0.65f, 5.001f), 10.0f, 20.0f, 1.0f));
 			w.Add(new BillboardedQuad(new BasicTexture(c.defaultPath + "Texture/Particle/crosshairs.png"), w.getActiveCamera(),  crosshairPosition, new Vector2f(1.0f, 1.0f)));
 		}
@@ -83,12 +85,13 @@ namespace Tesla
 		{
 			Initialize();
 			
-			LoadObjects();
-			/* Load small Sounds before ambient as otherwise we get error creating buffer */
-			gun = new MissileWeapon(c.defaultPath, w.getActiveCamera());
-			LoadAudio();
-			w.Add(gun);
 			
+			/* Load small Sounds before ambient as otherwise we get error creating buffer */
+			gun  = new MissileWeapon(c.defaultPath, w.getActiveCamera());
+			gun2 = new InstantExplosionWeapon(c.defaultPath, w.getActiveCamera());
+			LoadAudio();
+
+			LoadObjects();
 			
 			w.getActiveCamera().getPosition().set(0.0f, 0.0f, 10.0f);
 			w.getActiveCamera().rotateX(-3.0f);
@@ -140,6 +143,9 @@ namespace Tesla
 			{
 				gun.Fire(playerPosition, crosshairPosition);
 			}
+			
+			if (keyState[Sdl.SDLK_f] > 0 && gun2.canFire())
+				gun2.Fire(playerPosition, crosshairPosition);
 			
 			if (keyState[Sdl.SDLK_SPACE] > 0)
 			{
