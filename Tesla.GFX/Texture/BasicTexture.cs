@@ -38,7 +38,8 @@ namespace Tesla.GFX
 		public BasicTexture(Pixmap pixmap, TextureFilter textureFilter)
 		{
             int[] TempGL = new int[1];
-			Gl.glGenTextures(1, TempGL);
+
+			Gl.glGenTextures(1, TempGL);
 			Gl.glBindTexture(Gl.GL_TEXTURE_2D, TempGL[0]);
 
 			Glu.gluBuild2DMipmaps(Gl.GL_TEXTURE_2D, pixmap.Bpp, pixmap.Width, pixmap.Height, pixmap.getFormat(), Gl.GL_UNSIGNED_BYTE, pixmap.Data);
