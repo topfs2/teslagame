@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0603E742-146B-4B53-8BB7-4954122265EF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tesla.GFX</RootNamespace>
+    <AssemblyName>Tesla.GFX</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Tao.DevIl, Version=1.6.8.3, Culture=neutral, PublicKeyToken=7ec4053013524957, processorArchitecture=MSIL" />
+    <Reference Include="Tao.FreeType, Version=2.3.5.0, Culture=neutral, PublicKeyToken=e499629dc69cd531, processorArchitecture=MSIL" />
+    <Reference Include="Tao.FtGl, Version=2.1.3.0, Culture=neutral, PublicKeyToken=4fe09ce2610348dd, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\WINDOWS\system32\Tao.FtGl.dll</HintPath>
+    </Reference>
+    <Reference Include="Tao.OpenGl, Version=2.1.0.12, Culture=neutral, PublicKeyToken=1ca010269a4501ef, processorArchitecture=MSIL" />
+    <Reference Include="Tao.Sdl, Version=1.2.13.0, Culture=neutral, PublicKeyToken=9c7a200e36c0094e, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AnimatedQuad.cs" />
+    <Compile Include="BillboardedQuad.cs" />
+    <Compile Include="Camera.cs" />
+    <Compile Include="CenteredQuad.cs" />
+    <Compile Include="Cube.cs" />
+    <Compile Include="Drawable.cs" />
+    <Compile Include="Font\Drawable2D.cs" />
+    <Compile Include="Font\Font.cs" />
+    <Compile Include="Font\GLFTFont.cs" />
+    <Compile Include="Font\SDLFontv2.cs" />
+    <Compile Include="Font\SimpleFontHandler.cs" />
+    <Compile Include="Frustum\Frustum.cs" />
+    <Compile Include="Geometry.cs" />
+    <Compile Include="GluSphere.cs" />
+    <Compile Include="GroundPlane.cs" />
+    <Compile Include="Landscape2D.cs" />
+    <Compile Include="Landscape\LandscapeCluster.cs" />
+    <Compile Include="Landscape\Landscapev2.cs" />
+    <Compile Include="ModelLoading\DeprMtlLoader.cs" />
+    <Compile Include="ModelLoading\Face.cs" />
+    <Compile Include="ModelLoading\Group.cs" />
+    <Compile Include="ModelLoading\LoadableModel.cs" />
+    <Compile Include="ModelLoading\Material.cs" />
+    <Compile Include="ModelLoading\ModelLoader.cs" />
+    <Compile Include="ModelLoading\MS3D\MS3DLoader.cs" />
+    <Compile Include="ModelLoading\MtlLoader.cs" />
+    <Compile Include="ModelLoading\ObjLoader.cs" />
+    <Compile Include="MultiTexturedCube.cs" />
+    <Compile Include="MultiTexturedQuad.cs" />
+    <Compile Include="ParticleSystem\CollisionSurfaces\CollisionSurface.cs" />
+    <Compile Include="ParticleSystem\CollisionSurfaces\RotatableGroundPlane.cs" />
+    <Compile Include="ParticleSystem\CollisionSurfaces\SimpleCollisionPlane.cs" />
+    <Compile Include="ParticleSystem\CollisionSurfaces\SimpleGroundPlane.cs" />
+    <Compile Include="ParticleSystem\CollisionSurfaces\SimpleRoofPlane.cs" />
+    <Compile Include="ParticleSystem\Controller.cs" />
+    <Compile Include="ParticleSystem\Emitter\BoxEmitter.cs" />
+    <Compile Include="ParticleSystem\Emitter\CircularPlaneEmitter.cs" />
+    <Compile Include="ParticleSystem\Emitter\CircularRandEmitter.cs" />
+    <Compile Include="ParticleSystem\Emitter\ParticleEmitter.cs" />
+    <Compile Include="ParticleSystem\Emitter\PointEmitter.cs" />
+    <Compile Include="ParticleSystem\Emitter\SphereRandEmitter.cs" />
+    <Compile Include="ParticleSystem\Emitter\TemplateParticleEmitter.cs" />
+    <Compile Include="ParticleSystem\Manipulators\Friction.cs" />
+    <Compile Include="ParticleSystem\Manipulators\GravityBall.cs" />
+    <Compile Include="ParticleSystem\Manipulators\Manipulator.cs" />
+    <Compile Include="ParticleSystem\Manipulators\SimpleConstantForce.cs" />
+    <Compile Include="ParticleSystem\Manipulators\TemplateManipulator.cs" />
+    <Compile Include="ParticleSystem\Particle.cs" />
+    <Compile Include="ParticleSystem\ParticleFactory\ARBParticle.cs" />
+    <Compile Include="ParticleSystem\ParticleFactory\ARBParticleFactory.cs" />
+    <Compile Include="ParticleSystem\ParticleFactory\BillboardedParticle.cs" />
+    <Compile Include="ParticleSystem\ParticleFactory\BillboardedParticleFactory.cs" />
+    <Compile Include="ParticleSystem\ParticleFactory\ParticleFactory.cs" />
+    <Compile Include="ParticleSystem\ParticleSystem.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Quad.cs" />
+    <Compile Include="Quad2D.cs" />
+    <Compile Include="SDLWindow.cs" />
+    <Compile Include="SkyBox.cs" />
+    <Compile Include="TexturedCube.cs" />
+    <Compile Include="Texture\BasicTexture.cs" />
+    <Compile Include="Texture\CubeMapTexture.cs" />
+    <Compile Include="Texture\NullTexture.cs" />
+    <Compile Include="Texture\Pixmap.cs" />
+    <Compile Include="Texture\Texture.cs" />
+    <Compile Include="Water.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tesla.Common\Tesla.Common.csproj">
+      <Project>{3DC71791-9D99-4B5D-B683-FBF5171C6BF8}</Project>
+      <Name>Tesla.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
