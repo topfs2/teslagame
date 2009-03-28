@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C# Express 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tesla", "Tesla.csproj", "{8E9E1BF0-8BDF-430C-84E1-6F41FCBB11DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tesla.Audio", "..\Tesla.Audio\Tesla.Audio.csproj", "{FA1F9B46-EDEF-421D-AC59-B7403E3772FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tesla.Common", "..\Tesla.Common\Tesla.Common.csproj", "{3DC71791-9D99-4B5D-B683-FBF5171C6BF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tesla.GFX", "..\Tesla.GFX\Tesla.GFX.csproj", "{0603E742-146B-4B53-8BB7-4954122265EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tesla.Physics", "..\Tesla.Physics\Tesla.Physics.csproj", "{D3434B5B-0A80-4518-8611-1E5C3C046A67}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E9E1BF0-8BDF-430C-84E1-6F41FCBB11DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E9E1BF0-8BDF-430C-84E1-6F41FCBB11DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E9E1BF0-8BDF-430C-84E1-6F41FCBB11DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E9E1BF0-8BDF-430C-84E1-6F41FCBB11DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA1F9B46-EDEF-421D-AC59-B7403E3772FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA1F9B46-EDEF-421D-AC59-B7403E3772FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA1F9B46-EDEF-421D-AC59-B7403E3772FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA1F9B46-EDEF-421D-AC59-B7403E3772FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DC71791-9D99-4B5D-B683-FBF5171C6BF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DC71791-9D99-4B5D-B683-FBF5171C6BF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DC71791-9D99-4B5D-B683-FBF5171C6BF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DC71791-9D99-4B5D-B683-FBF5171C6BF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0603E742-146B-4B53-8BB7-4954122265EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0603E742-146B-4B53-8BB7-4954122265EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0603E742-146B-4B53-8BB7-4954122265EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0603E742-146B-4B53-8BB7-4954122265EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3434B5B-0A80-4518-8611-1E5C3C046A67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3434B5B-0A80-4518-8611-1E5C3C046A67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3434B5B-0A80-4518-8611-1E5C3C046A67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3434B5B-0A80-4518-8611-1E5C3C046A67}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
