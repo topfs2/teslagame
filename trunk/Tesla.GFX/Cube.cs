@@ -16,10 +16,12 @@ namespace Tesla.GFX
 	{
 		protected float width, height, depth, rot;
 		protected Vector3f pos;
+		protected Color4f  color;
 
-		public Cube(Vector3f pos, float width, float height, float depth)
+		public Cube(Color4f color, Vector3f pos, float width, float height, float depth)
 		{
 			this.pos = pos;
+			this.color = color;
 			this.width = width;
 			this.height = height;
 			this.depth = depth;
@@ -29,44 +31,37 @@ namespace Tesla.GFX
 		public void Draw (float frameTime, Frustum frustum)
 		{
 			Gl.glDisable(Gl.GL_TEXTURE_2D);
-			//Gl.glLoadIdentity();
+			Gl.glDisable(Gl.GL_LIGHTING);
+			Gl.glColor4f(color.r, color.g, color.b, color.a);
 			Gl.glPushMatrix();
 			Gl.glTranslatef(pos.x,pos.y,pos.z);				// Move Right And Into The Screen
-
-			Gl.glRotatef(rot,1.0f,1.0f,1.0f);			// Rotate The Cube On X, Y & Z
-
+			Gl.glScalef(width, height, depth);
 			Gl.glBegin(Gl.GL_QUADS);					// Start Drawing The Cube
-				Gl.glColor3f(0.0f,1.0f,0.0f);			// Set The Color To Green
 				Gl.glVertex3f( 1.0f, 1.0f,-1.0f);			// Top Right Of The Quad (Top)
 				Gl.glVertex3f(-1.0f, 1.0f,-1.0f);			// Top Left Of The Quad (Top)
 				Gl.glVertex3f(-1.0f, 1.0f, 1.0f);			// Bottom Left Of The Quad (Top)
 				Gl.glVertex3f( 1.0f, 1.0f, 1.0f);			// Bottom Right Of The Quad (Top)
 
-				Gl.glColor3f(1.0f,0.5f,0.0f);			// Set The Color To Orange
 				Gl.glVertex3f( 1.0f,-1.0f, 1.0f);			// Top Right Of The Quad (Bottom)
 				Gl.glVertex3f(-1.0f,-1.0f, 1.0f);			// Top Left Of The Quad (Bottom)
 				Gl.glVertex3f(-1.0f,-1.0f,-1.0f);			// Bottom Left Of The Quad (Bottom)
 				Gl.glVertex3f( 1.0f,-1.0f,-1.0f);			// Bottom Right Of The Quad (Bottom)
 
-				Gl.glColor3f(1.0f,0.0f,0.0f);			// Set The Color To Red
 				Gl.glVertex3f( 1.0f, 1.0f, 1.0f);			// Top Right Of The Quad (Front)
 				Gl.glVertex3f(-1.0f, 1.0f, 1.0f);			// Top Left Of The Quad (Front)
 				Gl.glVertex3f(-1.0f,-1.0f, 1.0f);			// Bottom Left Of The Quad (Front)
 				Gl.glVertex3f( 1.0f,-1.0f, 1.0f);			// Bottom Right Of The Quad (Front)
 
-				Gl.glColor3f(1.0f,1.0f,0.0f);			// Set The Color To Yellow
 				Gl.glVertex3f( 1.0f,-1.0f,-1.0f);			// Bottom Left Of The Quad (Back)
 				Gl.glVertex3f(-1.0f,-1.0f,-1.0f);			// Bottom Right Of The Quad (Back)
 				Gl.glVertex3f(-1.0f, 1.0f,-1.0f);			// Top Right Of The Quad (Back)
 				Gl.glVertex3f( 1.0f, 1.0f,-1.0f);			// Top Left Of The Quad (Back)
 
-				Gl.glColor3f(0.0f,0.0f,1.0f);			// Set The Color To Blue
 				Gl.glVertex3f(-1.0f, 1.0f, 1.0f);			// Top Right Of The Quad (Left)
 				Gl.glVertex3f(-1.0f, 1.0f,-1.0f);			// Top Left Of The Quad (Left)
 				Gl.glVertex3f(-1.0f,-1.0f,-1.0f);			// Bottom Left Of The Quad (Left)
 				Gl.glVertex3f(-1.0f,-1.0f, 1.0f);			// Bottom Right Of The Quad (Left)
 
-				Gl.glColor3f(1.0f,0.0f,1.0f);			// Set The Color To Violet
 				Gl.glVertex3f( 1.0f, 1.0f,-1.0f);			// Top Right Of The Quad (Right)
 				Gl.glVertex3f( 1.0f, 1.0f, 1.0f);			// Top Left Of The Quad (Right)
 				Gl.glVertex3f( 1.0f,-1.0f, 1.0f);			// Bottom Left Of The Quad (Right)
@@ -76,7 +71,7 @@ namespace Tesla.GFX
 			rot -= 0.10f;
 			
 			Gl.glPopMatrix();
-			
+			Gl.glEnable(Gl.GL_LIGHTING);
 			Gl.glEnable(Gl.GL_TEXTURE_2D);
 		}
 	}
