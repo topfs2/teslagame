@@ -80,6 +80,9 @@
     <File name="Font/GLFTFont.cs" subtype="Code" buildaction="Compile" />
     <File name="AnimatedQuad.cs" subtype="Code" buildaction="Compile" />
     <File name="CenteredQuad.cs" subtype="Code" buildaction="Compile" />
+    <File name="Light" subtype="Directory" buildaction="Compile" />
+    <File name="Light/Light.cs" subtype="Code" buildaction="Compile" />
+    <File name="Texture/LightMapTexture.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
